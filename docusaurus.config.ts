@@ -3,9 +3,9 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
-  favicon: 'img/favicon.ico',
+  title: 'Iain Davis',
+  tagline: 'Full-Stack Software Engineer',
+  favicon: 'img/logo-favicon.svg',
 
   // Set the production url of your site here
   url: 'https://iaindavis.github.io',
@@ -58,10 +58,11 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'My Site',
+      title: 'IainDavis.dev',
       logo: {
-        alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        alt: 'IainDavis.dev compact logo',
+        src: 'img/logo-Compact-light.svg',
+        srcDark: 'img/logo-Compact-dark.svg'
       },
       items: [
         {
@@ -72,7 +73,7 @@ const config: Config = {
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/IainDavis',
           label: 'GitHub',
           position: 'right',
         },
@@ -121,7 +122,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Iain S. Davis Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
