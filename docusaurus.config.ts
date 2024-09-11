@@ -71,7 +71,7 @@ const config: Config = {
           position: 'left',
           label: 'Projects'
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
+        // {to: '/blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/IainDavis',
           label: 'GitHub',
@@ -82,15 +82,6 @@ const config: Config = {
     footer: {
       style: 'dark',
       links: [
-        {
-          title: 'Docs',
-          items: [
-            {
-              label: 'Tutorial',
-              to: '/docs/intro',
-            },
-          ],
-        },
         {
           title: 'Community',
           items: [
@@ -111,10 +102,12 @@ const config: Config = {
         {
           title: 'More',
           items: [
+            /*
             {
               label: 'Blog',
               to: '/blog',
             },
+            */
             {
               label: 'GitHub',
               href: 'https://github.com/facebook/docusaurus',
