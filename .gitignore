@@ -20,3 +20,6 @@ yarn-debug.log*
 yarn-error.log*
 
 *storybook.log
+
+# We want to generate this in the build. No need to store this in the repository.
+static/storybook
