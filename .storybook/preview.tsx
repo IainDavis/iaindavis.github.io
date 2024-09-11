@@ -1,5 +1,5 @@
 import type { Preview } from "@storybook/react";
-import './assets/css/docusaurus_global.css'
+import './assets/styles/docusaurus_global.css'
 import withDocusaurusStyles from './decorators/withDocusaurusStyles';
 import { withThemeByClassName } from "@storybook/addon-themes";
 
