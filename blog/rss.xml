@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+    <channel>
+        <title>Iain Davis Blog</title>
+        <link>https://iaindavis.github.io/blog</link>
+        <description>Iain Davis Blog</description>
+        <lastBuildDate>Sat, 14 Sep 2024 11:28:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <language>en</language>
+        <item>
+            <title><![CDATA[Expandable!]]></title>
+            <link>https://iaindavis.github.io/blog/2024/09/14/expandable</link>
+            <guid>https://iaindavis.github.io/blog/2024/09/14/expandable</guid>
+            <pubDate>Sat, 14 Sep 2024 11:28:00 GMT</pubDate>
+            <description><![CDATA[I really like Docusaurus, but I also find there are some things it's missing.]]></description>
+            <content:encoded><![CDATA[<p>I really like Docusaurus, but I also find there are some things it's missing.
+Happily, one of the <em>best</em> things about it is that it is, at bottom, React,
+which means you can add the things you find missing.</p>
+<p>One of the things I run into most frequently that strikes me as a glaring and
+puzzling ommission is the lack of a collapsible section of content. To be sure,
+markdown generally (and Docusaurus specifically) supports using the <code>details</code>
+element. But Docusaurus handling of it adds styling I would not choose to add by
+default, like so:</p>
+<blockquote>
+<div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">&lt;details&gt;</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">&lt;summary&gt;This is an expandable block&lt;/summary&gt;</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">It has some additional content that you may opt-in to, or simply pass over as you please.</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">It's also obnoxiously removed from the primary flow of the document.</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">&lt;/details&gt;</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>This is an expandable block</summary><div><div class="collapsibleContent_i85q"><p>It has some additional content that you may opt-into, or simply pass over as you please.</p><p>It's also obnoxiously shifted out of the primary flow of the document by
+excessive default styling.</p></div></div></details>
+</blockquote>
+<p>This is fine and good if what you want is to highlight something. But very often
+what I want is to <em>elide</em> something -- to give the reader only the information
+they need at the time, and not bury it in unnecessary content. An example might
+be instructions on installing Java. Some subset of your team might need those
+instructions if they are new joiners, and it should be there in the flow of the
+document where they would expect to find it. But most folks who've been on your
+team a while will probably know how to install Java, and can quite happily skip
+over those instructions.</p>
+<p>So I came up with my own little Expandable component:</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="expandable">Expandable!<a href="https://iaindavis.github.io/blog/2024/09/14/expandable#expandable" class="hash-link" aria-label="Direct link to Expandable!" title="Direct link to Expandable!">​</a></h3>
+<div class="container_XrmH"><div class="expandableBlock_QjU_ hidden_mC2W"><p>It's discreet, and it leaves the elided content in place in the regular flow of
+the document. It also features simple visual elements to clarify the extent of
+the expanded portion. It supports content in:</p><ul>
+<li>text</li>
+<li>JSX</li>
+<li>markdown</li>
+</ul><h2>Here's some JSX</h2></div><div class="toggle_Ohix">show more...</div></div>
+<hr>
+<p>Here's what the code/markdown looks like:</p>
+<div class="language-markdown codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-markdown codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token title important punctuation" style="color:#393A34">###</span><span class="token title important"> Expandable</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token tag punctuation" style="color:#393A34">&lt;</span><span class="token tag" style="color:#00009f">Expandable</span><span class="token tag punctuation" style="color:#393A34">&gt;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">It's discreet, and it leaves the elided content in place in the regular flow of</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">the document. It also features simple visual elements to clarify the extent of</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">the expanded portion. It supports content in:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">*</span><span class="token plain"> text</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">*</span><span class="token plain"> JSX</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">*</span><span class="token plain"> markdown</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token tag punctuation" style="color:#393A34">&lt;</span><span class="token tag" style="color:#00009f">h2</span><span class="token tag punctuation" style="color:#393A34">&gt;</span><span class="token plain">Here's some JSX</span><span class="token tag punctuation" style="color:#393A34">&lt;/</span><span class="token tag" style="color:#00009f">h2</span><span class="token tag punctuation" style="color:#393A34">&gt;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token tag punctuation" style="color:#393A34">&lt;/</span><span class="token tag" style="color:#00009f">Expandable</span><span class="token tag punctuation" style="color:#393A34">&gt;</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>In addition to the above, it supports starting in the expanded state, and custom
+expand/collapse prompts. See the <a href="http://localhost:3000/storybook/iaindavis.dev/?path=/docs/custom-components-expandable--docs" target="_blank" rel="noopener noreferrer">Storybook</a></p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="what-i-learned-from-building-this-component">What I learned from building this component<a href="https://iaindavis.github.io/blog/2024/09/14/expandable#what-i-learned-from-building-this-component" class="hash-link" aria-label="Direct link to What I learned from building this component" title="Direct link to What I learned from building this component">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="css-modules">CSS Modules<a href="https://iaindavis.github.io/blog/2024/09/14/expandable#css-modules" class="hash-link" aria-label="Direct link to CSS Modules" title="Direct link to CSS Modules">​</a></h4>
+<p>CSS Modules is the default assumption of Docusaurus. I hadn't much used it
+yet... I've used CSS in JS a bit, and <code>styled-components</code> a bit. I like CSS
+Modules for keeping things, well, modular. And the simplicity and directness of
+it is nice. I do like the dynamism that <code>styled-components</code> provides though.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="css-pseudo-selectors">CSS Pseudo-Selectors<a href="https://iaindavis.github.io/blog/2024/09/14/expandable#css-pseudo-selectors" class="hash-link" aria-label="Direct link to CSS Pseudo-Selectors" title="Direct link to CSS Pseudo-Selectors">​</a></h4>
+<p>I also had to give myself a little bit of a refresher on pseudo-selectors. I
+used <code>:before</code> and <code>:after</code> to inject the little ornamental circles at the top
+and bottom of the left-hand line showing the extent of the expandable section.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="what-i-still-want-to-do">What I still want to do<a href="https://iaindavis.github.io/blog/2024/09/14/expandable#what-i-still-want-to-do" class="hash-link" aria-label="Direct link to What I still want to do" title="Direct link to What I still want to do">​</a></h3>
+<ul>
+<li>
+<p>I'd love to introduce an 'exclusive' option so that you can assign each one to a
+group, and then expanding one block in the group causes the rest to
+automatically collapse. Not really sure what the best way to go about producing
+the shared state is yet. I suppose maybe swapping out my functional react
+component with a class component and storing some of the state on the class
+definition, but I'll give it some more thought before I jump in. For now, I'm
+happy with how it is.</p>
+</li>
+<li>
+<p>I also initially played around with a 'title' property that caused some text to
+be rendered above the expandable portion. I eventually landed on the decision
+that the surrounding markdown was already suitable for that purpose, but I may
+change my mind some time in the future and reintroduce that feature.</p>
+</li>
+<li>
+<p>Eventually, I'd like to move this and any other component I build for this
+purpose into their own Docusaurus component library so that I can use them in
+other repositories as well.</p>
+</li>
+<li>
+<p>Still need to sort out testing. I've had some difficulty converting my
+Storybook stories to Jest tests. Mostly with the import of various assets
+being handled differently by Storybook, Jest, and Docusaurus. I'm working with
+several tiers of pre-processing (TypeScript, React/JSX, Storybook, Jest) and
+several kinds of files being treated as modules that are not usually (CSS,
+MDX). Getting all those things to work in concert has been something of a
+challenge. I may do another blog post just on that. But in the mean-time, I'm
+thinking of just using Storybook as a showcase, and relying on something
+purpose built for testing. I'm considering giving Playwright a go for
+component testing. Or maybe I'll use the Storybook environment directly,
+rather than running it through Jest, if I can figure out how to automate that.</p>
+<p>Time will tell. For now, I'm happy to have my new little component that makes
+Docusaurus just that little bit more useful to me.</p>
+</li>
+</ul>]]></content:encoded>
+            <author>iain@iaindavis.dev (Iain Davis)</author>
+        </item>
+        <item>
+            <title><![CDATA[Catch-Up Post]]></title>
+            <link>https://iaindavis.github.io/blog/2024/09/14/catch-up</link>
+            <guid>https://iaindavis.github.io/blog/2024/09/14/catch-up</guid>
+            <pubDate>Sat, 14 Sep 2024 11:23:00 GMT</pubDate>
+            <description><![CDATA[This post is a catch-up post to explain the purpose of this website, and how I got to this point. Going forward, I intend to post]]></description>
+            <content:encoded><![CDATA[<p>This post is a catch-up post to explain the purpose of this website, and how I got to this point. Going forward, I intend to post
+whatever is going on with development of this website here.</p>
+<p>The intent of this site is to provide a landing place for anybody
+looking into me as a potential hire, where they could view work I had done and
+see engagement with software and the industry in an ongoing way. And to
+learn something about me beyond what's in my CV. I thought it
+would be a good place to showcase:</p>
+<ul>
+<li>Personal projects</li>
+<li>Code katas</li>
+<li>Design katas</li>
+</ul>
+<p>With the design katas in particular, I see an opportunity to showcase the things
+an employer might want to know about a prospect: how do they think about design?
+How do they communicate ideas to technical and non-technical stakeholders? How
+do they make decisions? To be sure, this is an area where I have significant
+room for growth, and the hope is that the work done for this site will serve as
+much for learning and practice as demonstration.</p>
+<p>I started a project a little while ago to help me mitigate some of the
+things in GMail that I find to be shortcomings.  (That project isn't
+finished, but the progress will be shared here when I get back to it).</p>
+<p>While I was working on that, I knew I should be documenting the work. What I'm
+selling isn't the product, but the process, and the organization. I'm not
+selling the projects I build, I'm selling <em>how I build projects</em>. I wasn't
+really making the most of the project I was working on until I could say I
+was doing that.</p>
+<p>For that, I needed a <strong>place</strong> to document the work.  Setting up this
+personal showcase space has always been on my agenda, but I figured I needed to
+make it a priority to help with my job search.</p>
+<p>I already had a personal domain set up. I was using it for email forwarding --
+to give me a professional email address distinct from my personal one, without
+also having to manage separate Google accounts (with separate billing,
+subscriptions, <em>etc.</em>). I had experience using Docusaurus, and publishing it via
+GitHub pages; I maintained a "notes" repository at Intuit, both for organizing
+my own thoughts as I worked on something, and also for sharing out certain
+things. Also, part of what I want to showcase is well-organized documentation,
+so these things are a natural fit.</p>
+<p>To be sure, I have a lot still to do here. But I think I've got things to a
+point where I need to start worrying about content as much as about my
+repositories. People can get here from <a href="https://linkedin.com/in/IainDavis-dev" target="_blank" rel="noopener noreferrer">my LinkedIn profile</a>
+now, so there better be something here for them to see, even if it's not really
+any projects (beyond the site itself) just yet.</p>
+<p>Hence this catch-up post and getting this blog going.</p>
+<p>I'll post a couple more times today, about decisions I've already made, and
+about what's coming next for this site. Then the intent is to update this
+periodically with my thoughts and decisions related to the development of this
+page.</p>
+<p>Thanks for visiting!</p>]]></content:encoded>
+            <author>iain@iaindavis.dev (Iain Davis)</author>
+        </item>
+    </channel>
+</rss>

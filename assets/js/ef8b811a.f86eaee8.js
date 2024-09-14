@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkiaindavis_dev=self.webpackChunkiaindavis_dev||[]).push([[947],{6600:i=>{i.exports=JSON.parse('{"authors":[{"name":"Iain Davis","title":"Software Engineer, Principal @ IainDavis.dev","url":"https://iaindavis.dev","email":"iain@iaindavis.dev","imageURL":"/img/authors/idavis.jpg","key":"iain","page":null,"count":2}]}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkiaindavis_dev=self.webpackChunkiaindavis_dev||[]).push([[364],{"./node_modules/storybook/core/components/index.js":(o,e,s)=>{s.d(e,{createCopyToClipboardFunction:()=>n.zH});var n=s("./node_modules/@storybook/core/dist/components/index.js")}}]);

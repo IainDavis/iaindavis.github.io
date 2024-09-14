@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkiaindavis_github_io=self.webpackChunkiaindavis_github_io||[]).push([[235],{8552:i=>{i.exports=JSON.parse('{"name":"docusaurus-plugin-content-pages","id":"default"}')}}]);
