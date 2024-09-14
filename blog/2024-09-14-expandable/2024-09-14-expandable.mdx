@@ -1,0 +1,137 @@
+---
+title: Expandable!
+date: 2024-09-14T11:28
+authors:
+    - iain
+tags:
+    - storybook
+    - docusaurus
+    - custom components
+---
+import Expandable from '@site/src/components/Expandable'
+
+I really like Docusaurus, but I also find there are some things it's missing.
+Happily, one of the _best_ things about it is that it is, at bottom, React,
+which means you can add the things you find missing.
+
+<!-- truncate -->
+
+One of the things I run into most frequently that strikes me as a glaring and
+puzzling ommission is the lack of a collapsible section of content. To be sure,
+markdown generally (and Docusaurus specifically) supports using the `details`
+element. But Docusaurus handling of it adds styling I would not choose to add by
+default, like so:
+
+> ```
+> <details>
+> <summary>This is an expandable block</summary>
+> 
+> It has some additional content that you may opt-in to, or simply pass over as you please.
+> It's also obnoxiously removed from the primary flow of the document.
+> </details>
+> ```
+>
+> <details>
+> <summary>This is an expandable block</summary>
+> 
+> It has some additional content that you may opt-into, or simply pass over as you please.
+> 
+> It's also obnoxiously shifted out of the primary flow of the document by
+> excessive default styling.
+> </details>
+
+This is fine and good if what you want is to highlight something. But very often
+what I want is to _elide_ something -- to give the reader only the information
+they need at the time, and not bury it in unnecessary content. An example might
+be instructions on installing Java. Some subset of your team might need those
+instructions if they are new joiners, and it should be there in the flow of the
+document where they would expect to find it. But most folks who've been on your
+team a while will probably know how to install Java, and can quite happily skip
+over those instructions.
+
+So I came up with my own little Expandable component:
+
+---
+### Expandable!
+<Expandable>
+
+It's discreet, and it leaves the elided content in place in the regular flow of
+the document. It also features simple visual elements to clarify the extent of
+the expanded portion. It supports content in:
+
+* text
+* JSX
+* markdown
+
+<h2>Here's some JSX</h2>
+</Expandable>
+---
+
+Here's what the code/markdown looks like:
+```markdown
+### Expandable
+<Expandable>
+
+It's discreet, and it leaves the elided content in place in the regular flow of
+the document. It also features simple visual elements to clarify the extent of
+the expanded portion. It supports content in:
+
+* text
+* JSX
+* markdown
+
+<h2>Here's some JSX</h2>
+</Expandable>
+```
+
+In addition to the above, it supports starting in the expanded state, and custom
+expand/collapse prompts. See the [Storybook](http://localhost:3000/storybook/iaindavis.dev/?path=/docs/custom-components-expandable--docs)
+
+### What I learned from building this component
+#### CSS Modules
+CSS Modules is the default assumption of Docusaurus. I hadn't much used it
+yet... I've used CSS in JS a bit, and `styled-components` a bit. I like CSS
+Modules for keeping things, well, modular. And the simplicity and directness of
+it is nice. I do like the dynamism that `styled-components` provides though.
+
+#### CSS Pseudo-Selectors
+I also had to give myself a little bit of a refresher on pseudo-selectors. I
+used `:before` and `:after` to inject the little ornamental circles at the top
+and bottom of the left-hand line showing the extent of the expandable section.
+
+### What I still want to do
+* I'd love to introduce an 'exclusive' option so that you can assign each one to a
+group, and then expanding one block in the group causes the rest to
+automatically collapse. Not really sure what the best way to go about producing
+the shared state is yet. I suppose maybe swapping out my functional react
+component with a class component and storing some of the state on the class
+definition, but I'll give it some more thought before I jump in. For now, I'm
+happy with how it is.
+
+* I also initially played around with a 'title' property that caused some text to
+be rendered above the expandable portion. I eventually landed on the decision
+that the surrounding markdown was already suitable for that purpose, but I may
+change my mind some time in the future and reintroduce that feature.
+
+* Eventually, I'd like to move this and any other component I build for this
+  purpose into their own Docusaurus component library so that I can use them in
+  other repositories as well.
+
+* Still need to sort out testing. I've had some difficulty converting my
+  Storybook stories to Jest tests. Mostly with the import of various assets
+  being handled differently by Storybook, Jest, and Docusaurus. I'm working with
+  several tiers of pre-processing (TypeScript, React/JSX, Storybook, Jest) and
+  several kinds of files being treated as modules that are not usually (CSS,
+  MDX). Getting all those things to work in concert has been something of a
+  challenge. I may do another blog post just on that. But in the mean-time, I'm
+  thinking of just using Storybook as a showcase, and relying on something
+  purpose built for testing. I'm considering giving Playwright a go for
+  component testing. Or maybe I'll use the Storybook environment directly,
+  rather than running it through Jest, if I can figure out how to automate that.
+
+  Time will tell. For now, I'm happy to have my new little component that makes
+  Docusaurus just that little bit more useful to me.
+
+[storybook.expandable]:
+    '/storybook/iaindavis.dev/?path=/story/custom-components-expandable--default
+    "Expandable component Storybook showcase"

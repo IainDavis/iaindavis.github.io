@@ -1,0 +1,209 @@
+---
+title: Impromptu Brand Work
+date: 2024-09-14T16:41
+authors:
+- iain
+---
+import Logo from '../../src/components/brand/logo/Logo';
+import FavIcon from '/img/logo-favicon.svg'
+
+export const containerStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    width: '500px',
+}
+
+export const paneStyle = {
+    width: '250px',
+    height: '200px',
+    padding: '2em',
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'column',
+}
+
+export const contraLightStyle = {
+    background: '#1f1f1f',
+    color: '#ffffff',
+}
+
+export const contraDarkStyle = {
+    background: '#ffffff',
+    color: '#1f1f1f',
+}
+
+export const wrapperStyle = {
+    margin: 'auto',
+}
+
+I didn't intend to create a bunch of brand graphics. I just knew I was going to
+have to replace the default docusaurus logos with _something_.
+
+<Logo />
+
+<!-- truncate -->
+
+I spent some time prompting AI to suggest me some logos. It didn't really
+get what I was after. But it did stir some ideas in me. In the end I settled on
+the UML 'lollipop' notation for an interface.
+
+For anybody not familiar with UML, that looks like this:
+
+![UML Component Diagram Interface/Contract relationship notation, or
+"Lollipop"](./_resources/lollipop.png)
+
+The element on the right is going to perform some function. As part of that
+function, it needs to use another element. Before it can use the other element,
+it needs to know that that element _has certain things_ or _can do certain
+things_.
+
+That set of needed things is called an interface. The element on the left wants
+to use that interface, the one on the right provides an implementation of that
+interface. Usually an interface will have a name indicating what an object that
+implements it is supposed to do. An object that fulfills a `Downloadable`
+interface probably has a function on it called `Download()`. Different
+`Downloadable` objects might do that operation in different ways, though.
+
+I landed on this rough concept:
+
+![UML Object 'IainDavis' which provides interface 'dev'](_resources/iaindavis.dev%20lollipop.png)
+
+Conceptually, what that says is "IainDavis" is an entity that can do the set of
+things identified by the name "dev". It's graphically nice and clean, and it
+says something about what I do to people who are familiar with that kind of
+work.
+
+Good so far. But then, it's a little TOO clean isn't it? Just sort of boring in
+black and white and default fonts.
+
+The next thing I needed is some colors. I have some experience in colors and
+aesthetics, but I really kind of want to move along quickly with this thing and
+not get so hung up in every detail. What I really needed is a pre-defined set of
+colors that are going to look reasonably attractive together, be distinctive,
+and recognizable from a distance. Ideally, they should also relate to my work in
+some way, and they should be themable, since I want this website to be a
+showcase for what I can do. I should make the most of what Docusaurus offers,
+including dark and light themes.
+
+It didn't take me long to land on using syntax highlighting colors. The ones I
+chose are from VS Code. The dark theme colors are from the default dark theme,
+and the light theme colors are from the Solarized Light theme.
+
+The last thing I needed was fonts. I just picked a couple reasonably attractive
+monospace fonts: JetBrains Mono and Fira Code. The rest of my styles are just
+the Docusaurus defaults.
+
+Alright, where are we at?
+
+<div style={containerStyle}>
+    <div style={{...contraLightStyle, ...paneStyle}} data-theme="light">
+        <h3>Light theme</h3>
+        <div style={wrapperStyle}>
+            <Logo />
+        </div>
+    </div>
+    <div style={{...contraDarkStyle, ...paneStyle}} data-theme="dark">
+        <h3>Dark theme</h3>
+        <div style={wrapperStyle} >
+            <Logo />
+        </div>
+    </div>
+</div>
+
+<br/>
+Hey, that's pretty good! I will definitely use that. But it's a bit too wide to
+replace the Docusaurus logo in the navbar with. I need something more compact.
+
+after some adjustments:
+
+<div style={containerStyle}>
+    <div style={{...contraLightStyle, ...paneStyle}} data-theme="light">
+        <h3>Light theme</h3>
+        <div style={wrapperStyle}>
+            <Logo variant="compact"/>
+        </div>
+    </div>
+    <div style={{...contraDarkStyle, ...paneStyle}} data-theme="dark">
+        <h3>Dark theme</h3>
+        <div style={wrapperStyle} >
+            <Logo variant="compact"/>
+        </div>
+    </div>
+</div>
+
+Okay, that's good for the remaining stuff. But I still need a favIcon. The
+detail in that logo just gets completely lost at the resolution of a browser
+tab. I think I can probably just get away with the dark theme for this, though.
+
+<div style={containerStyle}>
+    <div style={{...contraDarkStyle, ...paneStyle}} data-theme="light">
+        <FavIcon/>
+    </div>
+</div>
+
+Alright! Clearly part of the same family of icons, but simple enough to read on
+a browser tab.
+
+Cool. I think I'm done!
+
+Until I have too long to sit in a Zoom meeting. Jeez this room looks cluttered.
+Even with the picture blurred. I look disorganized and messy. I should probably
+do some zoom backgrounds. I don't just want flat color though... and I _did_
+just upgrade my ChatGPT to plus, which means I can use DALL-E. Ah well, I've got
+fifteen minutes left in this workshop. Let's see what I can come up.
+
+_a couple hours later..._
+
+![greyscale abstract image evoking aspects of software design: whiteboards, charts, sticky notes, arranged in an isometric space](/img/zoom/zoom-bg-01.png "Isometric Whiteboards")
+
+![greyscale abstract image of planet viewed from space with geometric shapes in the foreground](/img/zoom/zoom-bg-02.png "Planet Stickynote")
+
+![Impressionistic combination of cloud forms and a rectilinear grid, in greyscale with accents in terra cotta and cadet blue](/img/zoom/zoom-bg-03.png "Gridspace Nebula")
+
+![Impressionistic image evoking a planet in near-eclipse rising from cloud forms. The image is mostly grayscale, but with accents in terra cotta and cadet blue](/img/zoom/zoom-bg-04.png)
+
+![Abstract image of squares in grayscale with yellow and blue highlights](/img/zoom/zoom-bg-05.png)
+
+![Abstract image featuring round forms against a rectilinear background in
+shades of grey with blue and orange highlights](/img/zoom/zoom-bg-06.png);
+
+
+I had a lot of fun doing all these things, and as a result I have more
+consistent branding across my digital presences: LinkedIn, GitHub, this here 
+website.
+
+Initially, I thought I'd get by using the tools I already know best which, for
+me, meant draw.io and Inkscape. Unfortunately `draw.io` does some strange stuff
+when exporting SVGs with text content, and it doesn't readily give you a way to
+convert text content into regular vectors, more's the pity. And Inkscape, while
+powerful, proved unequal to the task of correcting draw.io's shortcomings.
+
+Okay, so great for diagrams with loads of annotations, not so good for visual
+arts.
+
+In the end I opted to go for Figma. It's what all the design-type people at
+Intuit use, and I'm glad I chose it. It made the whole process easier. I
+actually re-implemented all of the above graphics all over again from scratch in
+Figma, and I learned a lot about that tool along the way.
+
+## What I learned doing this
+### AI
+I'm always learning more about how to get AI to do things I want it to do. I
+never really _did_ get it to do precisely what I wanted... getting DALL-E to
+give you something _without_ a point of focus that _doesn't_ try to make use of the full
+spectrum from light to dark is surprisingly difficult. It's learned a lot of
+rules about what makes a picture 'good' that it doesn't want to unlearn. But I
+didn't want "art" so much as "texture". **I** want to be the focus in my Zoom call.
+
+I did ask it to give me things that evoke technology, and particular the process
+of designing software, and it did surprisingly well at that task, I think.
+
+### Figma
+Figma is pretty great! I think by far my favorite thing was discovering I could
+do theme-ing right in the tool. If you look at my Figma for this work, there's a
+dark and light version of each logo... those are actually copies of the exact
+same object, just with a different set of variables applied. I was so interested
+in that, I shelled out the $144 for a paid license for a year. Super cool.
+
+And now I have all my brand materials consolidated in one place, which is nice.
