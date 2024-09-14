@@ -1,19 +1,21 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { MDXProvider } from '@mdx-js/react';
 import Expandable from '../../../components/Expandable';
 import type { ExpandablePropsType } from '../../../components/Expandable';
-import Lorem from '../../../../.storybook/assets/mdx/lorem_ipsum.mdx'
+import Lorem from '../../../../.storybook/assets/mdx/lorem_ipsum.mdx';
 
 const render = (args: ExpandablePropsType) => (
-  <MDXProvider>
-    <Expandable {...args}>
-      <Lorem/>
-    </Expandable>
-  </MDXProvider>
+    <>
+      <h2>Lorem Ipsum...</h2>
+      <Expandable {...args}>
+        <div>
+          <Lorem/>
+        </div>
+      </Expandable>
+    </>
 )
 
-const meta = {
+const meta: Meta<typeof Expandable> = {
   title: 'Custom Components/Expandable',
   component: Expandable,
   parameters: {
@@ -29,13 +31,25 @@ const meta = {
       }
     }
   },
-  argTypes: {},
-  args: {},
+  argTypes: {
+    startExpanded: {
+      control: 'boolean',
+      description: 'Should the section be expanded when the page first loads?'
+    },
+    expandPrompt: {
+      control: 'text',
+      description: 'The text to use when prompting the user to expand the region and reveal the hidden content'
+    },
+    collapsePrompt: {
+      control: 'text',
+      description: 'The text to use when prompting the user to collapse the region and hide the revealed content'
+    }
+  },
   render
-} satisfies Meta<typeof Expandable>;
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Expandable>;
 
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
@@ -60,14 +74,17 @@ export const CustomExpandCollapsePrompt: Story = {
 export const Nested: Story = {
   name: "Nested Expandable Sections",
   render: (args, context) => (
-    <MDXProvider>
+    <>
+      <h1>Lorem Ipsum...</h1>
       <Expandable startExpanded>
-        <Lorem/>
+        <div>
+          <Lorem />
+        </div>
         <Expandable startExpanded>
           Nested expanded content
         </Expandable>
       </Expandable>
-    </MDXProvider>
+    </>
   )
 }
 
