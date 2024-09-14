@@ -45,6 +45,14 @@ const config: Config = {
             'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         blog: {
+          feedOptions: {
+            type: 'rss',
+            title: 'IainDavis.dev | Developer Blog',
+            description: 'A Blog where I will document what I am working on and looking forward to as I develop my personal website',
+            copyright: `Copyright © ${new Date().getFullYear()} Iain S. Davis Built with Docusaurus.`,
+          },
+          authorsMapPath: 'authors.yml',
+          authorsBasePath: 'authors',
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
@@ -65,8 +73,8 @@ const config: Config = {
       title: 'IainDavis.dev',
       logo: {
         alt: 'IainDavis.dev compact logo',
-        src: 'img/logo-Compact-light.svg',
-        srcDark: 'img/logo-Compact-dark.svg'
+        src: 'img/logo/logo-compact-light.svg',
+        srcDark: 'img/logo/logo-compact-dark.svg'
       },
       items: [
         {
@@ -74,6 +82,16 @@ const config: Config = {
           sidebarId: 'projectsSidebar',
           position: 'left',
           label: 'Projects'
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'brandSidebar',
+          position: 'left',
+          label: 'Brand'
+        },
+        {
+          to: '/blog',
+          label: 'Blog'
         },
         // {to: '/blog', label: 'Blog', position: 'left'},
         {
