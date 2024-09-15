@@ -1,30 +1,15 @@
-:root,
-[data-theme='light'] {
-    --color-logo-background: #FDF6E3;
-    --color-logo-border: #B58900;
-    --color-logo-text-main: #2AA198;
-    --color-logo-text-accent: #CB4B16;
-}
-
-[data-theme='dark'] {
-    --color-logo-background: #1F1F1F;
-    --color-logo-text-accent: #4EC9B0;
-    --color-logo-text-main: #CE9178;
-    --color-logo-border: #569CD6;
-}
-
 [data-fill="background"] {
-    fill: var(--color-logo-background);
+    fill: var(--iaindavisdev-logo-background);
 }
 
 [data-fill="text-main"] {
-    fill: var(--color-logo-text-main);
+    fill: var(--iaindavisdev-logo-text-main);
 }
 
 [data-fill="text-accent"]{
-    fill: var(--color-logo-text-accent);
+    fill: var(--iaindavisdev-logo-text-accent);
 }
 
 [data-fill="border"]{
-    fill: var(--color-logo-border);
+    fill: var(--iaindavisdev-logo-border);
 }
