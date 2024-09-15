@@ -1,16 +1,51 @@
-facebook:
-  label: Facebook
-  permalink: /facebook
-  description: Facebook tag description
-hello:
-  label: Hello
-  permalink: /hello
-  description: Hello tag description
+linkedin:
+  label: LinkedIn
+  permalink: /linkedin
+  description: Posts related to my LinkedIn presence
+
 docusaurus:
   label: Docusaurus
   permalink: /docusaurus
-  description: Docusaurus tag description
-hola:
-  label: Hola
-  permalink: /hola
-  description: Hola tag description
+  description: Posts related to working with Docusaurus configuration and components
+react: 
+  label: React
+  permalink: /react
+  description: Posts to do with the React ecosystem
+storybook:
+  label: Storybook
+  permalink: /storybook
+  description: Posts to do with configuring or using Storybook
+
+coolServices:
+  label: Cool Services
+  permalink: cool-services
+  description: Posts about cool services I found
+
+automation:
+  label: Automation
+  permalink: /automation
+  description: Posts having to do with automating tasks 
+formatting:
+  label: Formatting/Styles/CSS
+  permalink: /formatting
+  description: Posts to do with configuring styles and formatting
+graphics:
+  label: Graphics, Icons & Logos
+  permalink: /graphics
+  description: Posts to do with created visual elements
+brand:
+  label: My Brand
+  permalink: /brand
+  description: Posts to do with developing my personal brand
+
+customComponents:
+  label: Custom Docusaurus Components
+  permalink: /custom-components
+  description: Posts to do with components I've developed to extend Docusaurus functionallity
+
+svg:
+  label: SVG
+  permalink: /svg
+  description: Posts to do with the SVG format
+
+
