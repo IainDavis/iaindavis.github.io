@@ -14,8 +14,100 @@
             <link>https://iaindavis.github.io/blog/2024/09/15/2024-09-15-whats-next/whats-next</link>
             <guid>https://iaindavis.github.io/blog/2024/09/15/2024-09-15-whats-next/whats-next</guid>
             <pubDate>Sun, 15 Sep 2024 14:48:00 GMT</pubDate>
+            <description><![CDATA[This post is just a listing of some of the things I'm planning to add here in]]></description>
+            <content:encoded><![CDATA[<p>This post is just a listing of some of the things I'm planning to add here in
+the coming days.</p>
+<p>TRUNCATE_HERE</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="content">Content<a href="https://iaindavis.github.io/blog/2024/09/15/2024-09-15-whats-next/whats-next#content" class="hash-link" aria-label="Direct link to Content" title="Direct link to Content">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="front-page">Front Page<a href="https://iaindavis.github.io/blog/2024/09/15/2024-09-15-whats-next/whats-next#front-page" class="hash-link" aria-label="Direct link to Front Page" title="Direct link to Front Page">​</a></h3>
+<p>That front page is pretty spare, hey? Right now it's just the default Docusaurus
+page with all their branding stripped out. I've got to decide what I'm going to
+put there. It's a lot of real estate to fill.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="footer">Footer<a href="https://iaindavis.github.io/blog/2024/09/15/2024-09-15-whats-next/whats-next#footer" class="hash-link" aria-label="Direct link to Footer" title="Direct link to Footer">​</a></h3>
+<p>I've got some idea what I want to do here, at least. I'll have to include my
+linked-in social card at a minimum. Will probably also put up a GitHub card of
+some kind, and my CodeWars badge. Not sure what all yet. I'll have some time to
+think about it</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="pages">Pages<a href="https://iaindavis.github.io/blog/2024/09/15/2024-09-15-whats-next/whats-next#pages" class="hash-link" aria-label="Direct link to Pages" title="Direct link to Pages">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="bio">Bio<a href="https://iaindavis.github.io/blog/2024/09/15/2024-09-15-whats-next/whats-next#bio" class="hash-link" aria-label="Direct link to Bio" title="Direct link to Bio">​</a></h4>
+<p>Need a bio page for sure. I'm anticipating just regurgitation my LinkedIn bio,
+but I may add some additional sub-pages to share a little bit about me outside
+of my working persona. Haven't decided yet if that's A) appropriate and B) work
+I want to do</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="projects">Projects<a href="https://iaindavis.github.io/blog/2024/09/15/2024-09-15-whats-next/whats-next#projects" class="hash-link" aria-label="Direct link to Projects" title="Direct link to Projects">​</a></h4>
+<p>Technically there's a projects page now, but there's not much on it. Ultimately,
+this page was the root cause for creating this whole website, but then I kind of
+stopped working on projects to create this website. This website BECAME the
+project. There will be a page for this there soon, at least.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="kata">Kata<a href="https://iaindavis.github.io/blog/2024/09/15/2024-09-15-whats-next/whats-next#kata" class="hash-link" aria-label="Direct link to Kata" title="Direct link to Kata">​</a></h4>
+<p>I figure if I'm doing these kata to keep my language fluency up, maybe they'll
+be useful as a demo too. Show a potential employer that I can write nice tidy
+code. I also have a notion to include a section for Design kata, which I'm new
+to. They seem less structured and less easy to share out in a regular format,
+but maybe that's good. Anyway, looking forward to putting something up here.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="support">Support<a href="https://iaindavis.github.io/blog/2024/09/15/2024-09-15-whats-next/whats-next#support" class="hash-link" aria-label="Direct link to Support" title="Direct link to Support">​</a></h3>
+<p>I don't think anyone's likely to <em>need</em> support from me <em>yet</em>. But I do hope
+eventually somebody might want to use some of the custom components I'm working
+on. I've been organizaing my personal work in Jira, so I'll include a widget
+here to submit requests. I don't think I'm ambitious enough to include a Slack
+interface, but we'll see how I feel when I start in.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="infrastructure">Infrastructure<a href="https://iaindavis.github.io/blog/2024/09/15/2024-09-15-whats-next/whats-next#infrastructure" class="hash-link" aria-label="Direct link to Infrastructure" title="Direct link to Infrastructure">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="process">Process<a href="https://iaindavis.github.io/blog/2024/09/15/2024-09-15-whats-next/whats-next#process" class="hash-link" aria-label="Direct link to Process" title="Direct link to Process">​</a></h3>
+<p>Probably about time I protected my <code>main</code> branch and stopped pushing directly to
+it. PRs, from now on. Oh! And I need to make my repository public, so I can
+share it on the Projects page.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="tests">Tests!<a href="https://iaindavis.github.io/blog/2024/09/15/2024-09-15-whats-next/whats-next#tests" class="hash-link" aria-label="Direct link to Tests!" title="Direct link to Tests!">​</a></h3>
+<p>I've had a couple of abortive attempts to introduce Jest and use my Storybook
+stories as the basis for the first tests. So far that hasn't worked out so well.
+Mostly it's had to do with imports. Both Docusaurus and Storybook rely on a lot
+of preprocessing, and getting Jest configured to keep step with them has been a
+bit of a headache. I was actually on the verge of abandoning Storybook
+altogether, but I've decided it still serves nicely as a showcase, and home for
+the individual components's documentation. Solving that SVG issue I mentioned in
+a previous blog post helped too.</p>
+<p>I also want to use this as a chance to explore Playwright. I've used it only
+very briefly before when I contributed to someone else's project that was using
+it. I like Cypress a lot, but I definitely prefer Playwright in one regard: it
+lets you use standard JavaScript idioms, where Cypress traps you in their very
+a-typical world that is similar to working with Promises, but predates promises,
+so it has it's own idioms that require learning.</p>
+<p>Last, I think I'll probably explore what Storybook can do for me as a test
+platform all by itself (in the absence of Jest).</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="refactoring">Refactoring<a href="https://iaindavis.github.io/blog/2024/09/15/2024-09-15-whats-next/whats-next#refactoring" class="hash-link" aria-label="Direct link to Refactoring" title="Direct link to Refactoring">​</a></h3>
+<p>My Logo Storybook stories are looking about how I want them, but there's a lot
+of boilerplate in the story definition file to make that happen. I think I may
+extract that all out to a component just for the sake of tidiness.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="fixes">Fixes<a href="https://iaindavis.github.io/blog/2024/09/15/2024-09-15-whats-next/whats-next#fixes" class="hash-link" aria-label="Direct link to Fixes" title="Direct link to Fixes">​</a></h3>
+<p>By default, Docusaurus uses a token that looks like this:</p>
+<div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">&lt;!-- truncate --&gt;</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>to indicate where a blog post should be truncated when you're viewing it as part
+of a list of all posts. Unfortunately, that breaks the Visual Studio MDX parser
+quite badly. The code still compiles and displays just fine, but Visual Studio
+shouts at me that the whole file after that point is riddled with errors, which
+is distracting, and bad, and potentially hides other problems I should know
+about.</p>
+<p>I discovered there's a mechanism to redefine that token in the docusaurus config
+file, so I've changed it to <code>TRUNCATE_HERE</code>, which is working beautifully,
+except that it still shows up in the document content now, which is not a great
+look.</p>
+<p>So I'll have to figure out some way of masking that from the displayed content
+that <em>isn't</em> an XML comment. Maybe I can wrap it in a &lt;div&gt; and use CSS to
+hide it? That's a lot of text to type for every blog post though. Will have to
+create a snippet. Anyway, it's worth exploring.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="automation">Automation<a href="https://iaindavis.github.io/blog/2024/09/15/2024-09-15-whats-next/whats-next#automation" class="hash-link" aria-label="Direct link to Automation" title="Direct link to Automation">​</a></h3>
+<p>I'm currently using the provided <code>docusaurus deploy</code> command to push my built
+site to GitHub Pages. Sometime in the next week or two, I want to get that
+changed over to a GitHub actions flow, so that the definitions in my <code>main</code>
+branch and the published site are in sync. In that build, I also plan to:</p>
+<ul>
+<li>run tests</li>
+<li>publish a test/coverage report to the website</li>
+<li>migrate the global docusaurus styles for Storybook</li>
+</ul>
+<p>I'm sure I'm probably forgetting something either that's already in my Jira or
+that I've thought of while working on something else and forgot to write down.
+I'm sure eventually something will prompt my memory.</p>]]></content:encoded>
             <author>iain@iaindavis.dev (Iain Davis)</author>
-            <category>My Brand</category>
             <category>Custom Docusaurus Components</category>
             <category>Automation</category>
         </item>
