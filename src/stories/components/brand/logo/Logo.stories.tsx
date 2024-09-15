@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import Logo, { logoVariants, type LogoPropsType } from '../../../../components/brand/Logo/Logo';
+import Logo from '../../../../components/brand/Logo/Logo';
 
 const containerStyle: React.CSSProperties = {
     display: 'flex',
