@@ -64,7 +64,7 @@ const meta: Meta<typeof Logo> = {
         variant: {
             control: 'select',
             description: 'Which variant of the logo should be used (default "expanded")?',
-            options: logoVariants
+            options: ['expanded', 'compact', 'compact-square']
         }
     },
     component: Logo,
