@@ -372,17 +372,6 @@ html {
   --ifm-tabs-padding-horizontal: 1rem;
   --ifm-tabs-padding-vertical: 1rem;
   --docusaurus-progress-bar-color: var(--ifm-color-primary);
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
-  --iaindavisdev-diff-insertion: #b0f6ac;
-  --iaindavisdev-diff-deletion: #fcc8c0;
   --docusaurus-announcement-bar-height: auto;
   --docusaurus-collapse-button-bg: transparent;
   --docusaurus-collapse-button-bg-hover: rgba(0, 0, 0, 0.1);
@@ -2173,6 +2162,10 @@ html[data-theme="dark"] {
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
   --iaindavisdev-diff-insertion: #254323;
   --iaindavisdev-diff-deletion: #432723;
+  --iaindavisdev-logo-background: #1f1f1f;
+  --iaindavisdev-logo-text-accent: #4ec9b0;
+  --iaindavisdev-logo-text-main: #ce9178;
+  --iaindavisdev-logo-border: #569cd6;
 }
 .code-block-diff-add-line {
   background-color: var(--iaindavisdev-diff-insertion);
@@ -2247,6 +2240,21 @@ html[data-announcement-bar-initially-dismissed="true"] .announcementBar_mb4j {
 }
 :root,
 [data-theme="light"] {
+  --ifm-color-primary: #2e8555;
+  --ifm-color-primary-dark: #29784c;
+  --ifm-color-primary-darker: #277148;
+  --ifm-color-primary-darkest: #205d3b;
+  --ifm-color-primary-light: #33925d;
+  --ifm-color-primary-lighter: #359962;
+  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --iaindavisdev-diff-insertion: #b0f6ac;
+  --iaindavisdev-diff-deletion: #fcc8c0;
+  --iaindavisdev-logo-background: #fdf6e3;
+  --iaindavisdev-logo-border: #b58900;
+  --iaindavisdev-logo-text-main: #2aa198;
+  --iaindavisdev-logo-text-accent: #cb4b16;
   --color-logo-background: #fdf6e3;
   --color-logo-border: #b58900;
   --color-logo-text-main: #2aa198;
@@ -2261,16 +2269,16 @@ html[data-announcement-bar-initially-dismissed="true"] .announcementBar_mb4j {
   --color-logo-border: #569cd6;
 }
 [data-fill="background"] {
-  fill: var(--color-logo-background);
+  fill: var(--iaindavisdev-logo-background);
 }
 [data-fill="text-main"] {
-  fill: var(--color-logo-text-main);
+  fill: var(--iaindavisdev-logo-text-main);
 }
 [data-fill="text-accent"] {
-  fill: var(--color-logo-text-accent);
+  fill: var(--iaindavisdev-logo-text-accent);
 }
 [data-fill="border"] {
-  fill: var(--color-logo-border);
+  fill: var(--iaindavisdev-logo-border);
 }
 .backToTopButton_sjWU {
   background-color: var(--ifm-color-emphasis-200);
