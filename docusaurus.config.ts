@@ -66,6 +66,7 @@ const config: Config = {
       } satisfies Preset.Options,
     ],
   ],
+  // arbitrary introduction
 
   themeConfig: {
     // Replace with your project's social card
