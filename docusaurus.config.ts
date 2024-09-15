@@ -51,6 +51,7 @@ const config: Config = {
             description: 'A Blog where I will document what I am working on and looking forward to as I develop my personal website',
             copyright: `Copyright © ${new Date().getFullYear()} Iain S. Davis Built with Docusaurus.`,
           },
+          truncateMarker: /\s*TRUNCATE_HERE\s*/,
           authorsMapPath: 'authors.yml',
           authorsBasePath: 'authors',
           showReadingTime: true,

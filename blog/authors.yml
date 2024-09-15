@@ -4,3 +4,7 @@ iain:
   url: https://iaindavis.dev
   image_url: /img/authors/idavis.jpg
   email: iain@iaindavis.dev
+  page: true
+  socials:
+    github: IainDavis
+    linkedin: iaindavis-dev

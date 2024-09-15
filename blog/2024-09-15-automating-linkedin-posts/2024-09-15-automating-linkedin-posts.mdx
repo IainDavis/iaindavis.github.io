@@ -1,0 +1,56 @@
+---
+title: "How I Automated My LinkedIn Posts"
+date: 2024-09-15T12:56
+authors:
+- iain
+tags:
+    - linkedin
+    - automation
+image: /img/logo/logo-compact-square-dark.svg
+---
+One of the first things my outplacement coach told me was that I ought to be
+posting to LinkedIn regularly. I knew I wanted to have updates specific to this
+website here on my blog, and I figured I'd just have to cross-post them
+manually.
+
+It turns out that's not so!
+
+TRUNCATE_HERE
+
+The Docusaurus plugin that is behind this blog natively provides the option to generate
+an RSS feed. I did some exploration and found that LinkedIn actually supports
+_consuming_ an RSS feed and generating posts from it natively! Hey, that's
+great! Problem solved!
+
+(My RSS feed is [here](https://iaindavis.dev/blog/rss), if you're interested)
+
+Except LinkedIn supports consuming RSS feeds natively **if** you have a business
+page. I'm not a business. I'm just some guy. And I really don't want more LinkedIn
+management on my plate.
+
+I figured somebody had probably licked this problem before, and I was right!
+
+Check out [Zapier](https://zapier.com/app/home). They offer no-code
+configuration for automating tasks. You configure a trigger (new content in my
+RSS feed), an action (share it to LinkedIn), and provide any necessary
+credentials/authorizations and you're off and running. Anytime you see a
+LinkedIn post from prefixed "Latest from my developer blog:" that's exactly
+what's happened.
+
+![Screen shot showing Zapier editor with a post-to-LinkedIn-from-RSS Zap in the
+editor pane][./_resources/zapier-screenshot.png]
+
+I'm on the free trial right now. For my purposes I'm not sure it's going to be
+worth the $20 USD/month price tag. But maybe I can find an alternative, or
+figure out how to do something similar myself with APIs.
+
+If you have a business that's producing income, maybe $20 USD is worth it to
+you.
+
+Also, if you're getting spammed by me, I promise this content will slow down.
+I've been trying to catch up documenting the things I've done over the last few
+weeks.
+
+
+That's all for now! 
+
