@@ -1,0 +1,113 @@
+---
+title: What's Next Here?
+date: 2024-09-15T14:48
+authors:
+    - iain
+tags:
+    - customComponents
+    - automation
+---
+This post is just a listing of some of the things I'm planning to add here in
+the coming days.
+
+TRUNCATE_HERE
+
+## Content
+### Front Page
+That front page is pretty spare, hey? Right now it's just the default Docusaurus
+page with all their branding stripped out. I've got to decide what I'm going to
+put there. It's a lot of real estate to fill.
+
+### Footer
+I've got some idea what I want to do here, at least. I'll have to include my
+linked-in social card at a minimum. Will probably also put up a GitHub card of
+some kind, and my CodeWars badge. Not sure what all yet. I'll have some time to
+think about it
+
+### Pages
+#### Bio
+Need a bio page for sure. I'm anticipating just regurgitation my LinkedIn bio,
+but I may add some additional sub-pages to share a little bit about me outside
+of my working persona. Haven't decided yet if that's A) appropriate and B) work
+I want to do
+
+#### Projects
+Technically there's a projects page now, but there's not much on it. Ultimately,
+this page was the root cause for creating this whole website, but then I kind of
+stopped working on projects to create this website. This website BECAME the
+project. There will be a page for this there soon, at least.
+
+#### Kata
+I figure if I'm doing these kata to keep my language fluency up, maybe they'll
+be useful as a demo too. Show a potential employer that I can write nice tidy
+code. I also have a notion to include a section for Design kata, which I'm new
+to. They seem less structured and less easy to share out in a regular format,
+but maybe that's good. Anyway, looking forward to putting something up here.
+
+### Support
+I don't think anyone's likely to _need_ support from me _yet_. But I do hope
+eventually somebody might want to use some of the custom components I'm working
+on. I've been organizaing my personal work in Jira, so I'll include a widget
+here to submit requests. I don't think I'm ambitious enough to include a Slack
+interface, but we'll see how I feel when I start in.
+
+## Infrastructure
+### Tests!
+I've had a couple of abortive attempts to introduce Jest and use my Storybook
+stories as the basis for the first tests. So far that hasn't worked out so well.
+Mostly it's had to do with imports. Both Docusaurus and Storybook rely on a lot
+of preprocessing, and getting Jest configured to keep step with them has been a
+bit of a headache. I was actually on the verge of abandoning Storybook
+altogether, but I've decided it still serves nicely as a showcase, and home for
+the individual components's documentation. Solving that SVG issue I mentioned in
+a previous blog post helped too.
+
+I also want to use this as a chance to explore Playwright. I've used it only
+very briefly before when I contributed to someone else's project that was using
+it. I like Cypress a lot, but I definitely prefer Playwright in one regard: it
+lets you use standard JavaScript idioms, where Cypress traps you in their very
+a-typical world that is similar to working with Promises, but predates promises,
+so it has it's own idioms that require learning.
+
+Last, I think I'll probably explore what Storybook can do for me as a test
+platform all by itself (in the absence of Jest).
+
+### Refactoring
+My Logo Storybook stories are looking about how I want them, but there's a lot
+of boilerplate in the story definition file to make that happen. I think I may
+extract that all out to a component just for the sake of tidiness.
+
+### Fixes
+By default, Docusaurus uses a token that looks like this:
+```
+<!-- truncate -->
+```
+to indicate where a blog post should be truncated when you're viewing it as part
+of a list of all posts. Unfortunately, that breaks the Visual Studio MDX parser
+quite badly. The code still compiles and displays just fine, but Visual Studio
+shouts at me that the whole file after that point is riddled with errors, which
+is distracting, and bad, and potentially hides other problems I should know
+about.
+
+I discovered there's a mechanism to redefine that token in the docusaurus config
+file, so I've changed it to `TRUNCATE_HERE`, which is working beautifully,
+except that it still shows up in the document content now, which is not a great
+look.
+
+So I'll have to figure out some way of masking that from the displayed content
+that _isn't_ an XML comment. Maybe I can wrap it in a &lt;div> and use CSS to
+hide it? That's a lot of text to type for every blog post though. Will have to
+create a snippet. Anyway, it's worth exploring.
+
+### Automation
+I'm currently using the provided `docusaurus deploy` command to push my built
+site to GitHub Pages. Sometime in the next week or two, I want to get that
+changed over to a GitHub actions flow, so that the definitions in my `main`
+branch and the published site are in sync. In that build, I also plan to:
+* run tests
+* publish a test/coverage report to the website
+* migrate the global docusaurus styles for Storybook
+
+I'm sure I'm probably forgetting something either that's already in my Jira or
+that I've thought of while working on something else and forgot to write down.
+I'm sure eventually something will prompt my memory.

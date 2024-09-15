@@ -29,6 +29,10 @@ formatting:
   label: Formatting/Styles/CSS
   permalink: /formatting
   description: Posts to do with configuring styles and formatting
+testing:
+  label: Testing
+  permalink: /testing
+  description: Posts to do with tests
 graphics:
   label: Graphics, Icons & Logos
   permalink: /graphics
