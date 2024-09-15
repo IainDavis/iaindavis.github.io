@@ -1,7 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import Logo, { type LogoPropsType } from '../../../../components/brand/Logo/Logo';
-
+import Logo, { logoVariants, type LogoPropsType } from '../../../../components/brand/Logo/Logo';
 
 const containerStyle: React.CSSProperties = {
     display: 'flex',
@@ -33,7 +32,7 @@ const wrapperStyle: React.CSSProperties = {
     margin: 'auto',
 }
 
-const render = (args: LogoPropsType) => (
+const render = (args: {variant?: string, hideBackground?: boolean}) => (
     <>
         <div style={containerStyle}>
             <div style={{...contraLightStyle, ...paneStyle}} data-theme="light">
@@ -60,16 +59,12 @@ const meta: Meta<typeof Logo> = {
     argTypes: {
         hideBackground: {
             control: 'boolean',
-            description: 'Should the backing rectangle be hidden or shown',
+            description: 'Should the backing rectangle be hidden or shown?',
         },
         variant: {
             control: 'select',
             description: 'Which variant of the logo should be used (default "expanded")?',
-            options: [
-                'compact',
-                'compact-square',
-                'expanded'
-            ]
+            options: logoVariants
         }
     },
     component: Logo,
