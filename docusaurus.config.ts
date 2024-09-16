@@ -2,6 +2,9 @@ import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import copyStylesPlugin from './src/buildUtils/docusaurus/postBuild/copyStylesPlugin';
+import removeTruncateMarker from './src/buildUtils/docusaurus/remark/removeTruncateMarker';
+
+const  truncateRegex: RegExp = /\s*TRUNCATE_HERE\s*/;
 
 const config: Config = {
   title: 'Iain Davis',
@@ -51,7 +54,17 @@ const config: Config = {
             description: 'A Blog where I will document what I am working on and looking forward to as I develop my personal website',
             copyright: `Copyright © ${new Date().getFullYear()} Iain S. Davis. Built with Docusaurus.`,
           },
-          truncateMarker: /\s*TRUNCATE_HERE\s*/,
+          truncateMarker: truncateRegex,
+          remarkPlugins: [
+            /*
+            [
+              removeTruncateMarker,
+              {
+                regex: truncateRegex,
+              },
+            ]
+              */
+              ],
           authorsMapPath: 'authors.yml',
           authorsBasePath: 'authors',
           showReadingTime: true,
