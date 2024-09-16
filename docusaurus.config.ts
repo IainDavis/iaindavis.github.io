@@ -56,15 +56,8 @@ const config: Config = {
           },
           truncateMarker: truncateRegex,
           remarkPlugins: [
-            /*
-            [
-              removeTruncateMarker,
-              {
-                regex: truncateRegex,
-              },
-            ]
-              */
-              ],
+            [ removeTruncateMarker, { regex: truncateRegex, } ],
+          ],
           authorsMapPath: 'authors.yml',
           authorsBasePath: 'authors',
           showReadingTime: true,
