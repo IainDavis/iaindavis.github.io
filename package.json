@@ -54,7 +54,8 @@
     "css-loader": "^7.1.2",
     "storybook": "^8.2.9",
     "style-loader": "^4.0.0",
-    "typescript": "~5.2.2"
+    "typescript": "~5.2.2",
+    "unist-util-remove": "^4.0.0"
   },
   "browserslist": {
     "production": [
