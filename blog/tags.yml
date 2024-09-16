@@ -15,6 +15,10 @@ storybook:
   label: Storybook
   permalink: /storybook
   description: Posts to do with configuring or using Storybook
+vscode:
+  label: Visual Studio Code
+  permalink: /vscode
+  description: Posts to do with IDE Visual Studio Code
 
 coolServices:
   label: Cool Services
@@ -25,6 +29,11 @@ automation:
   label: Automation
   permalink: /automation
   description: Posts having to do with automating tasks 
+troubleshooting:
+  label: Trouble-shooting
+  permalink: /troubleshooting
+  description: Posts having to do with solving problems
+
 formatting:
   label: Formatting/Styles/CSS
   permalink: /formatting
