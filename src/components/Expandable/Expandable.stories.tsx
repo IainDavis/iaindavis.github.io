@@ -20,16 +20,6 @@ const meta: Meta<typeof Expandable> = {
   component: Expandable,
   parameters: {
     layout: 'centered',
-    docs: {
-      source: {
-        transform: (src: string) => src
-          .replace(/^\s*$/g, '')
-          .replace(/<MDXProvider>([\s\S]*?)<\/MDXProvider>/, '$1') 
-          .replace(/__WEBPACK_DEFAULT_EXPORT__/g, 'Expandable')
-          .replace(/MDXContent/g, "Lorem")
-          .replace(/\n(  )/g, '\n') // repair indentation where the above adjustments have damaged it
-      }
-    }
   },
   argTypes: {
     startExpanded: {
