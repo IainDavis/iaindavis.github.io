@@ -13,7 +13,4 @@ module.exports = {
     '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { configFile: './babel.config.js' }],
     ".+\\.module\\.(css|scss)$": 'jest-css-modules-transform'
   },
-  testPathIgnorePatterns: [
-    '/node_modules/(?!(react))',
-  ]
 };
