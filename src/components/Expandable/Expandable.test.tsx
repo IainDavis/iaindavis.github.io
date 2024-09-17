@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { render, screen } from '@testing-library/react';
-import Expandable from './Expandable';
+import Expandable from '.';
 
 test('renders the component', () => {
     render(<Expandable />);
