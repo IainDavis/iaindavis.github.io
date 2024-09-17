@@ -1,8 +1,8 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import Expandable from './Expandable';
-import type { ExpandablePropsType } from './Expandable';
-import Lorem from '/.storybook/assets/mdx/lorem_ipsum.mdx';
+import Expandable from '../../../components/Expandable';
+import type { ExpandablePropsType } from '../../../components/Expandable';
+import Lorem from '../../../../.storybook/assets/mdx/lorem_ipsum.mdx';
 
 const render = (args: ExpandablePropsType) => (
     <>
@@ -20,6 +20,16 @@ const meta: Meta<typeof Expandable> = {
   component: Expandable,
   parameters: {
     layout: 'centered',
+    docs: {
+      source: {
+        transform: (src: string) => src
+          .replace(/^\s*$/g, '')
+          .replace(/<MDXProvider>([\s\S]*?)<\/MDXProvider>/, '$1') 
+          .replace(/__WEBPACK_DEFAULT_EXPORT__/g, 'Expandable')
+          .replace(/MDXContent/g, "Lorem")
+          .replace(/\n(  )/g, '\n') // repair indentation where the above adjustments have damaged it
+      }
+    }
   },
   argTypes: {
     startExpanded: {
