@@ -7,12 +7,13 @@ module.exports = {
     '\\.(gif|ttf|eot|png)$': '<rootDir>/__mocks__/fileMock.js',
     '\\.svg$': '@svgr/webpack'
   },
+  extensionsToTreatAsEsm: ['.ts', '.tsx'],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   transform: {
-    "^.+.tsx?$": ["ts-jest",{}],
+    '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { configFile: './babel.config.js' }],
     ".+\\.module\\.(css|scss)$": 'jest-css-modules-transform'
   },
   testPathIgnorePatterns: [
-    '/node_modules/(?!())',
+    '/node_modules/(?!(react))',
   ]
 };
