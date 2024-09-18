@@ -1,5 +1,5 @@
 import React, { PropsWithChildren,  useState } from 'react';
-import styles from './expandable.module.css';
+import styles from './Expandable.module.css';
 
 export type ExpandablePropsType = {
     startExpanded?: boolean;
