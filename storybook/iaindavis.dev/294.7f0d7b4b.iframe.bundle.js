@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkiaindavis_dev=self.webpackChunkiaindavis_dev||[]).push([[294],{"./node_modules/@mdx-js/react/index.js":(e,s,d)=>{d.r(s),d.d(s,{MDXProvider:()=>i.x,useMDXComponents:()=>i.R});var i=d("./node_modules/@mdx-js/react/lib/index.js")}}]);
