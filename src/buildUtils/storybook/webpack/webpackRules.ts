@@ -16,7 +16,13 @@ export const USE_BABEL_RULE: RuleSetRule = {
   use: [
     {
       loader: require.resolve('babel-loader'),
-      options: babelConfig,
+      options: {
+        ...babelConfig,
+        plugins: [
+          ...babelConfig.plugins,
+          '@babel/plugin-transform-react-jsx'
+        ]
+      },
     },
   ],
 }
