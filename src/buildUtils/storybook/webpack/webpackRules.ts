@@ -1,5 +1,5 @@
 import { RuleSetRule } from "webpack";
-import { MaybeRuleSetRule } from "./types";
+import babelConfig from 'babel.config';
 
 export const SVGR_RULE: RuleSetRule = {
     test: /\.svg$/,
@@ -9,3 +9,14 @@ export const SVGR_RULE: RuleSetRule = {
       },
     ],
 } as const;
+
+export const USE_BABEL_RULE: RuleSetRule = {
+  test: /\.(js|jsx|ts|tsx)$/,
+  exclude: /node_modules/,
+  use: [
+    {
+      loader: require.resolve('babel-loader'),
+      options: babelConfig,
+    },
+  ],
+}

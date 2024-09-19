@@ -1,19 +1,15 @@
 import type { RuleSetRule } from "webpack";
-import type { MaybeRuleSetRule, Transform } from "./types";
+import type { MaybeRuleSetRule, Transform, TransformFactory } from "./types";
 
-import { SVGR_RULE } from "./webpackRules";
+import { SVGR_RULE, USE_BABEL_RULE } from "./webpackRules";
+import { isRuleSetRule } from "./helpers";
 
-// Helper function to check if an item is a RuleSetRule
-const isRuleSetRule = (rule: MaybeRuleSetRule): rule is RuleSetRule => {
-  return typeof rule === 'object';
-};
 
-// helper function to make transforms readable.
-export const compose = <T>(...funcs: Transform<T>[]): Transform<T> => (input: T): T => funcs.reduce((value, fn) => fn(value), input)
+export const prependRule: TransformFactory<RuleSetRule, RuleSetRule[]> = (rule) =>  (rules) => [ rule, ...rules];
+export const appendRule: TransformFactory<RuleSetRule, RuleSetRule[]> = (rule) =>  (rules) => [...rules, rule];
 
-export const prependSVGRRule: Transform<MaybeRuleSetRule[]> = (rules) => {
-  return [SVGR_RULE, ...rules] ;
-}
+export const loadSVGwithSVGR = prependRule(SVGR_RULE);
+export const loadModulesWithBabel = appendRule(USE_BABEL_RULE);
 
 export const excludeSVGFromFileRule: Transform<MaybeRuleSetRule[]> = (rules) => {
 
