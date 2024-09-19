@@ -1,4 +1,4 @@
-import webpackFinal from '../src/buildUtils/storybook/webpackFinal';
+import webpackFinal from '../src/buildUtils/storybook/webpack/webpackFinal';
 import type { StorybookConfig } from "@storybook/react-webpack5";
 
 const config: StorybookConfig = {
