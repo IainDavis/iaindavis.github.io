@@ -2,7 +2,7 @@ import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import Expandable from './Expandable';
 import type { ExpandablePropsType } from './Expandable';
-import Lorem from '/.storybook/assets/mdx/lorem_ipsum.mdx';
+import Lorem from '../../../.storybook/assets/mdx/lorem_ipsum.mdx';
 
 const render = (args: ExpandablePropsType) => (
     <>
