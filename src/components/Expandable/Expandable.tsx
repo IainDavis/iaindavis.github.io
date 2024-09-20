@@ -1,5 +1,10 @@
-import React, { PropsWithChildren,  useState } from 'react';
+import React, { PropsWithChildren,  useEffect,  useState } from 'react';
 import styles from './Expandable.module.css';
+
+const DEFAULTS = {
+    expandPrompt: 'show more...',
+    collapsePrompt: 'show less',
+}
 
 export type ExpandablePropsType = {
     startExpanded?: boolean;
@@ -9,11 +14,15 @@ export type ExpandablePropsType = {
 
 const Expandable: React.FC<PropsWithChildren<ExpandablePropsType>> = ({
     startExpanded = false,
-    expandPrompt = 'show more...',
-    collapsePrompt = 'show less',
+    expandPrompt,
+    collapsePrompt,
     children
 }) => {
     const [isExpanded, setExpanded] = useState(startExpanded);
+
+    useEffect(() => {
+        setExpanded(startExpanded);
+    }, [startExpanded])
 
     const handleClickToggle = () => {
         setExpanded(!isExpanded);
@@ -21,11 +30,16 @@ const Expandable: React.FC<PropsWithChildren<ExpandablePropsType>> = ({
 
     return (
         <div className={styles.container}>
-            <div className={ `${styles.expandableBlock} ${isExpanded ? '' : styles.hidden}` }>
-                {children}
-            </div>
+            { isExpanded && (
+                <div className={ styles.expandableBlock }>
+                    {children}
+                </div>
+            )}
             <div className={ styles.toggle } onClick={() => handleClickToggle()}>
-                {isExpanded ? collapsePrompt : expandPrompt }
+                { isExpanded
+                    ? collapsePrompt || DEFAULTS.collapsePrompt
+                    : expandPrompt || DEFAULTS.expandPrompt
+                }
             </div>
         </div>
     )
