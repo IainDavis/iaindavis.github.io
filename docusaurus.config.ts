@@ -27,7 +27,12 @@ const config: Config = {
   plugins: [
     copyStylesPlugin,
   ],
-
+  themes: [
+    '@docusaurus/theme-mermaid',
+  ],
+  markdown: {
+    mermaid: true,
+  },
   presets: [
     [
       'classic',
