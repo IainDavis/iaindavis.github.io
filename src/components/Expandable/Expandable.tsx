@@ -19,13 +19,13 @@ const Expandable: React.FC<PropsWithChildren<ExpandablePropsType>> = ({
     children
 }) => {
     const [isExpanded, setExpanded] = useState(startExpanded);
-
+    
     useEffect(() => {
-        setExpanded(startExpanded);
+        setExpanded(() => startExpanded);
     }, [startExpanded])
 
     const handleClickToggle = () => {
-        setExpanded(!isExpanded);
+        setExpanded(currentlyExpanded => !currentlyExpanded);
     }
 
     return (
