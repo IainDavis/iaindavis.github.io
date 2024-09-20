@@ -42,6 +42,10 @@ testing:
   label: Testing
   permalink: /testing
   description: Posts to do with tests
+infrastructure:
+  label: Infrastructure
+  permalink: /infrastructure
+  description: Posts to do with setup and maintenance for Repositories, builds, etc.
 graphics:
   label: Graphics, Icons & Logos
   permalink: /graphics
