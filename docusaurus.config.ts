@@ -11,23 +11,15 @@ const config: Config = {
   tagline: 'Full-Stack Software Engineer',
   favicon: 'img/logo-favicon.svg',
 
-  // Set the production url of your site here
   url: 'https://iaindavis.github.io',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'IainDavis', // Usually your GitHub org/user name.
-  projectName: 'iaindavis.github.io', // Usually your repo name.
+  organizationName: 'IainDavis', 
+  projectName: 'iaindavis.github.io', 
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
@@ -99,7 +91,6 @@ const config: Config = {
           to: '/blog',
           label: 'Blog'
         },
-        // {to: '/blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/IainDavis',
           label: 'GitHub',
@@ -130,12 +121,6 @@ const config: Config = {
         {
           title: 'More',
           items: [
-            /*
-            {
-              label: 'Blog',
-              to: '/blog',
-            },
-            */
             {
               label: 'GitHub',
               href: 'https://github.com/facebook/docusaurus',
