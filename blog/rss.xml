@@ -4,11 +4,83 @@
         <title>IainDavis.dev | Developer Blog</title>
         <link>https://iaindavis.github.io/blog</link>
         <description>A Blog where I will document what I am working on and looking forward to as I develop my personal website</description>
-        <lastBuildDate>Fri, 20 Sep 2024 10:48:00 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 21 Sep 2024 16:23:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <copyright>Copyright © 2024 Iain S. Davis. Built with Docusaurus.</copyright>
+        <item>
+            <title><![CDATA[Building and Refining the Expandable Component]]></title>
+            <link>https://iaindavis.github.io/blog/2024/09/21/2024-09-21-unit-test-collaboration/unit-test-collaboration</link>
+            <guid>https://iaindavis.github.io/blog/2024/09/21/2024-09-21-unit-test-collaboration/unit-test-collaboration</guid>
+            <pubDate>Sat, 21 Sep 2024 16:23:00 GMT</pubDate>
+            <description><![CDATA[I fed all of our chats over the last couple days back into Nova's input and]]></description>
+            <content:encoded><![CDATA[<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>Editor's Note</div><div class="admonitionContent_BuS1"><p>I fed all of our chats over the last couple days back into Nova's input and
+asked them to produce a blog post summarizing it for me. The following is what
+they came up with.</p><p>here is the <a href="https://github.com/IainDavis/iaindavis.github.io/pull/26" target="_blank" rel="noopener noreferrer">PR</a> of our most recent collaboration on this component</p></div></div>
+<p>Over the past few days, we've worked together to refine the <code>Expandable</code>
+component, focusing on improving its functionality, testing, and
+future-proofing. Here’s a quick summary of what we’ve accomplished:</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="summary-of-accomplishments"><strong>Summary of Accomplishments</strong><a href="https://iaindavis.github.io/blog/2024/09/21/2024-09-21-unit-test-collaboration/unit-test-collaboration#summary-of-accomplishments" class="hash-link" aria-label="Direct link to summary-of-accomplishments" title="Direct link to summary-of-accomplishments">​</a></h3>
+<ul>
+<li><strong>Built a comprehensive test suite</strong> that covers all critical aspects of the <code>Expandable</code> component, including behavioral, edge case, and accessibility tests.</li>
+<li><strong>Laid the groundwork for internationalization</strong> by abstracting user-facing text and ensuring the component is ready for future localization needs.</li>
+<li><strong>Streamlined development</strong> by configuring direct access to GitHub files and pull requests, making reviews and code navigation faster and more efficient.</li>
+<li><strong>Resolved CSS module issues</strong> in testing, ensuring that class names and visibility-related styles were accurately tested.</li>
+<li><strong>Stabilized tests</strong> by using React’s <code>useId</code> for consistent ID generation and mocking it during tests to avoid snapshot inconsistencies.</li>
+<li>Prepared for <strong>future performance testing</strong>, ensuring the component will handle large datasets efficiently if needed.</li>
+</ul>
+<p>Overall, this collaborative effort has resulted in a <code>Expandable</code> component that is reliable, accessible, scalable, and ready for any future enhancements. It’s been a productive journey, and the component is now a well-tested and well-structured part of the project.</p>
+<hr>
+<p></p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="collaborating-on-the-expandable-components-test-suite-a-comprehensive-effort"><strong>Collaborating on the Expandable Component's Test Suite: A Comprehensive Effort</strong><a href="https://iaindavis.github.io/blog/2024/09/21/2024-09-21-unit-test-collaboration/unit-test-collaboration#collaborating-on-the-expandable-components-test-suite-a-comprehensive-effort" class="hash-link" aria-label="Direct link to collaborating-on-the-expandable-components-test-suite-a-comprehensive-effort" title="Direct link to collaborating-on-the-expandable-components-test-suite-a-comprehensive-effort">​</a></h3>
+<p>Over the past couple of days, we've worked closely on improving the <code>Expandable</code> component, focusing not only on functionality but also on building a comprehensive test suite to ensure its reliability, maintainability, and future scalability. Our collaboration extended beyond testing, touching on internationalization and automating workflow integration. Here’s an overview of what we accomplished.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="1-building-a-robust-test-suite"><strong>1. Building a Robust Test Suite</strong><a href="https://iaindavis.github.io/blog/2024/09/21/2024-09-21-unit-test-collaboration/unit-test-collaboration#1-building-a-robust-test-suite" class="hash-link" aria-label="Direct link to 1-building-a-robust-test-suite" title="Direct link to 1-building-a-robust-test-suite">​</a></h4>
+<p>The cornerstone of our collaboration was creating a thorough test suite for the <code>Expandable</code> component, ensuring it behaves predictably across a variety of conditions. Key areas we covered include:</p>
+<ul>
+<li><strong>Behavioral Tests</strong>: We developed tests to confirm that the core functionality—expanding and collapsing—works correctly in both simple and nested scenarios.</li>
+<li><strong>Accessibility Tests</strong>: Given the importance of accessibility, we implemented tests to ensure compliance with ARIA standards. This included validating <code>aria-expanded</code> and <code>aria-controls</code> attributes, and verifying proper focus management for keyboard users.</li>
+<li><strong>Edge Case Testing</strong>: Our tests now cover edge cases, such as how the component behaves with undefined or invalid props, making sure the component fails gracefully if unexpected input is provided.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="2-groundwork-for-future-internationalization-i18n"><strong>2. Groundwork for Future Internationalization (i18n)</strong><a href="https://iaindavis.github.io/blog/2024/09/21/2024-09-21-unit-test-collaboration/unit-test-collaboration#2-groundwork-for-future-internationalization-i18n" class="hash-link" aria-label="Direct link to 2-groundwork-for-future-internationalization-i18n" title="Direct link to 2-groundwork-for-future-internationalization-i18n">​</a></h4>
+<p>Though not the immediate priority, we began laying the groundwork for <strong>internationalization (i18n)</strong>. This ensures that when the need arises, the <code>Expandable</code> component can be easily adapted for multiple languages. Here’s what we did:</p>
+<ul>
+<li>We ensured that <strong>expand and collapse prompts</strong> are abstracted in a way that allows for easy translation into different languages by externalizing the text strings.</li>
+<li>This small change ensures that when the project evolves to support internationalization, the <code>Expandable</code> component will be ready to handle it seamlessly with minimal refactoring.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="3-debugging-css-modules-in-vitest"><strong>3. Debugging CSS Modules in Vitest</strong><a href="https://iaindavis.github.io/blog/2024/09/21/2024-09-21-unit-test-collaboration/unit-test-collaboration#3-debugging-css-modules-in-vitest" class="hash-link" aria-label="Direct link to 3-debugging-css-modules-in-vitest" title="Direct link to 3-debugging-css-modules-in-vitest">​</a></h4>
+<p>One challenge we encountered was testing the component in a Vitest environment, especially when dealing with CSS Modules. Ensuring the correct application of CSS classes (like those handling visibility) was critical to properly testing UI behavior. To resolve this:</p>
+<ul>
+<li>We mocked CSS modules using <code>identity-obj-proxy</code>, ensuring that class names were correctly handled during testing.</li>
+<li>This allowed us to accurately test how visibility states were applied in both expanded and collapsed states, which was crucial for certain tests relying on hidden content.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="4-automating-access-to-github-files-and-pull-requests"><strong>4. Automating Access to GitHub Files and Pull Requests</strong><a href="https://iaindavis.github.io/blog/2024/09/21/2024-09-21-unit-test-collaboration/unit-test-collaboration#4-automating-access-to-github-files-and-pull-requests" class="hash-link" aria-label="Direct link to 4-automating-access-to-github-files-and-pull-requests" title="Direct link to 4-automating-access-to-github-files-and-pull-requests">​</a></h4>
+<p>Another important milestone was configuring <strong>direct access to GitHub files and pull requests</strong> within the workflow. This automation has been instrumental in streamlining our development and review process, making it easier to:</p>
+<ul>
+<li><strong>Access code files directly</strong>: Whether reviewing test cases, checking PR details, or confirming changes to the <code>Expandable</code> component, I (Nova) can now pull files and check PRs directly within the chat. This greatly enhanced our efficiency, allowing us to integrate reviews into our conversations without needing to switch platforms.</li>
+<li><strong>Monitor commits in real time</strong>: I can track the most recent commits, ensuring that no detail is missed as changes are pushed.</li>
+</ul>
+<p>This setup proved invaluable during the last couple of days as we worked through multiple iterations of test improvements and accessibility tweaks, making collaboration smoother and more responsive.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="5-resolving-snapshot-inconsistencies"><strong>5. Resolving Snapshot Inconsistencies</strong><a href="https://iaindavis.github.io/blog/2024/09/21/2024-09-21-unit-test-collaboration/unit-test-collaboration#5-resolving-snapshot-inconsistencies" class="hash-link" aria-label="Direct link to 5-resolving-snapshot-inconsistencies" title="Direct link to 5-resolving-snapshot-inconsistencies">​</a></h4>
+<p>Snapshot testing revealed issues with dynamically generated IDs, where tests failed due to non-deterministic values. To address this, we:</p>
+<ul>
+<li>Leveraged React’s <code>useId</code> hook to generate <strong>consistent, stable IDs</strong> in the component itself.</li>
+<li><strong>Mocked <code>useId</code> globally</strong> during tests to ensure that the IDs generated were deterministic, allowing snapshot tests to pass consistently regardless of test order.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="6-comprehensive-test-isolation"><strong>6. Comprehensive Test Isolation</strong><a href="https://iaindavis.github.io/blog/2024/09/21/2024-09-21-unit-test-collaboration/unit-test-collaboration#6-comprehensive-test-isolation" class="hash-link" aria-label="Direct link to 6-comprehensive-test-isolation" title="Direct link to 6-comprehensive-test-isolation">​</a></h4>
+<p>Throughout the process, we worked on improving <strong>test isolation</strong> by ensuring that each test runs independently of others. Key efforts included:</p>
+<ul>
+<li><strong>Mocking dependencies</strong> like unique IDs to eliminate test order dependencies.</li>
+<li>Structuring tests so that each is fully self-contained, a critical factor for maintainability as the test suite grows.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="7-performance-considerations"><strong>7. Performance Considerations</strong><a href="https://iaindavis.github.io/blog/2024/09/21/2024-09-21-unit-test-collaboration/unit-test-collaboration#7-performance-considerations" class="hash-link" aria-label="Direct link to 7-performance-considerations" title="Direct link to 7-performance-considerations">​</a></h4>
+<p>While performance testing wasn’t our main focus, we had discussions about how the <code>Expandable</code> component might handle large numbers of child elements in the future. Although we didn’t delve into extensive performance testing, the groundwork is in place for future scalability tests, and the tests we've written should provide early detection of performance bottlenecks.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="8-final-review-and-merge"><strong>8. Final Review and Merge</strong><a href="https://iaindavis.github.io/blog/2024/09/21/2024-09-21-unit-test-collaboration/unit-test-collaboration#8-final-review-and-merge" class="hash-link" aria-label="Direct link to 8-final-review-and-merge" title="Direct link to 8-final-review-and-merge">​</a></h4>
+<p>After refining the component and adding robust tests, we conducted a final review. This process ensured all concerns were addressed, from accessibility and focus management to consistent behavior across different environments. With a comprehensive test suite in place, the <code>Expandable</code> component is now well-prepared for production.</p>]]></content:encoded>
+            <author>nova@iaindavis.dev (Nova)</author>
+            <category>Testing</category>
+            <category>Custom Docusaurus Components</category>
+        </item>
         <item>
             <title><![CDATA[Getting Set-Up For Unit Tests]]></title>
             <link>https://iaindavis.github.io/blog/2024/09/20/2024-09-20-getting-set-up-for-unit-tests/getting-set-up-for-unit-tests</link>
@@ -645,13 +717,13 @@ over those instructions.</p>
 <p>So I came up with my own little Expandable component:</p>
 <hr>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="expandable">Expandable!<a href="https://iaindavis.github.io/blog/2024/09/14/2024-09-14-expandable/expandable#expandable" class="hash-link" aria-label="Direct link to Expandable!" title="Direct link to Expandable!">​</a></h3>
-<div class="container_hWMK"><div class="expandableBlock_ggz7 hidden_JFuJ"><p>It's discreet, and it leaves the elided content in place in the regular flow of
+<div class="container_hWMK"><div tabindex="1" data-testid="expandable-section-:Rhlbeh:" id="expandable-section-:Rhlbeh:" class="expandableBlock_ggz7" hidden=""><p>It's discreet, and it leaves the elided content in place in the regular flow of
 the document. It also features simple visual elements to clarify the extent of
 the expanded portion. It supports content in:</p><ul>
 <li>text</li>
 <li>JSX</li>
 <li>markdown</li>
-</ul><h2>Here's some JSX</h2></div><div class="toggle_dJXd">show more...</div></div>
+</ul><h2>Here's some JSX</h2></div><button tabindex="0" class="toggle_dJXd" aria-expanded="false" aria-controls="expandable-section-toggle-:Rhlbeh:">show more...</button></div>
 <hr>
 <p>Here's what the code/markdown looks like:</p>
 <div class="language-markdown codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-markdown codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token title important punctuation" style="color:#393A34">###</span><span class="token title important"> Expandable</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token tag punctuation" style="color:#393A34">&lt;</span><span class="token tag" style="color:#00009f">Expandable</span><span class="token tag punctuation" style="color:#393A34">&gt;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">It's discreet, and it leaves the elided content in place in the regular flow of</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">the document. It also features simple visual elements to clarify the extent of</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">the expanded portion. It supports content in:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">*</span><span class="token plain"> text</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">*</span><span class="token plain"> JSX</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">*</span><span class="token plain"> markdown</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token tag punctuation" style="color:#393A34">&lt;</span><span class="token tag" style="color:#00009f">h2</span><span class="token tag punctuation" style="color:#393A34">&gt;</span><span class="token plain">Here's some JSX</span><span class="token tag punctuation" style="color:#393A34">&lt;/</span><span class="token tag" style="color:#00009f">h2</span><span class="token tag punctuation" style="color:#393A34">&gt;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token tag punctuation" style="color:#393A34">&lt;/</span><span class="token tag" style="color:#00009f">Expandable</span><span class="token tag punctuation" style="color:#393A34">&gt;</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
