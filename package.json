@@ -61,6 +61,7 @@
     "@testing-library/react": "^16.0.1",
     "@types/jest": "^29.5.13",
     "@types/node": "^22.5.5",
+    "@types/testing-library__jest-dom": "^6.0.0",
     "@vitejs/plugin-react": "^4.3.1",
     "@vitest/ui": "^2.1.1",
     "babel-loader": "^9.1.3",

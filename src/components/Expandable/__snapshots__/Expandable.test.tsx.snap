@@ -1,0 +1,48 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Expandable Component > Basic tests > should maintain visual consistency between expanded and collapsed states 1`] = `
+<DocumentFragment>
+  <div
+    class="_container_d68a27"
+  >
+    <div
+      class="_expandableBlock_d68a27"
+      data-testid="expandable-section-mocked-id"
+      hidden=""
+      id="expandable-section-mocked-id"
+      tabindex="1"
+    />
+    <button
+      aria-controls="expandable-section-toggle-mocked-id"
+      aria-expanded="false"
+      class="_toggle_d68a27"
+      tabindex="0"
+    >
+      show more...
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Expandable Component > Basic tests > should maintain visual consistency between expanded and collapsed states 2`] = `
+<DocumentFragment>
+  <div
+    class="_container_d68a27"
+  >
+    <div
+      class="_expandableBlock_d68a27"
+      data-testid="expandable-section-mocked-id"
+      id="expandable-section-mocked-id"
+      tabindex="0"
+    />
+    <button
+      aria-controls="expandable-section-toggle-mocked-id"
+      aria-expanded="true"
+      class="_toggle_d68a27"
+      tabindex="0"
+    >
+      show less
+    </button>
+  </div>
+</DocumentFragment>
+`;
