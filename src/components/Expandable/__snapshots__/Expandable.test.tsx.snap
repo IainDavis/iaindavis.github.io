@@ -7,16 +7,16 @@ exports[`Expandable Component > Basic tests > should maintain visual consistency
   >
     <div
       class="_expandableBlock_d68a27"
-      data-testid="expandable-section"
+      data-testid="expandable-section-mocked-id"
       hidden=""
-      id="expandable-section"
-      tabindex="-1"
+      id="expandable-section-mocked-id"
+      tabindex="1"
     />
     <button
-      aria-controls="expandable-section"
+      aria-controls="expandable-section-toggle-mocked-id"
       aria-expanded="false"
       class="_toggle_d68a27"
-      tabindex="-1"
+      tabindex="0"
     >
       show more...
     </button>
@@ -31,15 +31,15 @@ exports[`Expandable Component > Basic tests > should maintain visual consistency
   >
     <div
       class="_expandableBlock_d68a27"
-      data-testid="expandable-section"
-      id="expandable-section"
-      tabindex="-1"
+      data-testid="expandable-section-mocked-id"
+      id="expandable-section-mocked-id"
+      tabindex="0"
     />
     <button
-      aria-controls="expandable-section"
+      aria-controls="expandable-section-toggle-mocked-id"
       aria-expanded="true"
       class="_toggle_d68a27"
-      tabindex="-1"
+      tabindex="0"
     >
       show less
     </button>

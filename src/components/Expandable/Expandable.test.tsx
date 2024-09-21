@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { composeStories } from '@storybook/react';
 
 import * as stories from './Expandable.stories';
@@ -95,7 +95,7 @@ describe ('Expandable Component', () => {
         });
     });
 
-    describe('Expandable Component - Storybook Stories', () => {
+    describe('Storybook Stories', () => {
         
         // Test for the "PreExpanded" story
         it('should render the "PreExpanded" story correctly', () => {
@@ -136,65 +136,185 @@ describe ('Expandable Component', () => {
             expect(content).not.toBeVisible(); 
             fireEvent.click(expandButton);
             expect(content).toBeVisible(); 
+        }); 
+
+        it('should allow independent toggling of nested Expandable components', () => {
+            render(<NestedStory/>);
+            
+            const [childButton, parentButton] = screen.getAllByRole('button', { name: /show less/})
+            const outerContent = screen.getByText(/exercitation ullamco laboris/i);  // Replace with actual content from your story
+            const innerContent = screen.getByText(/Nested expanded content/)
+            
+            // Initially, both sections are expanded
+            expect(innerContent).toBeVisible();
+            expect(outerContent).toBeVisible();
+        
+            // Collapse the parent
+            fireEvent.click(parentButton);
+
+            expect(outerContent).not.toBeVisible();
+            expect(innerContent).not.toBeVisible();
+
+            // (not realistic) collapse the child while the parent is collapsed
+            fireEvent.click(childButton)
+
+            // expand the parent
+            fireEvent.click(parentButton);
+
+            // ensure the child remains collapsed (independent behavior)
+            expect(outerContent).toBeVisible();
+            expect(innerContent).not.toBeVisible();
+        
+            // expand the child
+            fireEvent.click(childButton);
+
+            // both should be visible.
+            expect(outerContent).toBeVisible();
+            expect(innerContent).toBeVisible();
         });
     });
 
     describe('Accessibility Tests', () => {
-    const expandPrompt = 'Show more';
-    const collapsePrompt = 'Show less';
+        const expandPrompt = 'Show more';
+        const collapsePrompt = 'Show less';
 
-    const renderWithContent = ({ startExpanded } = { startExpanded: false }) => render(
-        <Expandable expandPrompt={expandPrompt} collapsePrompt={collapsePrompt} startExpanded={startExpanded}>
-            <p>Expandable content</p>
-        </Expandable>
-    )
+        const renderWithContent = ({ startExpanded } = { startExpanded: false }) => render(
+            <Expandable expandPrompt={expandPrompt} collapsePrompt={collapsePrompt} startExpanded={startExpanded}>
+                <p>Expandable content</p>
+            </Expandable>
+        )
 
-    it('should render with initial collapsed state', () => {
-        renderWithContent({ startExpanded: false })
-        screen.debug();
+        it('should render with initial collapsed state', () => {
+            renderWithContent({ startExpanded: false })
 
-        const button = screen.getByRole('button', { name: expandPrompt });
-        const expandableSection = screen.getByTestId("expandable-section");
+            const button = screen.getByRole('button', { name: expandPrompt });
+            const expandableSection = screen.getByTestId(/expandable-section/);
 
-        expect(button).toHaveAttribute('aria-expanded', 'false');
-        expect(expandableSection).toHaveAttribute('hidden');
-    });
+            expect(button).toHaveAttribute('aria-expanded', 'false');
+            expect(expandableSection).toHaveAttribute('hidden');
+        });
 
-    it('should expand and focus on content when clicked', () => {
-        renderWithContent();
+        it('should expand and focus on content when clicked', () => {
+            renderWithContent();
 
-        const button = screen.getByRole('button', { name: expandPrompt });
-        const expandableSection = screen.getByTestId("expandable-section");
+            const button = screen.getByRole('button', { name: expandPrompt });
+            const expandableSection = screen.getByTestId(/expandable-section/);
 
-        fireEvent.click(button);
+            fireEvent.click(button);
 
-        expect(button).toHaveAttribute('aria-expanded', 'true');
-        expect(expandableSection).not.toHaveAttribute('hidden');
-        expect(expandableSection).toHaveFocus();
-    });
+            expect(button).toHaveAttribute('aria-expanded', 'true');
+            expect(expandableSection).not.toHaveAttribute('hidden');
+            expect(expandableSection).toHaveFocus();
+        });
 
-    it('should collapse and move focus back to the button', () => {
-        renderWithContent({ startExpanded: true});
+        it('should collapse and move focus back to the button', () => {
+            renderWithContent({ startExpanded: true});
 
-        const button = screen.getByRole('button', { name: collapsePrompt });
-        const expandableSection = screen.getByTestId("expandable-section");
+            const button = screen.getByRole('button', { name: collapsePrompt });
+            const expandableSection = screen.getByTestId(/expandable-section/);
 
-        fireEvent.click(button);
+            fireEvent.click(button);
 
-        expect(button).toHaveAttribute('aria-expanded', 'false');
-        expect(expandableSection).toHaveAttribute('hidden');
-        expect(button).toHaveFocus();
-    });
+            expect(button).toHaveAttribute('aria-expanded', 'false');
+            expect(expandableSection).toHaveAttribute('hidden');
+            expect(button).toHaveFocus();
+        });
 
-    it('should start expanded if startExpanded is true', () => {
-        renderWithContent({ startExpanded: true })
+        it('should start expanded if startExpanded is true', () => {
+            renderWithContent({ startExpanded: true })
 
-        const button = screen.getByRole('button', { name: collapsePrompt });
-        const expandableSection = screen.getByTestId("expandable-section");
+            const button = screen.getByRole('button', { name: collapsePrompt });
+            const expandableSection = screen.getByTestId(/expandable-section/);
 
-        expect(button).toHaveAttribute('aria-expanded', 'true');
-        expect(expandableSection).not.toHaveAttribute('hidden');
-    });
+            expect(button).toHaveAttribute('aria-expanded', 'true');
+            expect(expandableSection).not.toHaveAttribute('hidden');
+        });
+
+        describe('When Expandables are nested', () => {
+
+            const renderNestedExpandable = () => render(
+                <Expandable expandPrompt="Show more" collapsePrompt="Show less" >
+                    <p>Outer expandable content</p>
+                    <Expandable expandPrompt="Show nested" collapsePrompt="Hide nested" >
+                        <p>Nested expandable content</p>
+                    </Expandable>
+                </Expandable>
+            );
+
+            it('should set aria-expanded correctly for parent and child independently', async () => {
+                renderNestedExpandable();
+        
+                const parentButton = screen.getByText(/show more/i, { selector: "button"});
+                const childButton = screen.getByText(/show nested/i, { selector: "button"});
+
+                // Initial state
+                expect(parentButton).toHaveAttribute('aria-expanded', 'false');
+                expect(childButton).toHaveAttribute('aria-expanded', 'false');
+        
+                // Expand parent
+                fireEvent.click(parentButton);
+                expect(parentButton).toHaveAttribute('aria-expanded', 'true');
+        
+                // Child remains collapsed
+                expect(childButton).toHaveAttribute('aria-expanded', 'false');
+        
+                // Expand child
+                fireEvent.click(childButton);
+                expect(childButton).toHaveAttribute('aria-expanded', 'true');
+        
+                // Both should now be expanded
+                expect(parentButton).toHaveAttribute('aria-expanded', 'true');
+                expect(childButton).toHaveAttribute('aria-expanded', 'true');
+            });
+        
+            it('should manage focus correctly between parent and child expandables', async () => {
+                renderNestedExpandable();
+        
+                const parentButton = screen.getByText(/show more/i, { selector: "button"});
+                const childButton = screen.getByText(/show nested/i, { selector: "button"});
+
+                // focus gets applied to the container, not to the actual content.
+                // actual content might well start with an unfocusable element like <p>
+                const parentContent = screen.getByText(/outer expandable content/i).closest('div');
+                const childContent = screen.getByText(/nested expandable content/i).closest('div');
+        
+                // Expand parent and check focus on content
+                fireEvent.click(parentButton);
+                await waitFor(() => expect(parentContent).toHaveFocus());
+
+                // expect(parentContent).toHaveFocus();
+        
+                // Expand child and check focus on nested content
+                fireEvent.click(childButton);
+                expect(childContent).toHaveFocus();
+        
+                // Collapse parent, focus should move back to the button
+                fireEvent.click(parentButton);
+                expect(parentButton).toHaveFocus();
+            });
+        
+            it('should be keyboard navigable for both parent and child', () => {
+                renderNestedExpandable();
+        
+                const parentButton = screen.getByText(/show more/i, { selector: "button"});
+                const childButton = screen.getByText(/show nested/i, { selector: "button"});
+        
+                // Simulate keyboard events to expand/collapse
+                fireEvent.keyDown(parentButton, { key: 'Enter' });
+                expect(parentButton).toHaveAttribute('aria-expanded', 'true');
+        
+                // Now simulate for the child component
+                fireEvent.keyDown(childButton, { key: 'Enter' });
+                expect(childButton).toHaveAttribute('aria-expanded', 'true');
+        
+                // Collapse both with space key
+                fireEvent.keyDown(childButton, { key: ' ' });
+                expect(childButton).toHaveAttribute('aria-expanded', 'false');
+        
+                fireEvent.keyDown(parentButton, { key: ' ' });
+                expect(parentButton).toHaveAttribute('aria-expanded', 'false');
+            });
+        });
     });
 
 })

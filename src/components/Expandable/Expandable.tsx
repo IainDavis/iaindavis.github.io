@@ -1,6 +1,8 @@
-import React, { PropsWithChildren,  useEffect,  useRef,  useState } from 'react';
+import React, { KeyboardEventHandler, MouseEventHandler, PropsWithChildren,  useEffect,  useId,  useRef,  useState } from 'react';
 import styles from './Expandable.module.css';
 import getString from '../../strings/getString';
+
+// let expandableCounter = 0; // unique ID suffix for aria components
 
 export type ExpandablePropsType = {
     startExpanded?: boolean;
@@ -14,13 +16,15 @@ const Expandable: React.FC<PropsWithChildren<ExpandablePropsType>> = ({
     collapsePrompt,
     children
 }) => {
+    const idDiscriminator = useId();
+
+    const contentRef = useRef(null);
+    const buttonRef = useRef(null);
+
     const effectiveExpandPrompt = expandPrompt || getString('expandable-component-default-expand-prompt');
     const effectiveCollapsePrompt = collapsePrompt || getString('expandable-component-default-collapse-prompt');
 
     const [isExpanded, setExpanded] = useState(startExpanded);
-
-    const contentRef = useRef(null);
-    const buttonRef = useRef(null);
 
     useEffect(() => {
         setExpanded(() => startExpanded);
@@ -31,17 +35,26 @@ const Expandable: React.FC<PropsWithChildren<ExpandablePropsType>> = ({
         else { buttonRef.current.focus(); }
     })
 
-    const handleClickToggle = () => {
-        setExpanded(currentlyExpanded => !currentlyExpanded);
+    const toggleExpanded = () => setExpanded(prevExpanded => !prevExpanded);
+
+    const handleClick: MouseEventHandler = (e) => {
+        toggleExpanded();
+    }
+
+    const handleKeyDown: KeyboardEventHandler = (e) => {
+        if(['Enter', ' '].includes(e.key)) {
+            e.preventDefault();
+            toggleExpanded();
+        }
     }
 
     return (
         <div className={styles.container}>
             <div
                 ref={contentRef}
-                tabIndex={-1}
-                data-testid="expandable-section"
-                id="expandable-section"
+                tabIndex={isExpanded ? 0 : 1}
+                data-testid={`expandable-section-${idDiscriminator}`}
+                id={`expandable-section-${idDiscriminator}`}
                 className={ styles.expandableBlock }
                 hidden={!isExpanded}
             >
@@ -49,11 +62,12 @@ const Expandable: React.FC<PropsWithChildren<ExpandablePropsType>> = ({
             </div>
             <button
                 ref={buttonRef}
-                tabIndex={-1}
+                tabIndex={0}
                 className={styles.toggle}
-                onClick={handleClickToggle}
+                onClick={handleClick}
+                onKeyDown={handleKeyDown}
                 aria-expanded={isExpanded}
-                aria-controls="expandable-section"
+                aria-controls={`expandable-section-toggle-${idDiscriminator}`}
             >
                 { isExpanded ? effectiveCollapsePrompt : effectiveExpandPrompt }
             </button>
