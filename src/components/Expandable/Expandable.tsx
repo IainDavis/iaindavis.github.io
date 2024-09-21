@@ -1,4 +1,4 @@
-import React, { PropsWithChildren,  useEffect,  useState } from 'react';
+import React, { PropsWithChildren,  useEffect,  useRef,  useState } from 'react';
 import styles from './Expandable.module.css';
 import getString from '../../strings/getString';
 
@@ -19,9 +19,17 @@ const Expandable: React.FC<PropsWithChildren<ExpandablePropsType>> = ({
 
     const [isExpanded, setExpanded] = useState(startExpanded);
 
+    const contentRef = useRef(null);
+    const buttonRef = useRef(null);
+
     useEffect(() => {
         setExpanded(() => startExpanded);
     }, [startExpanded])
+
+    useEffect(() => {
+        if(isExpanded) { contentRef.current.focus(); }
+        else { buttonRef.current.focus(); }
+    })
 
     const handleClickToggle = () => {
         setExpanded(currentlyExpanded => !currentlyExpanded);
@@ -29,14 +37,26 @@ const Expandable: React.FC<PropsWithChildren<ExpandablePropsType>> = ({
 
     return (
         <div className={styles.container}>
-            { isExpanded && (
-                <div className={ styles.expandableBlock }>
-                    {children}
-                </div>
-            )}
-            <div className={ styles.toggle } onClick={() => handleClickToggle()}>
-                { isExpanded ? effectiveCollapsePrompt : effectiveExpandPrompt }
+            <div
+                ref={contentRef}
+                tabIndex={-1}
+                data-testid="expandable-section"
+                id="expandable-section"
+                className={ styles.expandableBlock }
+                hidden={!isExpanded}
+            >
+                {children}
             </div>
+            <button
+                ref={buttonRef}
+                tabIndex={-1}
+                className={styles.toggle}
+                onClick={handleClickToggle}
+                aria-expanded={isExpanded}
+                aria-controls="expandable-section"
+            >
+                { isExpanded ? effectiveCollapsePrompt : effectiveExpandPrompt }
+            </button>
         </div>
     )
 }

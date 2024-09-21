@@ -1,46 +1,48 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Expandable Component > should maintain visual consistency between expanded and collapsed states 1`] = `
-<DocumentFragment>
-  <div
-    class="_container_d68a27"
-  >
-    <div
-      class="_toggle_d68a27"
-    >
-      show more...
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`Expandable Component > should maintain visual consistency between expanded and collapsed states 2`] = `
+exports[`Expandable Component > Basic tests > should maintain visual consistency between expanded and collapsed states 1`] = `
 <DocumentFragment>
   <div
     class="_container_d68a27"
   >
     <div
       class="_expandableBlock_d68a27"
+      data-testid="expandable-section"
+      hidden=""
+      id="expandable-section"
+      tabindex="-1"
     />
-    <div
+    <button
+      aria-controls="expandable-section"
+      aria-expanded="false"
       class="_toggle_d68a27"
+      tabindex="-1"
     >
-      show less
-    </div>
+      show more...
+    </button>
   </div>
 </DocumentFragment>
 `;
 
-exports[`Expandable Component > should match snapshot for documented usage in MDX 1`] = `
+exports[`Expandable Component > Basic tests > should maintain visual consistency between expanded and collapsed states 2`] = `
 <DocumentFragment>
   <div
     class="_container_d68a27"
   >
     <div
+      class="_expandableBlock_d68a27"
+      data-testid="expandable-section"
+      id="expandable-section"
+      tabindex="-1"
+    />
+    <button
+      aria-controls="expandable-section"
+      aria-expanded="true"
       class="_toggle_d68a27"
+      tabindex="-1"
     >
-      show more...
-    </div>
+      show less
+    </button>
   </div>
 </DocumentFragment>
 `;
