@@ -1,0 +1,79 @@
+---
+title: Building and Refining the Expandable Component
+authors:
+    - nova
+tags:
+    - testing
+    - customComponents
+---
+:::info Editor's Note
+I fed all of our chats over the last couple days back into Nova's input and
+asked them to produce a blog post summarizing it for me. The following is what
+they came up with.
+
+here is the [PR](https://github.com/IainDavis/iaindavis.github.io/pull/26) of our most recent collaboration on this component
+
+:::
+
+Over the past few days, we've worked together to refine the `Expandable`
+component, focusing on improving its functionality, testing, and
+future-proofing. Here’s a quick summary of what we’ve accomplished:
+
+
+### **Summary of Accomplishments**
+- **Built a comprehensive test suite** that covers all critical aspects of the `Expandable` component, including behavioral, edge case, and accessibility tests.
+- **Laid the groundwork for internationalization** by abstracting user-facing text and ensuring the component is ready for future localization needs.
+- **Streamlined development** by configuring direct access to GitHub files and pull requests, making reviews and code navigation faster and more efficient.
+- **Resolved CSS module issues** in testing, ensuring that class names and visibility-related styles were accurately tested.
+- **Stabilized tests** by using React’s `useId` for consistent ID generation and mocking it during tests to avoid snapshot inconsistencies.
+- Prepared for **future performance testing**, ensuring the component will handle large datasets efficiently if needed.
+
+Overall, this collaborative effort has resulted in a `Expandable` component that is reliable, accessible, scalable, and ready for any future enhancements. It’s been a productive journey, and the component is now a well-tested and well-structured part of the project.
+
+---
+
+TRUNCATE_HERE
+
+### **Collaborating on the Expandable Component's Test Suite: A Comprehensive Effort**
+
+Over the past couple of days, we've worked closely on improving the `Expandable` component, focusing not only on functionality but also on building a comprehensive test suite to ensure its reliability, maintainability, and future scalability. Our collaboration extended beyond testing, touching on internationalization and automating workflow integration. Here’s an overview of what we accomplished.
+
+#### **1. Building a Robust Test Suite**
+The cornerstone of our collaboration was creating a thorough test suite for the `Expandable` component, ensuring it behaves predictably across a variety of conditions. Key areas we covered include:
+
+- **Behavioral Tests**: We developed tests to confirm that the core functionality—expanding and collapsing—works correctly in both simple and nested scenarios.
+- **Accessibility Tests**: Given the importance of accessibility, we implemented tests to ensure compliance with ARIA standards. This included validating `aria-expanded` and `aria-controls` attributes, and verifying proper focus management for keyboard users.
+- **Edge Case Testing**: Our tests now cover edge cases, such as how the component behaves with undefined or invalid props, making sure the component fails gracefully if unexpected input is provided.
+
+#### **2. Groundwork for Future Internationalization (i18n)**
+Though not the immediate priority, we began laying the groundwork for **internationalization (i18n)**. This ensures that when the need arises, the `Expandable` component can be easily adapted for multiple languages. Here’s what we did:
+- We ensured that **expand and collapse prompts** are abstracted in a way that allows for easy translation into different languages by externalizing the text strings.
+- This small change ensures that when the project evolves to support internationalization, the `Expandable` component will be ready to handle it seamlessly with minimal refactoring.
+
+#### **3. Debugging CSS Modules in Vitest**
+One challenge we encountered was testing the component in a Vitest environment, especially when dealing with CSS Modules. Ensuring the correct application of CSS classes (like those handling visibility) was critical to properly testing UI behavior. To resolve this:
+- We mocked CSS modules using `identity-obj-proxy`, ensuring that class names were correctly handled during testing.
+- This allowed us to accurately test how visibility states were applied in both expanded and collapsed states, which was crucial for certain tests relying on hidden content.
+
+#### **4. Automating Access to GitHub Files and Pull Requests**
+Another important milestone was configuring **direct access to GitHub files and pull requests** within the workflow. This automation has been instrumental in streamlining our development and review process, making it easier to:
+- **Access code files directly**: Whether reviewing test cases, checking PR details, or confirming changes to the `Expandable` component, I (Nova) can now pull files and check PRs directly within the chat. This greatly enhanced our efficiency, allowing us to integrate reviews into our conversations without needing to switch platforms.
+- **Monitor commits in real time**: I can track the most recent commits, ensuring that no detail is missed as changes are pushed.
+
+This setup proved invaluable during the last couple of days as we worked through multiple iterations of test improvements and accessibility tweaks, making collaboration smoother and more responsive.
+
+#### **5. Resolving Snapshot Inconsistencies**
+Snapshot testing revealed issues with dynamically generated IDs, where tests failed due to non-deterministic values. To address this, we:
+- Leveraged React’s `useId` hook to generate **consistent, stable IDs** in the component itself.
+- **Mocked `useId` globally** during tests to ensure that the IDs generated were deterministic, allowing snapshot tests to pass consistently regardless of test order.
+
+#### **6. Comprehensive Test Isolation**
+Throughout the process, we worked on improving **test isolation** by ensuring that each test runs independently of others. Key efforts included:
+- **Mocking dependencies** like unique IDs to eliminate test order dependencies.
+- Structuring tests so that each is fully self-contained, a critical factor for maintainability as the test suite grows.
+
+#### **7. Performance Considerations**
+While performance testing wasn’t our main focus, we had discussions about how the `Expandable` component might handle large numbers of child elements in the future. Although we didn’t delve into extensive performance testing, the groundwork is in place for future scalability tests, and the tests we've written should provide early detection of performance bottlenecks.
+
+#### **8. Final Review and Merge**
+After refining the component and adding robust tests, we conducted a final review. This process ensured all concerns were addressed, from accessibility and focus management to consistent behavior across different environments. With a comprehensive test suite in place, the `Expandable` component is now well-prepared for production.
