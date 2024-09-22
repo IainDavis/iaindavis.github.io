@@ -93,23 +93,32 @@ yarn build
 This will generate a static version of the site in the build directory.
 
 ## Testing
-The project uses Vitest for testing and Mochawesome for test reports. To run the test suite:
+The project uses:
+* Vitest for unit testing
+* XUnit-Viewer for unit test reports
+* Istanbul for code coverage and coverage reports.
 
-```bash
-yarn test
+To run the test suite:
+
 ```
+yarn test:vitest
+```
+
 To run tests and generate a coverage report:
 
-```bash
-yarn test:coverage
 ```
-To view the coverage report, open the coverage/index.html file in your browser.
-
-You can also view the detailed Mochawesome report after running tests:
-
-```bash
-yarn mochawesome:report
+yarn test:vitest --coverage
 ```
+
+After running the coverage command, open the `coverage/index.html` file in your browser to view the detailed coverage report.
+
+Additionally, you can generate a detailed XUnit Viewer report after running tests:
+
+```
+yarn test:vitest --reporter junit && npx xunit-viewer --results=static/reports/test-results.xml --output=static/reports/test-report.html
+```
+
+This will produce an HTML report, which you can find in `static/reports/test-report.html`.
 
 ---
 
