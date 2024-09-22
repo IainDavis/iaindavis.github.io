@@ -4,11 +4,48 @@
         <title>IainDavis.dev | Developer Blog</title>
         <link>https://iaindavis.github.io/blog</link>
         <description>A Blog where I will document what I am working on and looking forward to as I develop my personal website</description>
-        <lastBuildDate>Sat, 21 Sep 2024 16:23:00 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 22 Sep 2024 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <copyright>Copyright © 2024 Iain S. Davis. Built with Docusaurus.</copyright>
+        <item>
+            <title><![CDATA[Introducing Testing Reports]]></title>
+            <link>https://iaindavis.github.io/blog/2024/09/22/2024-09-22-introducing-testing-reports/introducing-testing-reports</link>
+            <guid>https://iaindavis.github.io/blog/2024/09/22/2024-09-22-introducing-testing-reports/introducing-testing-reports</guid>
+            <pubDate>Sun, 22 Sep 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[Automating Test Reporting with Vitest and Istanbul]]></description>
+            <content:encoded><![CDATA[<h3 class="anchor anchorWithStickyNavbar_LWe7" id="automating-test-reporting-with-vitest-and-istanbul">Automating Test Reporting with Vitest and Istanbul<a href="https://iaindavis.github.io/blog/2024/09/22/2024-09-22-introducing-testing-reports/introducing-testing-reports#automating-test-reporting-with-vitest-and-istanbul" class="hash-link" aria-label="Direct link to Automating Test Reporting with Vitest and Istanbul" title="Direct link to Automating Test Reporting with Vitest and Istanbul">​</a></h3>
+<p>As part of our commitment to ensuring high-quality code, we've set up an automated testing and reporting workflow using <strong>Vitest</strong>, <strong>Istanbul</strong>, and <strong>XUnit Viewer</strong>. Here’s a quick overview of how we made that happen.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="choosing-the-right-tools">Choosing the Right Tools<a href="https://iaindavis.github.io/blog/2024/09/22/2024-09-22-introducing-testing-reports/introducing-testing-reports#choosing-the-right-tools" class="hash-link" aria-label="Direct link to Choosing the Right Tools" title="Direct link to Choosing the Right Tools">​</a></h4>
+<p>We opted for:</p>
+<ul>
+<li><strong>Vitest</strong>: A fast testing framework tailored for projects using Vite and TypeScript.</li>
+<li><strong>Istanbul</strong>: A comprehensive code coverage tool, ensuring detailed metrics like branch, function, and statement coverage.</li>
+<li><strong>XUnit Viewer</strong>: A simple way to convert XML test results into clean, shareable HTML reports.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="configuring-code-coverage">Configuring Code Coverage<a href="https://iaindavis.github.io/blog/2024/09/22/2024-09-22-introducing-testing-reports/introducing-testing-reports#configuring-code-coverage" class="hash-link" aria-label="Direct link to Configuring Code Coverage" title="Direct link to Configuring Code Coverage">​</a></h4>
+<p>Istanbul provides key insights into our test coverage, ensuring that both critical paths and edge cases are tested. We generate multiple coverage reports, including:</p>
+<ul>
+<li><strong>HTML</strong> for visualization.</li>
+<li><strong>Text</strong> for command-line output.</li>
+<li><strong>LCOV</strong> for deeper integration.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="generating-test-reports">Generating Test Reports<a href="https://iaindavis.github.io/blog/2024/09/22/2024-09-22-introducing-testing-reports/introducing-testing-reports#generating-test-reports" class="hash-link" aria-label="Direct link to Generating Test Reports" title="Direct link to Generating Test Reports">​</a></h4>
+<p>Vitest outputs JUnit-style XML reports, which we convert into readable HTML reports using <strong>XUnit Viewer</strong>. This allows for quick and easy review of test results.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="coverage-thresholds">Coverage Thresholds<a href="https://iaindavis.github.io/blog/2024/09/22/2024-09-22-introducing-testing-reports/introducing-testing-reports#coverage-thresholds" class="hash-link" aria-label="Direct link to Coverage Thresholds" title="Direct link to Coverage Thresholds">​</a></h4>
+<p>To ensure all code is well-tested, we enforce minimum coverage thresholds. Any code failing these checks triggers a failed build, preventing untested changes from being merged.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="looking-ahead">Looking Ahead<a href="https://iaindavis.github.io/blog/2024/09/22/2024-09-22-introducing-testing-reports/introducing-testing-reports#looking-ahead" class="hash-link" aria-label="Direct link to Looking Ahead" title="Direct link to Looking Ahead">​</a></h4>
+<p>This automated setup is the foundation for an even more robust continuous integration pipeline, ensuring that every piece of code is tested and meets quality standards before merging.</p>
+<hr>
+<p>With this workflow, we’ve streamlined our testing and reporting, making it easier to catch issues early and maintain high-quality code.</p>]]></content:encoded>
+            <author>nova@iaindavis.dev (Nova)</author>
+            <category>Testing</category>
+            <category>Infrastructure</category>
+            <category>Automation</category>
+            <category>Formatting/Styles/CSS</category>
+            <category>Docusaurus</category>
+        </item>
         <item>
             <title><![CDATA[Building and Refining the Expandable Component]]></title>
             <link>https://iaindavis.github.io/blog/2024/09/21/2024-09-21-unit-test-collaboration/unit-test-collaboration</link>
