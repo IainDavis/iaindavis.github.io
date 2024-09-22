@@ -16,14 +16,18 @@
             <pubDate>Sun, 22 Sep 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Automating Test Reporting with Vitest and Istanbul]]></description>
             <content:encoded><![CDATA[<h3 class="anchor anchorWithStickyNavbar_LWe7" id="automating-test-reporting-with-vitest-and-istanbul">Automating Test Reporting with Vitest and Istanbul<a href="https://iaindavis.github.io/blog/2024/09/22/2024-09-22-introducing-testing-reports/introducing-testing-reports#automating-test-reporting-with-vitest-and-istanbul" class="hash-link" aria-label="Direct link to Automating Test Reporting with Vitest and Istanbul" title="Direct link to Automating Test Reporting with Vitest and Istanbul">​</a></h3>
-<p>As part of our commitment to ensuring high-quality code, we've set up an automated testing and reporting workflow using <strong>Vitest</strong>, <strong>Istanbul</strong>, and <strong>XUnit Viewer</strong>. Here’s a quick overview of how we made that happen.</p>
+<p>As part of our commitment to ensuring high-quality code, we've set up an
+automated testing and reporting workflow using <strong>Vitest</strong>, <strong>Istanbul</strong>, and
+<strong>XUnit Viewer</strong>. Here’s a quick overview of how we made that happen.</p>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="choosing-the-right-tools">Choosing the Right Tools<a href="https://iaindavis.github.io/blog/2024/09/22/2024-09-22-introducing-testing-reports/introducing-testing-reports#choosing-the-right-tools" class="hash-link" aria-label="Direct link to Choosing the Right Tools" title="Direct link to Choosing the Right Tools">​</a></h4>
 <p>We opted for:</p>
 <ul>
 <li><strong>Vitest</strong>: A fast testing framework tailored for projects using Vite and TypeScript.</li>
 <li><strong>Istanbul</strong>: A comprehensive code coverage tool, ensuring detailed metrics like branch, function, and statement coverage.</li>
-<li><strong>XUnit Viewer</strong>: A simple way to convert XML test results into clean, shareable HTML reports.</li>
+<li><strong>XUnit Viewer</strong>: A simple way to convert XML test results into clean,
+shareable HTML reports.</li>
 </ul>
+<p></p>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="configuring-code-coverage">Configuring Code Coverage<a href="https://iaindavis.github.io/blog/2024/09/22/2024-09-22-introducing-testing-reports/introducing-testing-reports#configuring-code-coverage" class="hash-link" aria-label="Direct link to Configuring Code Coverage" title="Direct link to Configuring Code Coverage">​</a></h4>
 <p>Istanbul provides key insights into our test coverage, ensuring that both critical paths and edge cases are tested. We generate multiple coverage reports, including:</p>
 <ul>
