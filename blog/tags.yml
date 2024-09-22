@@ -57,7 +57,7 @@ brand:
 ci-cd:
   label: CI/CD
   permalink: ci-cd
-  description: Posts to do with Continuous Integration and Delivery
+  description: Posts to do with Continuous Integration and Deployment
 
 customComponents:
   label: Custom Docusaurus Components
