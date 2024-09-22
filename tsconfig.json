@@ -5,5 +5,9 @@
     "types": ["node", "vitest/globals", "webpack"],
     "baseUrl": "."
   },
-  "exclude": ["node_modules"],
+  "exclude": [
+    "node_modules",
+    "static",
+    "build"
+  ],
 }
