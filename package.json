@@ -15,7 +15,7 @@
     "typecheck": "tsc",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build -o static/storybook/iaindavis.dev",
-    "test:vitest-reports": "mkdir -p ./static/reports/unittest && vitest run --coverage && npx xunit-viewer --results=./static/reports/test-results.xml --output=./static/reports/unittest/report.html",
+    "test:vitest-reports": "mkdir -p ./static/reports/unittest; vitest run --coverage; npx xunit-viewer --results=./static/reports/test-results.xml --output=./static/reports/unittest/index.html",
     "test:vitest": "vitest run",
     "watch:vitest": "vitest"
   },
