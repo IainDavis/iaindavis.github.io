@@ -21,5 +21,6 @@ yarn-error.log*
 
 *storybook.log
 
-# We want to generate this in the build. No need to store this in the repository.
+# We want to generate these in the build. No need to store them in the repository.
 static/storybook
+static/reports
