@@ -20,10 +20,10 @@ This is the source code for [IainDavis.dev](https://iaindavis.dev), a personal p
 This portfolio website serves as a professional presence for **Iain Davis**, showcasing a collection of projects, technical blogs, and professional experience. Built on modern web technologies like **Vite**, **React**, and **Docusaurus**, it provides an optimized, fast-loading, and accessible experience for visitors.
 
 The site features:
-- **About Me**: Background, skills, and professional journey.
+<!-- - **About Me**: Background, skills, and professional journey. We'll add this back once there's something more substantial in place here. -->
 - **Projects**: A showcase of personal and open-source projects.
 - **Blog**: A collection of blog posts covering a variety of development topics.
-- **Resume**: Downloadable resume for prospective clients or employers.
+<!-- - **Resume**: Downloadable resume for prospective clients or employers. Ditto this. No resume yet. -->
   
 ---
 
@@ -31,15 +31,22 @@ The site features:
 
 The site leverages the following technologies and libraries:
 
-- **[Vite](https://vitejs.dev/)**: `^4.0.0` - Fast build tool optimized for modern web development.
-- **[React](https://reactjs.org/)**: `^18.0.0` - A declarative JavaScript library for building user interfaces.
-- **[Docusaurus](https://docusaurus.io/)**: `^3.5.2` - Static site generator used for documentation and blog management.
-- **[TypeScript](https://www.typescriptlang.org/)**: `^5.2.2` - Typed JavaScript to improve code reliability and developer productivity.
-- **[Storybook](https://storybook.js.org/)**: `^7.25.2` - Development environment for building and documenting UI components in isolation.
-- **[Vitest](https://vitest.dev/)**: `^2.1.1` - Unit testing framework integrated with Vite for fast, modern testing.
-- **[Mochawesome](https://www.mochawesome.dev/)**: `^7.0.0` - HTML and JSON test report generator.
-- **[Babel](https://babeljs.io/)**: `^7.25.4` - JavaScript compiler used to support the latest JavaScript features.
-- **[MDX](https://mdxjs.com/)**: `^2.0.0` - Markdown with JSX for enhanced documentation in blog posts and pages.
+- **[TypeScript](https://www.typescriptlang.org/)**: `5.2.2` - Typed JavaScript to improve code reliability and developer productivity.
+- **[Babel](https://babeljs.io/)**: `7.x` - A JavaScript compiler with multiple packages from the 7.x family for transforming modern JavaScript.
+- **[MDX](https://mdxjs.com/)**: `3.x` - Markdown with JSX for enhanced documentation in blog posts and pages.
+
+### Main Site
+- **[Docusaurus](https://docusaurus.io/)**: `3.5.2` - Static site generator used for documentation and blog management.
+- **[Webpack]()**: `5.x` - Module bundler for JavaScript applications
+
+### Storybook Showcase
+- **[Storybook](https://storybook.js.org/)**: `8.3.1` - Development environment for building and documenting UI components in isolation.
+
+### Testing & Reports
+- **[React](https://reactjs.org/)**: `18.x` - A declarative JavaScript library for building user interfaces.
+- **[Vitest](https://vitest.dev/)**: `2.1.1` - Unit testing framework integrated with Vite for fast, modern testing.
+- **[Istanbul](https://istanbul.js.org/)**: `3.1.7` - A code coverage tool for JavaScript that tracks statement, branch, and function coverage.
+- **[XUnit-Viewer](https://www.npmjs.com/package/xunit-viewer)**: `10.6.1` - A tool that converts XUnit and JUnit XML test results into readable HTML reports.
   
 ---
 
@@ -50,7 +57,7 @@ To run this project locally, follow the instructions below.
 ### Prerequisites
 
 - **Node.js** `>= 18.0.0`
-- **Yarn** `>= 1.22.0`
+- **Yarn** `>= 1.22.0` (preferred)
 
 ### Installation
 
@@ -86,23 +93,32 @@ yarn build
 This will generate a static version of the site in the build directory.
 
 ## Testing
-The project uses Vitest for testing and Mochawesome for test reports. To run the test suite:
+The project uses:
+* Vitest for unit testing
+* XUnit-Viewer for unit test reports
+* Istanbul for code coverage and coverage reports.
 
-```bash
-yarn test
+To run the test suite:
+
 ```
+yarn test:vitest
+```
+
 To run tests and generate a coverage report:
 
-```bash
-yarn test:coverage
 ```
-To view the coverage report, open the coverage/index.html file in your browser.
-
-You can also view the detailed Mochawesome report after running tests:
-
-```bash
-yarn mochawesome:report
+yarn test:vitest --coverage
 ```
+
+After running the coverage command, open the `coverage/index.html` file in your browser to view the detailed coverage report.
+
+Additionally, you can generate a detailed XUnit Viewer report after running tests:
+
+```
+yarn test:vitest --reporter junit && npx xunit-viewer --results=static/reports/test-results.xml --output=static/reports/test-report.html
+```
+
+This will produce an HTML report, which you can find in `static/reports/test-report.html`.
 
 ---
 
