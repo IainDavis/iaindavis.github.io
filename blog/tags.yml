@@ -54,6 +54,10 @@ brand:
   label: My Brand
   permalink: /brand
   description: Posts to do with developing my personal brand
+ci-cd:
+  label: CI/CD
+  permalink: ci-cd
+  description: Posts to do with Continuous Integration and Delivery
 
 customComponents:
   label: Custom Docusaurus Components
