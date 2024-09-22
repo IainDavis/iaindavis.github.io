@@ -23,6 +23,12 @@ const config = defineConfig(async (): Promise<UserConfig> => {
                 reporter: ['html', 'text', 'lcov'],
                 reportsDirectory: 'static/reports/coverage',
                 all: true,
+                thresholds: {
+                    statements: 90,
+                    branches: 90,
+                    functions: 80,
+                    lines: 80,
+                },
                 exclude: [
                     "build", 
                     "static",
