@@ -43,7 +43,7 @@ jobs:
       - name: Generate Test Reports
         # run: yarn test:vitest-reports
 
-        run: mkdir -p static/reports/unittest; npx vitest run --exclude static --coverage --coverage.dir=static/reports/coverage; npx xunit-viewer --results=./static/reports/test-results.xml --output=static/reports/unittest/index.html
+        run: mkdir -p static/reports/unittest; npx vitest run --exclude static --coverage --coverage.dir=static/reports/coverage; npx xunit-viewer --verbose --results=static/reports/test-results.xml --output=static/reports/unittest/index.html
 
         # Do not fail build if tests fail, just generate the reports
         continue-on-error: true        
