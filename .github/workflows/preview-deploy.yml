@@ -37,9 +37,11 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      # Step 5: Build the site
+      # Step 5: Build Docusaurus
       - name: Build Docusaurus
         run: yarn build
+        env:
+          BASE_URL: "/pr-${{ github.event.number }}"
 
       # Step 6: Build the storybook
       - name: Build Storybook

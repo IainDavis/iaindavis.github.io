@@ -6,13 +6,15 @@ import removeTruncateMarker from './src/buildUtils/docusaurus/remark/removeTrunc
 
 const  truncateRegex: RegExp = /\s*TRUNCATE_HERE\s*/;
 
+const baseUrl = process.env.BASE_URL || '/';
+
 const config: Config = {
   title: 'Iain Davis',
   tagline: 'Full-Stack Software Engineer',
   favicon: 'img/logo-favicon.svg',
 
   url: 'https://iaindavis.github.io',
-  baseUrl: '/',
+  baseUrl,
 
   organizationName: 'IainDavis', 
   projectName: 'iaindavis.github.io', 
