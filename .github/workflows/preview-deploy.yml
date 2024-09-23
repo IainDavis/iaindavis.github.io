@@ -39,53 +39,44 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      # Step 5: Create empty directory in 'static' for test report
       - name: Create Unit Test Report Directory
         run: mkdir -p static/reports/unittest
         continue-on-error: true        
 
+      # Step 6: Generate Istanbul test coverage report and stage in 'static'
       - name: Generate Coverage Report
-        run: npx vitest run --exclude static --coverage --coverage.dir=static/reports/coverage
+        run: npx vitest run --coverage --coverage.dir=static/reports/coverage
         continue-on-error: true        
 
+      # Step 7: Generate XUnit-Viewer HTML test report and stage in 'static'
       - name: Generate Pretty Unit Test Report
-        run: cat static/reports/test-results.xml; npx xunit-viewer --verbose --results=static/reports/test-results.xml --output=static/reports/unittest/index.html
+        run:  npx xunit-viewer --results=static/reports/test-results.xml --output=static/reports/unittest/index.html
         continue-on-error: true        
 
-      # Step 5: Build Docusaurus
+      # Step 8: Build Docusaurus
+      # files in 'static' moved to 'build', global styles file generated and staged in Storybook assets
       - name: Build Docusaurus
-        run: yarn build
         env:
           BASE_URL: "/preview.iaindavis.github.io/pr-${{ github.event.number }}"
+        run: yarn build
 
-      - name: Log debugging information
-        run: pwd && ls $(pwd)
-      
-
-      # Step 6: Build the storybook
+      # Step 9: Build the storybook
+      # Stage directly in 'build' directory so we don't have to repeat the Docusaurus build
       - name: Build Storybook
         run: npx storybook build -o build/storybook/iaindavis.dev
 
-      - name: Log more debugging information
-        run: ls build
-
-      # Step 5: Build Docusaurus
-      # - name: Build Docusaurus
-      #  run: yarn build
-      #  env:
-      #    BASE_URL: "/preview.iaindavis.github.io/pr-${{ github.event.number }}"
-
-      # Step 8: Deploy to preview repository (preview.iaindavis.github.io)
+      # Step 10: Deploy to preview repository (preview)
       - name: Deploy to GitHub Pages Preview
         uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.PREVIEW_DEPLOY_PERSONAL_ACCESS_TOKEN }}
-          publish_dir: ./build  # The directory where the static files are output
+          publish_dir: ./build  # The directory with the preview build for deployment
           destination_dir: pr-${{ github.event.number }}  # Subdirectory for this PR
-          external_repository: IainDavis/preview.iaindavis.github.io  # Replace 'username' with your GitHub username
+          external_repository: IainDavis/preview # Replace 'username' with your GitHub username
 
       # Step 9: Post the preview URL with curl (Create or update status check)
       - name: Create or update status check with curl
-        continue-on-error: true  # Do not fail the entire build if this step fails
         run: |
           curl -X POST \
             -H "Authorization: token ${{ secrets.PREVIEW_DEPLOY_PERSONAL_ACCESS_TOKEN }}" \
@@ -94,7 +85,7 @@ jobs:
               "state": "success",
               "description": "Preview environment is ready",
               "context": "Preview Environment for PR ${{ github.event.number }}",
-              "target_url": "https://IainDavis.github.io/preview.iaindavis.github.io/pr-${{ github.event.number }}"
+              "target_url": "https://IainDavis.github.io/preview/pr-${{ github.event.number }}"
             }' \
             https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.pull_request.head.sha }}
 
@@ -109,7 +100,7 @@ jobs:
       - name: Checkout preview repository
         uses: actions/checkout@v3
         with:
-          repository: IainDavis/preview.iaindavis.github.io  # Replace 'username' with your GitHub username
+          repository: IainDavis/preview  # Replace 'username' with your GitHub username
           ref: gh-pages  # Target the gh-pages branch
 
       # Step 2: Remove the directory for the closed/merged PR
@@ -130,6 +121,6 @@ jobs:
               "state": "failure",
               "description": "Preview environment has been removed",
               "context": "Preview Environment for PR ${{ github.event.number }}",
-              "target_url": "https://IainDavis.github.io/preview.iaindavis.github.io/pr-${{ github.event.number }}"
+              "target_url": "https://IainDavis.github.io/preview/pr-${{ github.event.number }}"
             }' \
             https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.pull_request.head.sha }}
