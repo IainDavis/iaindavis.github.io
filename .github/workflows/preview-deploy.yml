@@ -44,12 +44,18 @@ jobs:
 
       # Step 6: Generate Istanbul test coverage report and stage in 'static'
       - name: Generate Coverage Report
-        run: npx vitest run --coverage --coverage.dir=static/reports/coverage
+        run: 
+          npx vitest run \
+          --coverage \
+          --coverage.dir=static/reports/coverage
         continue-on-error: true        
 
       # Step 7: Generate XUnit-Viewer HTML test report and stage in 'static'
       - name: Generate Pretty Unit Test Report
-        run:  npx xunit-viewer --results=static/reports/test-results.xml --output=static/reports/unittest/index.html
+        run: |
+          npx xunit-viewer \
+          --results=static/reports/test-results.xml \
+          --output=static/reports/unittest/index.html
         continue-on-error: true        
 
       # Step 8: Build Docusaurus
@@ -62,16 +68,15 @@ jobs:
       # Step 9: Build the storybook
       # Stage directly in 'build' directory so we don't have to repeat the Docusaurus build
       - name: Build Storybook
-        run: NODE_ENV=production npx storybook build -o build/storybook/iaindavis.dev --loglevel warn --quiet
-
-      - name: Make GitHub Less Noisy
-        run: git config --global core.logAllRefUpdates false
+        run: |
+          NODE_ENV=production \
+          npx storybook build \
+          -o build/storybook/iaindavis.dev \
+          --quiet
 
       # Step 10: Deploy to preview repository (preview)
       - name: Deploy to GitHub Pages Preview
         uses: peaceiris/actions-gh-pages@v3
-        env:
-          ACTIONS_STEP_DEBUG: false
         with:
           personal_token: ${{ secrets.PREVIEW_DEPLOY_PERSONAL_ACCESS_TOKEN }}
           publish_dir: ./build  # The directory with the preview build for deployment
@@ -82,6 +87,9 @@ jobs:
       - name: Create or update status check with curl
         run: |
           curl -s -X POST \
+            -o /dev/null \
+            -w "%{http_code}" \
+            -I {url} \
             -H "Authorization: token ${{ secrets.PREVIEW_DEPLOY_PERSONAL_ACCESS_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d '{
@@ -90,8 +98,6 @@ jobs:
               "context": "Preview Environment for PR ${{ github.event.number }}",
               "target_url": "https://IainDavis.github.io/preview/pr-${{ github.event.number }}"
             }' \
-            -o /dev/null
-            -w "%{http_code}"
             https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.pull_request.head.sha }}
 
   # Job for cleaning up after PRs are merged or closed
@@ -120,6 +126,9 @@ jobs:
         continue-on-error: true  # Do not fail the entire build if this step fails
         run: |
           curl -s -X POST \
+            -o /dev/null \
+            -w "%{http_code}" \
+            -I {url} \
             -H "Authorization: token ${{ secrets.PREVIEW_DEPLOY_PERSONAL_ACCESS_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d '{
@@ -128,6 +137,4 @@ jobs:
               "context": "Preview Environment for PR ${{ github.event.number }}",
               "target_url": "https://IainDavis.github.io/preview/pr-${{ github.event.number }}"
             }' \
-            -o /dev/null
-            -w "%{http_code}"
             https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.pull_request.head.sha }}
