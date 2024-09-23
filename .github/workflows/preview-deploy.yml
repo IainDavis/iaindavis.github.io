@@ -102,31 +102,31 @@ jobs:
   # Job for cleaning up after PRs are merged or closed
   cleanup:
     runs-on: ubuntu-latest
-    # Only trigger cleanup when PR is merged or closed
     if: ${{ github.event.pull_request.merged == true || github.event.pull_request.state == 'closed' }}
 
     steps:
-      # Step 1: Checkout the preview repository (preview.iaindavis.github.io)
+      # Step 1: Checkout the preview repository
       - name: Checkout preview repository
         uses: actions/checkout@v3
         with:
-          repository: IainDavis/preview  # Replace 'username' with your GitHub username
+          repository: IainDavis/preview  # The correct shortened repository name
           ref: gh-pages  # Target the gh-pages branch
+          token: ${{ secrets.PREVIEW_DEPLOY_PERSONAL_ACCESS_TOKEN }}  # Ensure the token is passed for auth
 
       # Step 2: Remove the directory for the closed/merged PR
       - name: Remove preview directory
         run: |
-          git rm -r pr-${{ github.event.number }}  # Remove the PR's preview directory
-          git commit -m "Remove preview for PR #${{ github.event.number }}"  # Commit the change
-          git push  # Push the change to the gh-pages branch
+          git rm -r pr-${{ github.event.number }}
+          git commit -m "Remove preview for PR #${{ github.event.number }}"
+          git push
 
       # Step 3: Post the removal status with curl (Update status check)
       - name: Update status check to indicate preview removal
-        continue-on-error: true  # Do not fail the entire build if this step fails
+        continue-on-error: true
         run: |
           curl -s -X POST \
             -o /dev/null \
-            -w "%{http_code}" \
+            -w "%{http_code} %{http_code_text}" \
             -H "Authorization: token ${{ secrets.PREVIEW_DEPLOY_PERSONAL_ACCESS_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d '{
