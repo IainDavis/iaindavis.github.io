@@ -62,11 +62,13 @@ jobs:
       # Step 9: Build the storybook
       # Stage directly in 'build' directory so we don't have to repeat the Docusaurus build
       - name: Build Storybook
-        run: npx storybook build -o build/storybook/iaindavis.dev
+        run: NODE_ENV=production npx storybook build -o build/storybook/iaindavis.dev --loglevel warn
 
       # Step 10: Deploy to preview repository (preview)
       - name: Deploy to GitHub Pages Preview
         uses: peaceiris/actions-gh-pages@v3
+        env:
+          ACTIONS_STEP_DEBUG: false
         with:
           personal_token: ${{ secrets.PREVIEW_DEPLOY_PERSONAL_ACCESS_TOKEN }}
           publish_dir: ./build  # The directory with the preview build for deployment
@@ -76,7 +78,7 @@ jobs:
       # Step 9: Post the preview URL with curl (Create or update status check)
       - name: Create or update status check with curl
         run: |
-          curl -X POST \
+          curl -s -X POST \
             -H "Authorization: token ${{ secrets.PREVIEW_DEPLOY_PERSONAL_ACCESS_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d '{
@@ -112,7 +114,7 @@ jobs:
       - name: Update status check to indicate preview removal
         continue-on-error: true  # Do not fail the entire build if this step fails
         run: |
-          curl -X POST \
+          curl -s -X POST \
             -H "Authorization: token ${{ secrets.PREVIEW_DEPLOY_PERSONAL_ACCESS_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d '{
