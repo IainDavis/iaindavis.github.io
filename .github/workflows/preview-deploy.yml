@@ -26,9 +26,8 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Debug Webpack configuration
-        run: |
-          yarn docusaurus webpack --config webpack.config.js --mode development
+      - name: List files in src/components/brand
+        run: ls -R src/components/brand
 
       # Step 4: Build the site
       - name: Build site
