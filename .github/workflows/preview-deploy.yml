@@ -1,0 +1,145 @@
+name: Preview Deploy
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+jobs:
+  # Job for building and deploying the preview
+  build:
+    runs-on: ubuntu-latest
+    # Skip the build on 'closed' events, or if the PR is already merged
+    if: ${{ github.event_name == 'pull_request' && github.event.action != 'closed' }}
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Cache Yarn dependencies
+      - name: Cache Yarn dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+            ~/.cache/yarn
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      # Step 3: Set up Node.js (adjust the version as necessary)
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Step 4: Install dependencies using Yarn
+      - name: Install dependencies
+        run: yarn install
+
+      # Step 5: Create empty directory in 'static' for test report
+      - name: Create Unit Test Report Directory
+        run: mkdir -p static/reports/unittest
+        continue-on-error: true        
+
+      # Step 6: Generate Istanbul test coverage report and stage in 'static'
+      - name: Generate Coverage Report
+        run: |
+          npx vitest run \
+          --coverage \
+          --coverage.dir=static/reports/coverage
+        continue-on-error: true        
+
+      # Step 7: Generate XUnit-Viewer HTML test report and stage in 'static'
+      - name: Generate Pretty Unit Test Report
+        run: |
+          npx xunit-viewer \
+          --results=static/reports/test-results.xml \
+          --output=static/reports/unittest/index.html
+        continue-on-error: true        
+
+      # Step 8: Build Docusaurus
+      # files in 'static' moved to 'build', global styles file generated and staged in Storybook assets
+      - name: Build Docusaurus
+        env:
+          BASE_URL: "/preview/pr-${{ github.event.number }}"
+        run: yarn build
+
+      # Step 9: Build the storybook
+      # Stage directly in 'build' directory so we don't have to repeat the Docusaurus build
+      - name: Build Storybook
+        run: |
+          NODE_ENV=production \
+          npx storybook build \
+          -o build/storybook/iaindavis.dev \
+          --quiet
+
+      # Step 10: Deploy to preview repository (preview)
+      - name: Deploy to GitHub Pages Preview
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.PREVIEW_DEPLOY_PERSONAL_ACCESS_TOKEN }}
+          publish_dir: ./build  # The directory with the preview build for deployment
+          destination_dir: pr-${{ github.event.number }}  # Subdirectory for this PR
+          external_repository: IainDavis/preview # Replace 'username' with your GitHub username
+
+      # Step 9: Post the preview URL with curl (Create or update status check)
+      - name: Create or update status check with curl
+        run: |
+          curl -s -X POST \
+            -o /dev/null \
+            -w "%{http_code}" \
+            -H "Authorization: token ${{ secrets.PREVIEW_DEPLOY_PERSONAL_ACCESS_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "state": "success",
+              "description": "Preview environment is ready",
+              "context": "Preview Environment for PR ${{ github.event.number }}",
+              "target_url": "https://IainDavis.github.io/preview/pr-${{ github.event.number }}"
+            }' \
+            https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.pull_request.head.sha }}
+
+  # Job for cleaning up after PRs are merged or closed
+  cleanup:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.merged == true || github.event.pull_request.state == 'closed' }}
+
+    steps:
+      # Step 1: Checkout the preview repository
+      - name: Checkout preview repository
+        uses: actions/checkout@v3
+        with:
+          repository: IainDavis/preview  # The correct shortened repository name
+          ref: gh-pages  # Target the gh-pages branch
+          token: ${{ secrets.PREVIEW_DEPLOY_PERSONAL_ACCESS_TOKEN }}  # Ensure the token is passed for auth
+
+      
+      # Step 2: Set up Git user identity
+      - name: Set Git user identity
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      # Step 2: Remove the directory for the closed/merged PR
+      - name: Remove preview directory
+        run: |
+          git rm -r pr-${{ github.event.number }}
+          git commit -m "Remove preview for PR #${{ github.event.number }}"
+          git push
+
+      # Step 3: Post the removal status with curl (Update status check)
+      - name: Update status check to indicate preview removal
+        continue-on-error: true
+        run: |
+          curl -s -X POST \
+            -o /dev/null \
+            -w "%{http_code} %{http_code_text}" \
+            -H "Authorization: token ${{ secrets.PREVIEW_DEPLOY_PERSONAL_ACCESS_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "state": "failure",
+              "description": "Preview environment has been removed",
+              "context": "Preview Environment for PR ${{ github.event.number }}",
+              "target_url": "https://IainDavis.github.io/preview/pr-${{ github.event.number }}"
+            }' \
+            https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.pull_request.head.sha }}

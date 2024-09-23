@@ -3,11 +3,8 @@ import { excludeSVGFromFileRule, loadSVGwithSVGR, loadModulesWithBabel } from '.
 import { compose } from './helpers';
 
 const webpackFinal = (config: WebpackConfig): WebpackConfig => {
-  console.log('BING! (webpackFinal');
   const { module = {} } = config;
   const { rules } = module;
-
-  console.log(loadModulesWithBabel);
 
   const transformRules = compose(
     loadModulesWithBabel,
