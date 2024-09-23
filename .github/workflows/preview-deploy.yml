@@ -4,6 +4,7 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
 
+
 concurrency:
   group: pr-${{ github.event.number }}  # Use the PR number to uniquely identify the group
   cancel-in-progress: true 
