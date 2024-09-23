@@ -41,7 +41,7 @@ jobs:
       - name: Build Docusaurus
         run: yarn build
         env:
-          BASE_URL: "/pr-${{ github.event.number }}"
+          BASE_URL: "/preview.iaindavis.github.io/pr-${{ github.event.number }}"
 
       # Step 6: Build the storybook
       - name: Build Storybook
