@@ -16,6 +16,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Step 2: Cache Yarn dependencies
+      - name: Cache Yarn dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+            ~/.cache/yarn
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
       # Step 2: Set up Node.js (adjust the version as necessary)
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -42,18 +53,16 @@ jobs:
       # Post Preview-environment Link to Status
       - name: Create or update status check with preview URL
         uses: actions/github-script@v6
+        continue-on-error: true
         with:
           script: |
-            const context = {
+            await github.repos.createCommitStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              sha: context.sha
-            };
-            await github.repos.createCommitStatus({
-              ...context,
+              sha: context.sha,
               state: "success",
               description: "Preview environment is ready",
-              context: "PR Preview Environment",
+              context: "Preview Link",
               target_url: `https://username.github.io/preview.iaindavis.github.io/pr-${{ github.event.number }}`
             });
 
@@ -81,6 +90,7 @@ jobs:
       # Step 3 (Cleanup job): Update status check to indicate preview removal
       - name: Update status check to indicate preview removal
         uses: actions/github-script@v6
+        continue-on-error: true
         with:
           script: |
             const context = {
