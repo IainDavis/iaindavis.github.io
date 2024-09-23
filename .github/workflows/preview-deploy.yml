@@ -69,10 +69,10 @@ jobs:
         run: ls build
 
       # Step 5: Build Docusaurus
-      - name: Build Docusaurus
-        run: yarn build
-        env:
-          BASE_URL: "/preview.iaindavis.github.io/pr-${{ github.event.number }}"
+      # - name: Build Docusaurus
+      #  run: yarn build
+      #  env:
+      #    BASE_URL: "/preview.iaindavis.github.io/pr-${{ github.event.number }}"
 
       # Step 8: Deploy to preview repository (preview.iaindavis.github.io)
       - name: Deploy to GitHub Pages Preview
