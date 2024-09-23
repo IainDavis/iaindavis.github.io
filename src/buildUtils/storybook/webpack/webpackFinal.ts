@@ -19,6 +19,7 @@ const webpackFinal = (config: WebpackConfig): WebpackConfig => {
 
   return {
     ...config,
+    stats: 'errors-warnings',
     module: {
       ...module,
       rules: [
