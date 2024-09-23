@@ -26,6 +26,10 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Debug Webpack configuration
+        run: |
+          yarn docusaurus webpack --config webpack.config.js --mode development
+
       # Step 4: Build the site
       - name: Build site
         run: yarn build
@@ -50,7 +54,7 @@ jobs:
       - name: Checkout preview repository
         uses: actions/checkout@v3
         with:
-          repository: username/preview.iaindavis.github.io  # Replace 'username' with your GitHub username
+          repository: IainDavis/preview.iaindavis.github.io  # Replace 'username' with your GitHub username
           ref: gh-pages  # Target the gh-pages branch
 
       # Step 2: Remove the directory for the closed/merged PR
