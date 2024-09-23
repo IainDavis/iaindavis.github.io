@@ -65,6 +65,8 @@ jobs:
       - name: Build Storybook
         run: npx storybook build -o build/storybook/iaindavis.dev
 
+      - name: Log more debugging information
+        run: ls build
 
       # Step 5: Build Docusaurus
       - name: Build Docusaurus
