@@ -39,14 +39,24 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      # Step 7: Generate Test Reports
-      - name: Generate Test Reports
-        # run: yarn test:vitest-reports
+      - name: Create Unit Test Report Directory
+        run: mkdir -p static/reports/unittest
+        continue-on-error: true        
 
-        run: mkdir -p static/reports/unittest; npx vitest run --exclude static --coverage --coverage.dir=static/reports/coverage; npx xunit-viewer --verbose --results=static/reports/test-results.xml --output=static/reports/unittest/index.html
+      - name: Generate Coverage Report
+        run: npx vitest run --exclude static --coverage --coverage.dir=static/reports/coverage
+        continue-on-error: true        
+
+      - name: Generate Unit Test Report
+        run: cat static/reports/test-results.xml; npx xunit-viewer --verbose --results=static/reports/test-results.xml --output=static/reports/unittest/index.html
+        continue-on-error: true        
+
+      # Step 7: Generate Test Reports
+      # - name: Generate Test Reports
+      #  run: mkdir -p static/reports/unittest; npx vitest run --exclude static --coverage --coverage.dir=static/reports/coverage; npx xunit-viewer --verbose --results=static/reports/test-results.xml --output=static/reports/unittest/index.html
 
         # Do not fail build if tests fail, just generate the reports
-        continue-on-error: true        
+        # continue-on-error: true        
 
       # Step 5: Build Docusaurus
       - name: Build Docusaurus
