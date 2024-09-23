@@ -51,20 +51,20 @@ jobs:
           external_repository: IainDavis/preview.iaindavis.github.io  # Replace 'username' with your GitHub username
 
       # Post Preview-environment Link to Status
-      - name: Create or update status check with preview URL
-        uses: actions/github-script@v6
-        continue-on-error: true
-        with:
-          script: |
-            await octokit.rest.repos.createCommitStatus({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              sha: context.sha,
-              state: "success",
-              description: "Preview environment is ready",
-              context: "Preview Link",
-              target_url: `https://username.github.io/preview.iaindavis.github.io/pr-${{ github.event.number }}`
-            });
+      - name: Create or update status check with curl
+        continue-on-error: true  # Do not fail the entire build if this step fails
+        run: |
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "state": "success",
+              "description": "Preview environment is ready",
+              "context": "Preview Link",
+              "target_url": "https://username.github.io/preview.iaindavis.github.io/pr-${{ github.event.number }}"
+            }' \
+            https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}
+
 
   # Job for cleaning up after PRs are merged or closed
   cleanup:
@@ -89,16 +89,15 @@ jobs:
 
       # Step 3 (Cleanup job): Update status check to indicate preview removal
       - name: Update status check to indicate preview removal
-        uses: actions/github-script@v6
-        continue-on-error: true
-        with:
-          script: |
-            await octokit.rest.repos.createCommitStatus({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              sha: context.sha,
-              state: "failure",
-              description: "Preview environment has been removed",
-              context: "Preview Link",
-              target_url: `https://username.github.io/preview.iaindavis.github.io/pr-${{ github.event.number }}`
-            });
+        continue-on-error: true  # Do not fail the entire build if this step fails
+        run: |
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "state": "failure",
+              "description": "Preview environment has been removed",
+              "context": "Preview Link",
+              "target_url": "https://username.github.io/preview.iaindavis.github.io/pr-${{ github.event.number }}"
+            }' \
+            https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}
