@@ -61,7 +61,7 @@ jobs:
               "state": "success",
               "description": "Preview environment is ready",
               "context": "Preview Link",
-              "target_url": "https://username.github.io/preview.iaindavis.github.io/pr-${{ github.event.number }}"
+              "target_url": "https://IainDavis.github.io/preview.iaindavis.github.io/pr-${{ github.event.number }}"
             }' \
             https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.pull_request.head.sha }}
 
@@ -99,6 +99,6 @@ jobs:
               "state": "failure",
               "description": "Preview environment has been removed",
               "context": "Preview Link",
-              "target_url": "https://username.github.io/preview.iaindavis.github.io/pr-${{ github.event.number }}"
+              "target_url": "https://IainDavis.github.io/preview.iaindavis.github.io/pr-${{ github.event.number }}"
             }' \
             https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.pull_request.head.sha }}
