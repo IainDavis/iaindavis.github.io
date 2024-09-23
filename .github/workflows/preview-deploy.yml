@@ -1,0 +1,61 @@
+name: Preview Deploy
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+jobs:
+  # Job for building and deploying the preview
+  build:
+    runs-on: ubuntu-latest
+    # Skip the build on 'closed' events, or if the PR is already merged
+    if: ${{ github.event_name == 'pull_request' && github.event.action != 'closed' }}
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js (adjust the version as necessary)
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Step 3: Install dependencies using Yarn
+      - name: Install dependencies
+        run: yarn install
+
+      # Step 4: Build the site
+      - name: Build site
+        run: yarn build
+
+      # Step 5: Deploy to preview repository (preview.iaindavis.github.io)
+      - name: Deploy to GitHub Pages Preview
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build  # The directory where the static files are output
+          destination_dir: pr-${{ github.event.number }}  # Subdirectory for this PR
+          external_repository: IainDavis/preview.iaindavis.github.io  # Replace 'username' with your GitHub username
+
+  # Job for cleaning up after PRs are merged or closed
+  cleanup:
+    runs-on: ubuntu-latest
+    # Only trigger cleanup when PR is merged or closed
+    if: ${{ github.event.pull_request.merged == true || github.event.pull_request.state == 'closed' }}
+
+    steps:
+      # Step 1: Checkout the preview repository (preview.iaindavis.github.io)
+      - name: Checkout preview repository
+        uses: actions/checkout@v3
+        with:
+          repository: username/preview.iaindavis.github.io  # Replace 'username' with your GitHub username
+          ref: gh-pages  # Target the gh-pages branch
+
+      # Step 2: Remove the directory for the closed/merged PR
+      - name: Remove preview directory
+        run: |
+          git rm -r pr-${{ github.event.number }}  # Remove the PR's preview directory
+          git commit -m "Remove preview for PR #${{ github.event.number }}"  # Commit the change
+          git push  # Push the change to the gh-pages branch
