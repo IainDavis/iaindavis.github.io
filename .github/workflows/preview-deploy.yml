@@ -8,8 +8,6 @@ jobs:
   # Job for building and deploying the preview
   build:
     runs-on: ubuntu-latest
-    env:
-      BASE_URL: "./pr-${{ github.event.number }}"
     # Skip the build on 'closed' events, or if the PR is already merged
     if: ${{ github.event_name == 'pull_request' && github.event.action != 'closed' }}
 
@@ -58,7 +56,7 @@ jobs:
       # files in 'static' moved to 'build', global styles file generated and staged in Storybook assets
       - name: Build Docusaurus
         env:
-          BASE_URL: "/preview.iaindavis.github.io/pr-${{ github.event.number }}"
+          BASE_URL: "/preview/pr-${{ github.event.number }}"
         run: yarn build
 
       # Step 9: Build the storybook
