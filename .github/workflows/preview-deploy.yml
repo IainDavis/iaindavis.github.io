@@ -89,7 +89,6 @@ jobs:
           curl -s -X POST \
             -o /dev/null \
             -w "%{http_code}" \
-            -I {url} \
             -H "Authorization: token ${{ secrets.PREVIEW_DEPLOY_PERSONAL_ACCESS_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d '{
@@ -128,7 +127,6 @@ jobs:
           curl -s -X POST \
             -o /dev/null \
             -w "%{http_code}" \
-            -I {url} \
             -H "Authorization: token ${{ secrets.PREVIEW_DEPLOY_PERSONAL_ACCESS_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d '{
