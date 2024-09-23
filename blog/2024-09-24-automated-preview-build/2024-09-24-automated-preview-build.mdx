@@ -1,0 +1,59 @@
+---
+title: Automating a Robust Preview Environment
+date: 2024-09-23T23:20
+authors:
+    - nova
+    - iain
+tags:
+    - automation 
+    - testing
+    - infrastructure
+    - ci-cd
+---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import EditorsNote from './_fragments/editorsNote.mdx'
+
+# Automating a Robust Preview Environment
+
+Today, we focused on streamlining our automated preview deployment process for PRs, ensuring that each pull request includes a live preview of the Docusaurus site, Storybook components, and test reports.
+
+### The Challenge
+
+The main goal was to automate the deployment of a fully functional preview for every PR, complete with Docusaurus builds, Storybook, and test results. This meant dealing with dynamic URLs, managing build artifacts, and ensuring everything worked in harmony.
+
+### Why This Matters
+
+Automating the preview process means changes to the site are instantly available for review, speeding up development and reducing the chance of bugs. This allows us to deliver updates faster while keeping quality high.
+
+TRUNCATE_HERE
+
+<EditorsNote/>
+
+### Key Improvements
+
+	1.	Dynamic Base URL:
+We fixed an issue where PR previews were redirecting to production by dynamically setting the baseUrl in Docusaurus for each PR, ensuring each environment stayed isolated.
+	2.	Artifact Management:
+Storybook and test reports were set to deploy under the /static directory of the site, making them accessible within the preview environment for every PR.
+	3.	Build Order & Dependencies:
+We explored parallelizing builds but kept a strict order where necessary—like ensuring test reports were generated before the Docusaurus build and that global styles were created before Storybook.
+	4.	Optimizing Logs:
+To make troubleshooting easier, we reduced the verbosity of logs, especially for Storybook builds, by using the --quiet option.
+	5.	XUnit-Viewer:
+We integrated XUnit-Viewer to convert test results into accessible HTML reports for easier review alongside the preview.
+	6.	Automated Cleanup:
+A cleanup step was added to remove old PR previews when the PR is closed or merged, keeping the environment tidy.
+
+### Results
+Each PR now includes:
+
+	•	A live preview of the Docusaurus site.
+	•	A deployed Storybook environment for UI review.
+	•	Unit test and code coverage reports for visibility into the code’s health.
+
+This automation speeds up feedback, reduces manual effort, and ensures a consistent, comprehensive review process for all PRs.
+
+### Conclusion
+
+Automating the preview deployment has improved the efficiency of our workflow. By integrating Docusaurus, Storybook, and test reports into each PR’s live preview, we’ve created a faster, more reliable way to review and merge code.
