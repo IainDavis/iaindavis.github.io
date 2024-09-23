@@ -8,6 +8,8 @@ jobs:
   # Job for building and deploying the preview
   build:
     runs-on: ubuntu-latest
+    env:
+      BASE_URL: "/preview.iaindavis.github.io/pr-${{ github.event.number }}"
     # Skip the build on 'closed' events, or if the PR is already merged
     if: ${{ github.event_name == 'pull_request' && github.event.action != 'closed' }}
 
@@ -45,11 +47,14 @@ jobs:
 
       # Step 6: Build the storybook
       - name: Build Storybook
-        run: yarn build-storybook
+        run: yarn storybook build -o $BASE_URL/static/storybook/iaindavis.dev
 
       # Step 7: Generate Test Reports
       - name: Generate Test Reports
-        run: yarn test:vitest-reports
+        # run: yarn test:vitest-reports
+
+        run: mkdir -p $BASE_URL/static/reports/unittest; vitest run --coverage --coverage.dir=$BASE_URL/static/reports/coverage; npx xunit-viewer --results=./static/reports/test-results.xml --output=$BASE_URL/static/reports/unittest/index.html
+
         # Do not fail build if tests fail, just generate the reports
         continue-on-error: true        
 
