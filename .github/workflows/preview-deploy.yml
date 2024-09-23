@@ -27,21 +27,31 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      # Step 2: Set up Node.js (adjust the version as necessary)
+      # Step 3: Set up Node.js (adjust the version as necessary)
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      # Step 3: Install dependencies using Yarn
+      # Step 4: Install dependencies using Yarn
       - name: Install dependencies
         run: yarn install
 
-      # Step 4: Build the site
-      - name: Build site
+      # Step 5: Build the site
+      - name: Build Docusaurus
         run: yarn build
 
-      # Step 5: Deploy to preview repository (preview.iaindavis.github.io)
+      # Step 6: Build the storybook
+      - name: Build Storybook
+        run: yarn build-storybook
+
+      # Step 7: Generate Test Reports
+      - name: Generate Test Reports
+        run: yarn test:vitest-reports
+        # Do not fail build if tests fail, just generate the reports
+        continue-on-error: true        
+
+      # Step 8: Deploy to preview repository (preview.iaindavis.github.io)
       - name: Deploy to GitHub Pages Preview
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -50,7 +60,7 @@ jobs:
           destination_dir: pr-${{ github.event.number }}  # Subdirectory for this PR
           external_repository: IainDavis/preview.iaindavis.github.io  # Replace 'username' with your GitHub username
 
-      # Step 7: Post the preview URL with curl (Create or update status check)
+      # Step 9: Post the preview URL with curl (Create or update status check)
       - name: Create or update status check with curl
         continue-on-error: true  # Do not fail the entire build if this step fails
         run: |
@@ -60,12 +70,10 @@ jobs:
             -d '{
               "state": "success",
               "description": "Preview environment is ready",
-              "context": "Preview Link",
+              "context": "Preview Environment for PR ${{ github.event.number }}",
               "target_url": "https://IainDavis.github.io/preview.iaindavis.github.io/pr-${{ github.event.number }}"
             }' \
             https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.pull_request.head.sha }}
-
-
 
   # Job for cleaning up after PRs are merged or closed
   cleanup:
@@ -98,7 +106,7 @@ jobs:
             -d '{
               "state": "failure",
               "description": "Preview environment has been removed",
-              "context": "Preview Link",
+              "context": "Preview Environment for PR ${{ github.event.number }}",
               "target_url": "https://IainDavis.github.io/preview.iaindavis.github.io/pr-${{ github.event.number }}"
             }' \
             https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.pull_request.head.sha }}
