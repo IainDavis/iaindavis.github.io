@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 // The folder to index
-const directory = path.join(__dirname, 'static');
+const directory = path.join(__dirname, 'build');
 
 // Generate the HTML index
 const generateIndex = (dir, baseUrl = '/') => {
