@@ -1,0 +1,44 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Expandable from '@site/src/components/Expandable/Expandable';
+
+:::info Editor's Note
+Once the build completes developers can view their preview environment live at the following URL:
+```
+https://iaindavis.dev/preview/<pr-number>
+```
+
+For example, the PR that introduced this change produced the following preview URLS (no longer available due to cleanup): 
+```
+https://iaindavis.dev/preview/pr-40
+https://iaindavis.dev/preview/pr-40/storybook/iaindavis.dev
+https://iaindavis.dev/preview/pr-40/reports/unittest
+https://iaindavis.dev/preview/pr-40/reports/coverage
+```
+
+### Screen Captures
+<Expandable expandPrompt='show screenshots' collapsePrompt='hide screenshots'>
+    <Tabs lazy>
+        <TabItem value="Action in progress">
+            **The build in progress:**
+            ![A screen shot of a run of the Preview Deploy action in progress](./_resources/build-in-progress.png "a run of the Preview Deploy action in progress")
+        </TabItem>
+        <TabItem value="Landing Page">
+            **The landing page** -- note the URL includes `preview/pr-41`
+            ![A screen shot of the landing page on the preview environment](./_resources/landing-page.png "The landing page, viewed in the isolated preview environment")
+        </TabItem>
+        <TabItem value="Storybook">
+            **Storybook, built from the same commit as the previewed PR**
+            ![A screen shot of Storybook deployed to the preview environment](./_resources/storybook.png "Storybook deployed ot the preview environment")
+        </TabItem>
+        <TabItem value="Unit Test Report">
+            **Unit test report for the same commit as the previewed PR**
+            ![A screen shot of the unit test report for the previewed source](./_resources/unit-test-report.png "Unit Test report created during the preview build")
+        </TabItem>
+        <TabItem value="Test Coverage Report">
+            **Coverage report for the same commit as the previewed PR**
+            ![A screen shot of the unit test report for the previewed source](./_resources/coverage-report.png "Coverage report generated during the preview build")
+        </TabItem>
+    </Tabs>
+</Expandable>
+:::
