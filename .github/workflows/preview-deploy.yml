@@ -4,9 +4,6 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
 
-permissions:
-  contents: write  # Required for commit status updates
-
 jobs:
   # Job for building and deploying the preview
   build:
@@ -53,12 +50,12 @@ jobs:
           destination_dir: pr-${{ github.event.number }}  # Subdirectory for this PR
           external_repository: IainDavis/preview.iaindavis.github.io  # Replace 'username' with your GitHub username
 
-      # Post Preview-environment Link to Status
+      # Step 7: Post the preview URL with curl (Create or update status check)
       - name: Create or update status check with curl
         continue-on-error: true  # Do not fail the entire build if this step fails
         run: |
           curl -X POST \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Authorization: token ${{ secrets.PREVIEW_DEPLOY_PERSONAL_ACCESS_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d '{
               "state": "success",
@@ -67,6 +64,7 @@ jobs:
               "target_url": "https://username.github.io/preview.iaindavis.github.io/pr-${{ github.event.number }}"
             }' \
             https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}
+
 
 
   # Job for cleaning up after PRs are merged or closed
@@ -90,12 +88,12 @@ jobs:
           git commit -m "Remove preview for PR #${{ github.event.number }}"  # Commit the change
           git push  # Push the change to the gh-pages branch
 
-      # Step 3 (Cleanup job): Update status check to indicate preview removal
+      # Step 3: Post the removal status with curl (Update status check)
       - name: Update status check to indicate preview removal
         continue-on-error: true  # Do not fail the entire build if this step fails
         run: |
           curl -X POST \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Authorization: token ${{ secrets.PREVIEW_DEPLOY_PERSONAL_ACCESS_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d '{
               "state": "failure",
