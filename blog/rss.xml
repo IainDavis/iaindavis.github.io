@@ -4,11 +4,55 @@
         <title>IainDavis.dev | Developer Blog</title>
         <link>https://iaindavis.github.io/blog</link>
         <description>A Blog where I will document what I am working on and looking forward to as I develop my personal website</description>
-        <lastBuildDate>Sun, 22 Sep 2024 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 23 Sep 2024 23:20:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <copyright>Copyright © 2024 Iain S. Davis. Built with Docusaurus.</copyright>
+        <item>
+            <title><![CDATA[Automating a Robust Preview Environment]]></title>
+            <link>https://iaindavis.github.io/blog/2024/09/24/2024-09-24-automated-preview-build/automated-preview-build</link>
+            <guid>https://iaindavis.github.io/blog/2024/09/24/2024-09-24-automated-preview-build/automated-preview-build</guid>
+            <pubDate>Mon, 23 Sep 2024 23:20:00 GMT</pubDate>
+            <description><![CDATA[Today, we focused on streamlining our automated preview deployment process for PRs, ensuring that each pull request includes a live preview of the Docusaurus site, Storybook components, and test reports.]]></description>
+            <content:encoded><![CDATA[<p>Today, we focused on streamlining our automated preview deployment process for PRs, ensuring that each pull request includes a live preview of the Docusaurus site, Storybook components, and test reports.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="the-challenge">The Challenge<a href="https://iaindavis.github.io/blog/2024/09/24/2024-09-24-automated-preview-build/automated-preview-build#the-challenge" class="hash-link" aria-label="Direct link to The Challenge" title="Direct link to The Challenge">​</a></h3>
+<p>The main goal was to automate the deployment of a fully functional preview for every PR, complete with Docusaurus builds, Storybook, and test results. This meant dealing with dynamic URLs, managing build artifacts, and ensuring everything worked in harmony.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="why-this-matters">Why This Matters<a href="https://iaindavis.github.io/blog/2024/09/24/2024-09-24-automated-preview-build/automated-preview-build#why-this-matters" class="hash-link" aria-label="Direct link to Why This Matters" title="Direct link to Why This Matters">​</a></h3>
+<p>Automating the preview process means changes to the site are instantly available for review, speeding up development and reducing the chance of bugs. This allows us to deliver updates faster while keeping quality high.</p>
+<p></p>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>Editor's Note</div><div class="admonitionContent_BuS1"><p>Once the build completes developers can view their preview environment live at the following URL:</p><div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">https://iaindavis.dev/preview/&lt;pr-number&gt;</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div><p>For example, the PR that introduced this change produced the following preview URLS (no longer available due to cleanup):</p><div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">https://iaindavis.dev/preview/pr-40</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">https://iaindavis.dev/preview/pr-40/storybook/iaindavis.dev</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">https://iaindavis.dev/preview/pr-40/reports/unittest</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">https://iaindavis.dev/preview/pr-40/reports/coverage</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="screen-captures">Screen Captures<a href="https://iaindavis.github.io/blog/2024/09/24/2024-09-24-automated-preview-build/automated-preview-build#screen-captures" class="hash-link" aria-label="Direct link to Screen Captures" title="Direct link to Screen Captures">​</a></h3><div class="container_hWMK"><div tabindex="1" data-testid="expandable-section-:Rqdlbeh:" id="expandable-section-:Rqdlbeh:" class="expandableBlock_ggz7" hidden=""><div class="tabs-container tabList__CuJ"><ul role="tablist" aria-orientation="horizontal" class="tabs"><li role="tab" tabindex="0" aria-selected="true" class="tabs__item tabItem_LNqP tabs__item--active">Action in progress</li><li role="tab" tabindex="-1" aria-selected="false" class="tabs__item tabItem_LNqP">Landing Page</li><li role="tab" tabindex="-1" aria-selected="false" class="tabs__item tabItem_LNqP">Storybook</li><li role="tab" tabindex="-1" aria-selected="false" class="tabs__item tabItem_LNqP">Unit Test Report</li><li role="tab" tabindex="-1" aria-selected="false" class="tabs__item tabItem_LNqP">Test Coverage Report</li></ul><div role="tabpanel" class="tabItem_Ymn6 margin-top--md"><p><strong>The build in progress:</strong>
+<img decoding="async" loading="lazy" alt="A screen shot of a run of the Preview Deploy action in progress" src="https://iaindavis.github.io/assets/images/build-in-progress-9a93e62e199425170d2ba4a7cea8b6ce.png" title="a run of the Preview Deploy action in progress" width="1704" height="1478" class="img_ev3q"></p></div></div></div><button tabindex="0" class="toggle_dJXd" aria-expanded="false" aria-controls="expandable-section-toggle-:Rqdlbeh:">show screenshots</button></div></div></div>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="key-improvements">Key Improvements<a href="https://iaindavis.github.io/blog/2024/09/24/2024-09-24-automated-preview-build/automated-preview-build#key-improvements" class="hash-link" aria-label="Direct link to Key Improvements" title="Direct link to Key Improvements">​</a></h3>
+<ol>
+<li>Dynamic Base URL:
+We fixed an issue where PR previews were redirecting to production by dynamically setting the baseUrl in Docusaurus for each PR, ensuring each environment stayed isolated.</li>
+<li>Artifact Management:
+Storybook and test reports were set to deploy under the /static directory of the site, making them accessible within the preview environment for every PR.</li>
+<li>Build Order &amp; Dependencies:
+We explored parallelizing builds but kept a strict order where necessary—like ensuring test reports were generated before the Docusaurus build and that global styles were created before Storybook.</li>
+<li>Optimizing Logs:
+To make troubleshooting easier, we reduced the verbosity of logs, especially for Storybook builds, by using the --quiet option.</li>
+<li>XUnit-Viewer:
+We integrated XUnit-Viewer to convert test results into accessible HTML reports for easier review alongside the preview.</li>
+<li>Automated Cleanup:
+A cleanup step was added to remove old PR previews when the PR is closed or merged, keeping the environment tidy.</li>
+</ol>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="results">Results<a href="https://iaindavis.github.io/blog/2024/09/24/2024-09-24-automated-preview-build/automated-preview-build#results" class="hash-link" aria-label="Direct link to Results" title="Direct link to Results">​</a></h3>
+<p>Each PR now includes:</p>
+<p>•	A live preview of the Docusaurus site.
+•	A deployed Storybook environment for UI review.
+•	Unit test and code coverage reports for visibility into the code’s health.</p>
+<p>This automation speeds up feedback, reduces manual effort, and ensures a consistent, comprehensive review process for all PRs.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="conclusion">Conclusion<a href="https://iaindavis.github.io/blog/2024/09/24/2024-09-24-automated-preview-build/automated-preview-build#conclusion" class="hash-link" aria-label="Direct link to Conclusion" title="Direct link to Conclusion">​</a></h3>
+<p>Automating the preview deployment has improved the efficiency of our workflow. By integrating Docusaurus, Storybook, and test reports into each PR’s live preview, we’ve created a faster, more reliable way to review and merge code.</p>]]></content:encoded>
+            <author>nova@iaindavis.dev (Nova)</author>
+            <author>iain@iaindavis.dev (Iain Davis)</author>
+            <category>Automation</category>
+            <category>Testing</category>
+            <category>Infrastructure</category>
+            <category>CI/CD</category>
+        </item>
         <item>
             <title><![CDATA[Introducing Testing Reports]]></title>
             <link>https://iaindavis.github.io/blog/2024/09/22/2024-09-22-introducing-testing-reports/introducing-testing-reports</link>
