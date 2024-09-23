@@ -58,14 +58,6 @@ jobs:
           --output=static/reports/unittest/index.html
         continue-on-error: true        
 
-      # If we don't do this, git will log every file that gets deleted. It's a lot of pointless noise in my logs.
-      - name: Silent Pre-build Cleanup
-        run:  |
-          if [ -d "./build/pr-${{ github.event.number }}" ]; then
-          echo "Cleaning up old files in ./build/pr-${{ github.event.number }}..."
-          rm -rf ./build/pr-${{ github.event.number }} > /dev/null 2>&1
-          fi
-
       # Step 8: Build Docusaurus
       # files in 'static' moved to 'build', global styles file generated and staged in Storybook assets
       - name: Build Docusaurus
