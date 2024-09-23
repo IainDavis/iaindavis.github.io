@@ -53,6 +53,10 @@ jobs:
         # Do not fail build if tests fail, just generate the reports
         continue-on-error: true        
 
+      # Generate the static folder index
+      - name: Generate /static index
+        run: node generate-static-index.js
+
       # Step 8: Deploy to preview repository (preview.iaindavis.github.io)
       - name: Deploy to GitHub Pages Preview
         uses: peaceiris/actions-gh-pages@v3
