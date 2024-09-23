@@ -62,7 +62,7 @@ jobs:
       # Step 9: Build the storybook
       # Stage directly in 'build' directory so we don't have to repeat the Docusaurus build
       - name: Build Storybook
-        run: NODE_ENV=production npx storybook build -o build/storybook/iaindavis.dev --loglevel warn
+        run: NODE_ENV=production npx storybook build -o build/storybook/iaindavis.dev --loglevel warn --quiet
 
       - name: Make GitHub Less Noisy
         run: git config --global core.logAllRefUpdates false
