@@ -26,9 +26,6 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: List files in src/components/brand
-        run: ls -R src/components/brand
-
       # Step 4: Build the site
       - name: Build site
         run: yarn build
@@ -41,6 +38,24 @@ jobs:
           publish_dir: ./build  # The directory where the static files are output
           destination_dir: pr-${{ github.event.number }}  # Subdirectory for this PR
           external_repository: IainDavis/preview.iaindavis.github.io  # Replace 'username' with your GitHub username
+
+      # Post Preview-environment Link to Status
+      - name: Create or update status check with preview URL
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const context = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha
+            };
+            await github.repos.createCommitStatus({
+              ...context,
+              state: "success",
+              description: "Preview environment is ready",
+              context: "PR Preview Environment",
+              target_url: `https://username.github.io/preview.iaindavis.github.io/pr-${{ github.event.number }}`
+            });
 
   # Job for cleaning up after PRs are merged or closed
   cleanup:
@@ -62,3 +77,21 @@ jobs:
           git rm -r pr-${{ github.event.number }}  # Remove the PR's preview directory
           git commit -m "Remove preview for PR #${{ github.event.number }}"  # Commit the change
           git push  # Push the change to the gh-pages branch
+
+      # Step 3 (Cleanup job): Update status check to indicate preview removal
+      - name: Update status check to indicate preview removal
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const context = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha
+            };
+            await github.repos.createCommitStatus({
+              ...context,
+              state: "failure",
+              description: "Preview environment has been removed",
+              context: "Preview Link",
+              target_url: `https://username.github.io/preview.iaindavis.github.io/pr-${{ github.event.number }}`
+            });
