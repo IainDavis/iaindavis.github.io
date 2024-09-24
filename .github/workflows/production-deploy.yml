@@ -10,16 +10,13 @@ concurrency:
   cancel-in-progress: true 
 
 jobs:
-  # Job for building and deploying the preview
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Cache Yarn dependencies
       - name: Cache Yarn dependencies
         uses: actions/cache@v3
         with:
@@ -30,40 +27,33 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      # Step 3: Set up Node.js (adjust the version as necessary)
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      # Step 4: Install dependencies using Yarn
       - name: Install dependencies
         run: yarn install
 
-      # Step 5: Create empty directory in 'static' for test report
       - name: Create Unit Test Report Directory
         run: mkdir -p static/reports/unittest
 
-      # Step 6: Generate Istanbul test coverage report and stage in 'static'
       - name: Generate Coverage Report
         run: |
           npx vitest run \
           --coverage \
           --coverage.dir=static/reports/coverage
 
-      # Step 7: Generate XUnit-Viewer HTML test report and stage in 'static'
       - name: Generate Pretty Unit Test Report
         run: |
           npx xunit-viewer \
           --results=static/reports/test-results.xml \
           --output=static/reports/unittest/index.html
 
-      # Step 8: Build Docusaurus
       # files in 'static' moved to 'build', global styles file generated and staged in Storybook assets
       - name: Build Docusaurus
         run: yarn build
 
-      # Step 9: Build the storybook
       # Stage directly in 'build' directory so we don't have to repeat the Docusaurus build
       - name: Build Storybook
         run: |
@@ -72,13 +62,12 @@ jobs:
           -o build/storybook/iaindavis.dev \
           --quiet
 
-      # Step 10: Deploy to preview repository (preview)
-      - name: Deploy to GitHub Pages Preview
+      - name: Deploy to GitHub Pages Production
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build  # The directory with the preview build for deployment
-          destination_dir: ""  # Subdirectory for this PR
+          publish_dir: ./build
+          destination_dir: ""
       
       - name: Notify deployment status
         if: always()
