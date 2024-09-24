@@ -61,8 +61,6 @@ jobs:
       # Step 8: Build Docusaurus
       # files in 'static' moved to 'build', global styles file generated and staged in Storybook assets
       - name: Build Docusaurus
-        env:
-          BASE_URL: "/preview/pr-${{ github.event.number }}"
         run: yarn build
 
       # Step 9: Build the storybook
