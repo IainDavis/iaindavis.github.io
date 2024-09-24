@@ -1,0 +1,115 @@
+name: Preview Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: production  # Use the PR number to uniquely identify the group
+  cancel-in-progress: true 
+
+jobs:
+  # Job for building and deploying the preview
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Cache Yarn dependencies
+      - name: Cache Yarn dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+            ~/.cache/yarn
+          key: ${{ runner.os }}-yarn-production-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      # Step 3: Set up Node.js (adjust the version as necessary)
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Step 4: Install dependencies using Yarn
+      - name: Install dependencies
+        run: yarn install
+
+      # Step 5: Create empty directory in 'static' for test report
+      - name: Create Unit Test Report Directory
+        run: mkdir -p static/reports/unittest
+
+      # Step 6: Generate Istanbul test coverage report and stage in 'static'
+      - name: Generate Coverage Report
+        run: |
+          npx vitest run \
+          --coverage \
+          --coverage.dir=static/reports/coverage
+
+      # Step 7: Generate XUnit-Viewer HTML test report and stage in 'static'
+      - name: Generate Pretty Unit Test Report
+        run: |
+          npx xunit-viewer \
+          --results=static/reports/test-results.xml \
+          --output=static/reports/unittest/index.html
+
+      # Step 8: Build Docusaurus
+      # files in 'static' moved to 'build', global styles file generated and staged in Storybook assets
+      - name: Build Docusaurus
+        env:
+          BASE_URL: "/preview/pr-${{ github.event.number }}"
+        run: yarn build
+
+      # Step 9: Build the storybook
+      # Stage directly in 'build' directory so we don't have to repeat the Docusaurus build
+      - name: Build Storybook
+        run: |
+          NODE_ENV=production \
+          npx storybook build \
+          -o build/storybook/iaindavis.dev \
+          --quiet
+
+      # Step 10: Deploy to preview repository (preview)
+      - name: Deploy to GitHub Pages Preview
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build  # The directory with the preview build for deployment
+          destination_dir: ""  # Subdirectory for this PR
+      
+      - name: Notify deployment status
+        if: always()
+        run: |
+          if [ "${{ steps.deploy.outcome }}" == "success" ]; then
+            curl -s -X POST \
+              -o /dev/null \
+              -w "%{http_code}" \
+              -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Content-Type: application/json" \
+              -d '{
+                "state": "success",
+                "description": "Production environment deployed successfully",
+                "context": "Production Deployment",
+                "target_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+              }' \
+              https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}
+          else
+            curl -s -X POST \
+              -o /dev/null \
+              -w "%{http_code}" \
+              -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Content-Type: application/json" \
+              -d '{
+                "state": "failure",
+                "description": "Production environment deployment failed",
+                "context": "Production Deployment",
+                "target_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+              }' \
+              https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}
+          fi
+
