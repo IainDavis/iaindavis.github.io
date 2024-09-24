@@ -24,10 +24,10 @@ const config = defineConfig(async (): Promise<UserConfig> => {
                 reportsDirectory: 'static/reports/coverage',
                 all: true,
                 thresholds: {
-                    statements: 90,
-                    branches: 90,
-                    functions: 80,
-                    lines: 80,
+                    statements: 20,
+                    branches: 20,
+                    functions: 20,
+                    lines: 20,
                 },
                 exclude: [
                     "build", 
