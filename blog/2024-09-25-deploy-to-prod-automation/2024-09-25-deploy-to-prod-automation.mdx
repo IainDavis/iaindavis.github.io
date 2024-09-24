@@ -1,0 +1,51 @@
+---
+title: Automating Production Deployments
+date: 2024-09-24T12:37
+authors:
+    - iain
+    - nova
+tags:
+    - automation
+    - infrastructure
+    - ci-cd
+---
+## Streamlining the Deployment Pipeline
+
+Today, we took a major step toward automating the deployment of this site,
+eliminating manual steps and reducing the risk of errors.
+
+Now, every pull request (PR) generates a preview build, and every merge to the
+`main` branch automatically triggers a production deployment. This new setup
+speeds up the process, ensures consistency, and minimizes the chances of
+mistakes.
+
+TRUNCATE_HERE
+
+### Why This Matters
+
+- **No More Manual Deployments**: Previously, deploying required manual steps
+  from my local machine, which added risk. Now, everything is automated—merges
+  to `main` deploy directly to production.
+  
+- **Faster, More Reliable**: Each PR has its own preview environment, so I can
+  verify changes before they go live. Once merged, they deploy automatically.
+
+- **Reduced Mental Overhead**: The process used to require careful sequencing of
+  build steps. That’s all automated now, freeing up more focus for actual
+  development.
+
+### Key Changes
+
+1. **Preview Builds for PRs**: Each PR generates a preview environment for easy
+   review.
+2. **Automated Production Deployments**: Merges to `main` trigger a pipeline
+   that handles everything from building the site to updating Storybook and test
+   reports.
+3. **Error Handling**: If anything fails during the build or deploy, I get
+   immediate feedback via GitHub Actions, and the deployment halts.
+
+### The Bottom Line
+
+The new automated pipeline is faster, more reliable, and takes much less effort.
+I can now focus more on building features, confident that the deployment process
+is working smoothly in the background.
