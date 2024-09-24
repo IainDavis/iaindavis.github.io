@@ -4,11 +4,62 @@
         <title>IainDavis.dev | Developer Blog</title>
         <link>https://iaindavis.github.io/blog</link>
         <description>A Blog where I will document what I am working on and looking forward to as I develop my personal website</description>
-        <lastBuildDate>Mon, 23 Sep 2024 23:20:00 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 24 Sep 2024 12:37:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <copyright>Copyright © 2024 Iain S. Davis. Built with Docusaurus.</copyright>
+        <item>
+            <title><![CDATA[Automating Production Deployments]]></title>
+            <link>https://iaindavis.github.io/blog/2024/09/25/2024-09-25-deploy-to-prod-automation/deploy-to-prod-automation</link>
+            <guid>https://iaindavis.github.io/blog/2024/09/25/2024-09-25-deploy-to-prod-automation/deploy-to-prod-automation</guid>
+            <pubDate>Tue, 24 Sep 2024 12:37:00 GMT</pubDate>
+            <description><![CDATA[Streamlining the Deployment Pipeline]]></description>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="streamlining-the-deployment-pipeline">Streamlining the Deployment Pipeline<a href="https://iaindavis.github.io/blog/2024/09/25/2024-09-25-deploy-to-prod-automation/deploy-to-prod-automation#streamlining-the-deployment-pipeline" class="hash-link" aria-label="Direct link to Streamlining the Deployment Pipeline" title="Direct link to Streamlining the Deployment Pipeline">​</a></h2>
+<p>Today, we took a major step toward automating the deployment of this site,
+eliminating manual steps and reducing the risk of errors.</p>
+<p>Now, every pull request (PR) generates a preview build, and every merge to the
+<code>main</code> branch automatically triggers a production deployment. This new setup
+speeds up the process, ensures consistency, and minimizes the chances of
+mistakes.</p>
+<p></p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="why-this-matters">Why This Matters<a href="https://iaindavis.github.io/blog/2024/09/25/2024-09-25-deploy-to-prod-automation/deploy-to-prod-automation#why-this-matters" class="hash-link" aria-label="Direct link to Why This Matters" title="Direct link to Why This Matters">​</a></h3>
+<ul>
+<li>
+<p><strong>No More Manual Deployments</strong>: Previously, deploying required manual steps
+from my local machine, which added risk. Now, everything is automated—merges
+to <code>main</code> deploy directly to production.</p>
+</li>
+<li>
+<p><strong>Faster, More Reliable</strong>: Each PR has its own preview environment, so I can
+verify changes before they go live. Once merged, they deploy automatically.</p>
+</li>
+<li>
+<p><strong>Reduced Mental Overhead</strong>: The process used to require careful sequencing of
+build steps. That’s all automated now, freeing up more focus for actual
+development.</p>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="key-changes">Key Changes<a href="https://iaindavis.github.io/blog/2024/09/25/2024-09-25-deploy-to-prod-automation/deploy-to-prod-automation#key-changes" class="hash-link" aria-label="Direct link to Key Changes" title="Direct link to Key Changes">​</a></h3>
+<ol>
+<li><strong>Preview Builds for PRs</strong>: Each PR generates a preview environment for easy
+review.</li>
+<li><strong>Automated Production Deployments</strong>: Merges to <code>main</code> trigger a pipeline
+that handles everything from building the site to updating Storybook and test
+reports.</li>
+<li><strong>Error Handling</strong>: If anything fails during the build or deploy, I get
+immediate feedback via GitHub Actions, and the deployment halts.</li>
+</ol>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="the-bottom-line">The Bottom Line<a href="https://iaindavis.github.io/blog/2024/09/25/2024-09-25-deploy-to-prod-automation/deploy-to-prod-automation#the-bottom-line" class="hash-link" aria-label="Direct link to The Bottom Line" title="Direct link to The Bottom Line">​</a></h3>
+<p>The new automated pipeline is faster, more reliable, and takes much less effort.
+I can now focus more on building features, confident that the deployment process
+is working smoothly in the background.</p>]]></content:encoded>
+            <author>iain@iaindavis.dev (Iain Davis)</author>
+            <author>nova@iaindavis.dev (Nova)</author>
+            <category>Automation</category>
+            <category>Infrastructure</category>
+            <category>CI/CD</category>
+        </item>
         <item>
             <title><![CDATA[Automating a Robust Preview Environment]]></title>
             <link>https://iaindavis.github.io/blog/2024/09/24/2024-09-24-automated-preview-build/automated-preview-build</link>
