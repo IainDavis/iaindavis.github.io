@@ -44,7 +44,8 @@ const config = defineConfig(async (): Promise<UserConfig> => {
                     "*.md",
                     "**/*.test.*",
                     "**/*.spec.*",
-                    "**/*.stories.*"
+                    "**/*.stories.*",
+                    "pages",
                 ]
             }
         }
