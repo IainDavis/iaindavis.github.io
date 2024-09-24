@@ -67,10 +67,10 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
+          publish_branch: gh-pages
           destination_dir: ""
       
       - name: Notify deployment status
-        if: always()
         run: |
           if [ "${{ steps.deploy.outcome }}" == "success" ]; then
             curl -s -X POST \
