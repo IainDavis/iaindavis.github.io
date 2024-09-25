@@ -34,9 +34,9 @@
 │   ├── objects
 │   │   ├── info
 │   │   └── pack
-│   │       ├── pack-a7e962a5b2dd60acb609950d33236a7cc250b3c6.idx
-│   │       ├── pack-a7e962a5b2dd60acb609950d33236a7cc250b3c6.pack
-│   │       └── pack-a7e962a5b2dd60acb609950d33236a7cc250b3c6.rev
+│   │       ├── pack-e8a37377688786511a3556561670a3a15f33955e.idx
+│   │       ├── pack-e8a37377688786511a3556561670a3a15f33955e.pack
+│   │       └── pack-e8a37377688786511a3556561670a3a15f33955e.rev
 │   ├── refs
 │   │   ├── heads
 │   │   │   └── _config
