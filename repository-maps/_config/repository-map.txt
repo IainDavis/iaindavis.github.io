@@ -34,9 +34,9 @@
 │   ├── objects
 │   │   ├── info
 │   │   └── pack
-│   │       ├── pack-3ffa4b47532049580f6f94363f8b71e5b25100fd.idx
-│   │       ├── pack-3ffa4b47532049580f6f94363f8b71e5b25100fd.pack
-│   │       └── pack-3ffa4b47532049580f6f94363f8b71e5b25100fd.rev
+│   │       ├── pack-a7e962a5b2dd60acb609950d33236a7cc250b3c6.idx
+│   │       ├── pack-a7e962a5b2dd60acb609950d33236a7cc250b3c6.pack
+│   │       └── pack-a7e962a5b2dd60acb609950d33236a7cc250b3c6.rev
 │   ├── refs
 │   │   ├── heads
 │   │   │   └── _config
@@ -47,6 +47,7 @@
 │   └── shallow
 ├── .github
 │   └── workflows
+│       ├── cleanup-repository-map.yml
 │       ├── generate-repository-map.yml
 │       ├── preview-deploy.yml
 │       └── production-deploy.yml
@@ -126,6 +127,10 @@
 │   │       │   ├── storybook.png
 │   │       │   └── unit-test-report.png
 │   │       └── editorsNote.mdx
+│   ├── 2024-09-25-deploy-to-prod-automation
+│   │   └── 2024-09-25-deploy-to-prod-automation.mdx
+│   ├── 2024-09-25-externalizing-nova
+│   │   └── 2024-09-25-externalizing-nova.md
 │   ├── authors.yml
 │   └── tags.yml
 ├── docs
@@ -142,9 +147,6 @@
 │       └── projects.mdx
 ├── docusaurus.config.ts
 ├── package.json
-├── repository-maps
-│   └── _config
-│       └── repository-map.txt
 ├── sidebars.ts
 ├── src
 │   ├── buildUtils
@@ -225,9 +227,11 @@
 │           ├── zoom-bg-04.png
 │           ├── zoom-bg-05.png
 │           └── zoom-bg-06.png
+├── temp
+│   └── repository-map.txt
 ├── tsconfig.json
 ├── vitest.config.ts
 ├── vitest.setup.ts
 └── yarn.lock
 
-80 directories, 150 files
+81 directories, 153 files
