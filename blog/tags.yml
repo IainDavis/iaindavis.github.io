@@ -58,6 +58,10 @@ ci-cd:
   label: CI/CD
   permalink: ci-cd
   description: Posts to do with Continuous Integration and Deployment
+ai:
+  label: Artificial Intelligence
+  permalink: /ai
+  description: Posts to do with artificial intelligence applications
 
 customComponents:
   label: Custom Docusaurus Components
