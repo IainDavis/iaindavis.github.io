@@ -6,10 +6,11 @@ This is the source code for [IainDavis.dev](https://iaindavis.dev), a personal p
 
 1. [Overview](#overview)
 2. [Technologies Used](#technologies-used)
-3. [Getting Started](#getting-started)
-4. [Installation](#installation)
-5. [Running the Application](#running-the-application)
-6. [Testing](#testing)
+3. [CI/CD Workflows](#cicd-workflows)
+4. [Getting Started](#getting-started)
+5. [Installation](#installation)
+6. [Running the Application](#running-the-application)
+7. [Testing](#testing)
 8. [Contributing](#contributing)
 9. [License](#license)
 
@@ -37,7 +38,10 @@ The site leverages the following technologies and libraries:
 
 ### Main Site
 - **[Docusaurus](https://docusaurus.io/)**: `3.5.2` - Static site generator used for documentation and blog management.
-- **[Webpack]()**: `5.x` - Module bundler for JavaScript applications
+- **[GitHub Actions](https://github.com/features/actions)**: CI/CD pipelines
+
+- **[Vite](https://vitejs.dev/)**: Build tool for modern web projects, ensuring fast and optimized development cycles.
+- **[Storybook](https://storybook.js.org/)**: Development environment for UI components, facilitating isolated testing and design.
 
 ### Storybook Showcase
 - **[Storybook](https://storybook.js.org/)**: `8.3.1` - Development environment for building and documenting UI components in isolation.
@@ -49,6 +53,18 @@ The site leverages the following technologies and libraries:
 - **[XUnit-Viewer](https://www.npmjs.com/package/xunit-viewer)**: `10.6.1` - A tool that converts XUnit and JUnit XML test results into readable HTML reports.
   
 ---
+## CI/CD Workflows
+
+This repository uses GitHub Actions to automate various parts of the development and deployment process. The following workflows are in place:
+
+1. **Pre-Production Deployment (`preview-deploy.yml`)**:
+   - manages pre-production deployment on pull requests. It builds the site, runs tests, and stages reports. A link is provided on the PR when the preview environment is ready.
+
+2. **Production Deployment (`production-deploy.yml`)**:
+   - manages the production deployment process. It builds the static assets and deploys them to GitHub Pages.
+
+3. **Generate Repository Map (`generate-repository-map.yml`)**:
+   - generates a repository map for each branch. The map helps the code-assistant AI infer file locations and is updated on branch pushes or manual triggers. The map is stored in the `metadata` branch.
 
 ## Getting Started
 
