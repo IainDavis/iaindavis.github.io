@@ -21,7 +21,6 @@ jobs:
           echo "Cleaning-up repository map for deleted branch: $BRANCH_NAME"
           rm -rf repository-maps/$BRANCH_NAME && echo "Successfully removed repository map for branch: $BRANCH_NAME"
 
-
       # Step 3: Commit and push changes to metadata branch
       - name: Commit and push changes
         run: |
