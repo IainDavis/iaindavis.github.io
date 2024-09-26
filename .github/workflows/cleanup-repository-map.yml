@@ -19,7 +19,7 @@ jobs:
           BRANCH_NAME="${{ github.event.ref }}"
           BRANCH_NAME=${BRANCH_NAME#refs/heads/}
           echo "Cleaning-up repository map for deleted branch: $BRANCH_NAME"
-          rm -rf repository-maps/$BRANCH_NAME
+          rm -rf repository-maps/$BRANCH_NAME && echo "Successfully removed repository map for branch: $BRANCH_NAME"
 
 
       # Step 3: Commit and push changes to metadata branch
