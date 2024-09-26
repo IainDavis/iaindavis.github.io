@@ -53,6 +53,7 @@ jobs:
       - name: Move generated files
         run: |
           MAPDIR="repository-maps/${{ github.ref_name }}"
+          mkdir -p $MAPDIR
           TEMPDIR="./temp"
           mv $TEMPDIR/* $MAPDIR/
           rmdir $TEMPDIR
