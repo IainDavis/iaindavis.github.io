@@ -16,7 +16,7 @@ jobs:
       # Step 2: Remove the repository map for the deleted branch
       - name: Remove deleted branch repository map
         run: |
-          rm -rf repository-maps/${{ github.event.ref }}
+          rm -rf repository-maps/${{ github.ref_name }}
 
       # Step 3: Commit and push changes to metadata branch
       - name: Commit and push changes

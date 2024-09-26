@@ -34,7 +34,7 @@ jobs:
           ref: ${{ github.ref }}
           fetch-depth: 1
 
-      # force rebuild
+      # MAPDIR="repository-maps/${{ github.ref_name }}"
       - name: Generate repository map
         run: |
           TEMPDIR="./temp"
