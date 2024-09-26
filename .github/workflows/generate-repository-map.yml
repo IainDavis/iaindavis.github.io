@@ -1,0 +1,65 @@
+# Intent is to create a map that my code-assistant AI can use to infer
+# locations of "raw" github files for the current state of a given branch
+name: Update Repository Map for Branch
+
+on:
+  push:
+    branches:
+      - "**"  # Trigger on any branch push
+    tags:
+      - "**"
+  workflow_dispatch:  # Allow manual triggering
+    inputs:
+      branch:
+        description: 'Branch to update the repository map for'
+        required: false
+        default: 'main'
+
+jobs:
+  update-repository-map:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install tree
+        run: sudo apt-get update && sudo apt-get install -y tree
+
+      - name: Git Identity Requirement
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      - name: Checkout current branch
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 1
+
+      # MAPDIR="repository-maps/${{ github.ref_name }}"
+      - name: Generate repository map
+        run: |
+          TEMPDIR="./temp"
+          mkdir -p $TEMPDIR
+          tree -a \
+          -I '.git' \
+          | tee $TEMPDIR/repository-map.txt;
+          date +"%Y-%m-%d %H:%M:%S" > $TEMPDIR/repository-map.timestamp.txt
+          echo "${{ github.sha }}" > $TEMPDIR/repository-map.commit-sha.txt
+      
+      - name: Checkout metadata branch
+        run: |
+          git fetch origin metadata
+          git checkout metadata
+
+      - name: Move generated files
+        run: |
+          MAPDIR="repository-maps/${{ github.ref_name }}"
+          mkdir -p $MAPDIR
+          TEMPDIR="./temp"
+          mv $TEMPDIR/* $MAPDIR/
+          rmdir $TEMPDIR
+
+      - name: Commit and push changes
+        run: |
+          git add repository-maps/
+          git commit -m "Update repository map for branch ${{ github.ref_name }}" || echo "no changes to commit"
+          git push origin metadata || echo "nothing to push"

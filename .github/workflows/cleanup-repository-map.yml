@@ -1,0 +1,28 @@
+name: Cleanup Deleted Branch
+on:
+  delete:
+
+jobs:
+  remove-repository-map:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the metadata branch
+      - name: Checkout metadata branch
+        uses: actions/checkout@v3
+        with:
+          ref: metadata # Explicitly checkout the metadata branch
+
+      # Step 2: Remove the repository map for the deleted branch
+      - name: Remove deleted branch repository map
+        run: |
+          rm -rf repository-maps/${{ github.ref_name }}
+
+      # Step 3: Commit and push changes to metadata branch
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add repository-maps/
+          git commit -m "Remove repository map for deleted branch ${{ github.ref_name }}"
+          git push origin metadata
