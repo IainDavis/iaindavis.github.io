@@ -1,0 +1,241 @@
+.
+├── .github
+│   └── workflows
+│       ├── cleanup-repository-map.yml
+│       ├── generate-repository-map.yml
+│       ├── preview-deploy.yml
+│       └── production-deploy.yml
+├── .gitignore
+├── .storybook
+│   ├── assets
+│   │   ├── mdx
+│   │   │   └── lorem_ipsum.mdx
+│   │   └── styles
+│   │       └── docusaurus_global.css
+│   ├── decorators
+│   │   └── withDocusaurusStyles.tsx
+│   ├── main.ts
+│   └── preview.tsx
+├── @types
+│   └── declarations.d.ts
+├── CNAME
+├── README.md
+├── babel.config.js
+├── blog
+│   ├── 2024-09-14-catch-up
+│   │   └── 2024-09-14-catch-up.mdx
+│   ├── 2024-09-14-docusaurus-styles-in-storybook
+│   │   ├── 2024-09-14-docusaurus-styles-in-storybook.mdx
+│   │   └── _screengrabs
+│   │       ├── broken.gif
+│   │       ├── fixed.gif
+│   │       └── times-new-roman.png
+│   ├── 2024-09-14-expandable
+│   │   └── 2024-09-14-expandable.mdx
+│   ├── 2024-09-14-impromptu-brand-work
+│   │   ├── 2024-09-14-impromptu-brand-work.mdx
+│   │   └── _resources
+│   │       ├── iaindavis.dev lollipop.png
+│   │       └── lollipop.png
+│   ├── 2024-09-15-automating-linkedin-posts
+│   │   ├── 2024-09-15-automating-linkedin-posts.mdx
+│   │   └── _resources
+│   │       └── zapier-screenshot.png
+│   ├── 2024-09-15-fixing-diffs
+│   │   ├── 2024-09-15-fixing-diffs.mdx
+│   │   ├── _resources
+│   │   │   ├── old_git_diff.png
+│   │   │   └── small_command_line_diff.png
+│   │   └── _screengrabs
+│   │       ├── right.png
+│   │       └── wrong.png
+│   ├── 2024-09-15-logo-component
+│   │   └── 2024-09-15-logo-component.mdx
+│   ├── 2024-09-15-whats-next
+│   │   └── 2024-09-15-whats-next.mdx
+│   ├── 2024-09-16-fixing-blog-post-truncation
+│   │   ├── 2024-09-16-fixing-blog-post-truncation.mdx
+│   │   └── _resources
+│   │       ├── much-better-editor.png
+│   │       ├── much-better-site.png
+│   │       ├── there-is-just-one-more-thing.png
+│   │       ├── there-is-just-one-more-thing.webp
+│   │       ├── truncate-em-i-hardly-know-em.png
+│   │       └── uhwhut.png
+│   ├── 2024-09-16-switching-automation-provider
+│   │   └── 2024-09-16-switching-automation-provider.mdx
+│   ├── 2024-09-20-getting-set-up-for-unit-tests
+│   │   └── 2024-09-20-getting-set-up-for-unit-tests.mdx
+│   ├── 2024-09-21-unit-test-collaboration
+│   │   └── 2024-09-21-unit-test-collaboration.mdx
+│   ├── 2024-09-22-introducing-testing-reports
+│   │   └── 2024-09-22-introducing-testing-reports.mdx
+│   ├── 2024-09-24-automated-preview-build
+│   │   ├── 2024-09-24-automated-preview-build.mdx
+│   │   └── _fragments
+│   │       ├── _resources
+│   │       │   ├── actions.png
+│   │       │   ├── build-in-progress.png
+│   │       │   ├── coverage-report.png
+│   │       │   ├── landing-page.png
+│   │       │   ├── storybook.png
+│   │       │   └── unit-test-report.png
+│   │       └── editorsNote.mdx
+│   ├── 2024-09-25-deploy-to-prod-automation
+│   │   └── 2024-09-25-deploy-to-prod-automation.mdx
+│   ├── 2024-09-25-externalizing-nova
+│   │   └── 2024-09-25-externalizing-nova.md
+│   ├── authors.yml
+│   └── tags.yml
+├── docs
+│   ├── brand
+│   │   ├── 00-figma
+│   │   │   └── 00-figma.mdx
+│   │   ├── 01-logo
+│   │   │   └── 01-logo.mdx
+│   │   ├── 02-linkedIn
+│   │   │   └── 02-linkedIn.mdx
+│   │   └── 03-zoom
+│   │       └── 03-zoom.mdx
+│   └── projects
+│       └── projects
+│           ├── _category_.yml
+│           ├── iaindavis.dev
+│           │   ├── 02-key-features
+│           │   │   └── 02-key-features.mdx
+│           │   ├── 03-implementation
+│           │   │   ├── 01-segments
+│           │   │   │   └── 01-segments.mdx
+│           │   │   ├── 02-challenges
+│           │   │   │   ├── 01-glue
+│           │   │   │   │   ├── 01-glue.mdx
+│           │   │   │   │   ├── _fragments
+│           │   │   │   │   │   ├── blog-truncation.mdx
+│           │   │   │   │   │   ├── copying-styles.mdx
+│           │   │   │   │   │   └── webpack.mdx
+│           │   │   │   │   └── _resources
+│           │   │   │   │       └── bad-syntax-highlighting.png
+│           │   │   │   ├── 02-other-challenges
+│           │   │   │   │   ├── 02-other-challenges.mdx
+│           │   │   │   │   └── _fragments
+│           │   │   │   │       └── test-with-css-module.mdx
+│           │   │   │   └── _category_.yml
+│           │   │   ├── 03-ci-cd
+│           │   │   │   └── 03-ci-cd.mdx
+│           │   │   ├── 03-implementation.mdx
+│           │   │   └── 04-tests
+│           │   │       └── 04-tests.mdx
+│           │   ├── 04-key-learnings
+│           │   │   └── 04-key-learnings.mdx
+│           │   ├── 05-future-plans
+│           │   │   └── 05-future-plans.mdx
+│           │   ├── _fragments
+│           │   │   ├── high-level-summary.mdx
+│           │   │   ├── project-links.mdx
+│           │   │   └── tech-used.mdx
+│           │   └── iaindavis.dev.mdx
+│           └── nova
+│               ├── 01-key-features
+│               │   └── 01-key-features.mdx
+│               ├── 02-challenges
+│               │   └── 02-challenges.mdx
+│               ├── 03-future-plans
+│               │   └── 03-future-plans.mdx
+│               ├── _fragments
+│               │   ├── high-level-summary.mdx
+│               │   ├── project-links.mdx
+│               │   └── tech-used.mdx
+│               ├── _resources
+│               │   ├── Nova_AI.png
+│               │   └── nova-jira-issue.png
+│               └── nova.mdx
+├── docusaurus.config.ts
+├── package.json
+├── sidebars.ts
+├── src
+│   ├── buildUtils
+│   │   ├── docusaurus
+│   │   │   ├── postBuild
+│   │   │   │   └── copyStylesPlugin.js
+│   │   │   └── remark
+│   │   │       └── removeTruncateMarker.ts
+│   │   └── storybook
+│   │       └── webpack
+│   │           ├── helpers.ts
+│   │           ├── types.ts
+│   │           ├── webpackFinal.ts
+│   │           ├── webpackRules.ts
+│   │           └── webpackTransforms.ts
+│   ├── components
+│   │   ├── Expandable
+│   │   │   ├── Expandable.mdx
+│   │   │   ├── Expandable.module.css
+│   │   │   ├── Expandable.stories.tsx
+│   │   │   ├── Expandable.test.tsx
+│   │   │   ├── Expandable.tsx
+│   │   │   └── __snapshots__
+│   │   │       └── Expandable.test.tsx.snap
+│   │   └── brand
+│   │       └── Logo
+│   │           ├── Logo.module.css
+│   │           ├── Logo.stories.tsx
+│   │           └── Logo.tsx
+│   ├── css
+│   │   └── custom.css
+│   ├── pages
+│   │   ├── index.module.css
+│   │   └── index.tsx
+│   ├── stories
+│   │   └── assets
+│   │       ├── accessibility.png
+│   │       ├── accessibility.svg
+│   │       ├── addon-library.png
+│   │       ├── assets.png
+│   │       ├── avif-test-image.avif
+│   │       ├── context.png
+│   │       ├── discord.svg
+│   │       ├── docs.png
+│   │       ├── figma-plugin.png
+│   │       ├── github.svg
+│   │       ├── share.png
+│   │       ├── styling.png
+│   │       ├── testing.png
+│   │       ├── theming.png
+│   │       ├── tutorials.svg
+│   │       └── youtube.svg
+│   └── strings
+│       ├── Expandable.strings.ts
+│       ├── getString.ts
+│       └── index.ts
+├── static
+│   ├── .nojekyll
+│   ├── CNAME
+│   └── img
+│       ├── authors
+│       │   ├── Nova_AI.png
+│       │   └── idavis.jpg
+│       ├── linkedIn
+│       │   └── linkedin-banner-01.png
+│       ├── logo
+│       │   ├── logo-compact-dark.svg
+│       │   ├── logo-compact-generic.svg
+│       │   ├── logo-compact-nobg-generic.svg
+│       │   ├── logo-compact-square-generic.svg
+│       │   ├── logo-expanded-generic.svg
+│       │   └── logo-expanded-nobg-generic.svg
+│       ├── logo-favicon.svg
+│       └── zoom
+│           ├── zoom-bg-01.png
+│           ├── zoom-bg-02.png
+│           ├── zoom-bg-03.png
+│           ├── zoom-bg-04.png
+│           ├── zoom-bg-05.png
+│           └── zoom-bg-06.png
+├── temp
+│   └── repository-map.txt
+├── tsconfig.json
+├── vitest.config.ts
+├── vitest.setup.ts
+└── yarn.lock
+
+86 directories, 152 files
