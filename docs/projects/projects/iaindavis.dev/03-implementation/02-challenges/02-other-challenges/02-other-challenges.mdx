@@ -1,0 +1,89 @@
+---
+title: Other Challenges
+---
+import Expandable from '@site/src/components/Expandable/Expandable'
+
+## Docusaurus Diff Formatting
+Docusaurus `diff` highlighting didn't work properly in code blocks --
+no highlights appeared in the rendered output at all.
+
+<Expandable>
+### Solution
+Define "magic comments" in remark configuration and custom CSS styles for
+add/remove highlights.
+
+:::info
+[Magic comments][magic-comments] are a remark feature that applies a CSS style to the next line in
+the output.
+:::
+
+See [this blog post][diff-blog-post] for more details.
+
+### Bonus Win
+This approach means that Docusaurus code blocks retain their original
+syntax highlighting for the underlying language!
+
+### Caveat
+Adding or removing more than just a line or two results in ugly
+write-time markdown.
+
+There is a [more robust fix][more-robust-fix]
+that may be applied later, but for now this restores an essential feature
+with minimal effort
+
+</Expandable>
+
+## Module Hell With Jest
+During development Docusaurus was updated from v3.2 to v3.5. That
+carried with it an update to `mdx-js` to `v3`, which changed from a
+hybrid CommonJS/ESModules package to being purely ESModules, which
+entirely broke Jest (which relies on CommonJS for importing modules.).
+
+<Expandable>
+
+    This was compounded by Jest not performing according to it's
+    documentation.
+
+    Jest allows custom transformers. As of Jest v28 (this
+    site was using v29 at the time), those transformers conform to an
+    interface that requires _either_ a synchronous `process` function or an
+    asynchronous `processAsync` function. If the `processAsync` function is supplied,
+    Jest should prefer it, and the `process` function should be irrelevant.
+
+    That _should_ have allowed a dynamic import (inherently asynchronous)
+    of the problem module. Unfortunately, Jest continually insisted
+
+    * using the synchronous `process` function, if it was supplied
+    * failing to compile if `process` was not supplied
+
+    ### Solution
+    Abandon Jest.
+
+    I explored alternatives with my AI and landed on using
+    [Vitest][https://vitest.dev/].
+
+    Vitest is built with an ESModules-first mindset. But there was _still_
+    a problem because Vitest also uses an underlying library for module
+    import that depends on CommonJS. But in the case of Vitest, the
+    dynamic import solution [worked as expected.][mdx-dynamic-import]
+
+</Expandable>
+
+
+
+{ /* NAMED LINKS */}
+[diff-blog-post]:
+    https://iaindavis.dev/blog/2024/09/15/2024-09-15-fixing-diffs/fixing-diffs
+    "Fixing Diffs"
+
+[more-robust-fix]:
+    https://github.com/facebook/docusaurus/issues/3318#issuecomment-2065547731
+    "More robust fix from Docusaurus PR"
+
+[magic-comments]:
+    https://docusaurus.io/docs/markdown-features/code-blocks#custom-magic-comments
+    "'Magic Comments' documentation in Docusaurus"
+
+[mdx-dynamic-import]:
+    https://github.com/IainDavis/iaindavis.github.io/blob/main/vitest.config.ts#L4-L6
+    "Dynamic import of module `mdx-js/rollup` in Vitest configuration"
