@@ -2,11 +2,10 @@
 title: CI/CD
 date: 2024-10-01T10:23
 ---
-## CI/CD
 This website implements Continuous Integration/Continuous Deployment
 with GitHub Actions. The following flows are supported:
 
-### Deploy To Preview Environment
+## Deploy To Preview Environment
 A separate repository (with it's own GitHub Pages space) is maintained
 as a pre-prod environment. On any PR creation, a full build is run
 against the source, including:
@@ -24,7 +23,8 @@ When the PR is closed or merged, a separate job runs to delete the preview envir
 
 [GitHub Actions Spec][preview-build]
 
-### Deploy to Production
+---
+## Deploy to Production
 The same process is carried out as the deploy-to-preview action,
 except that some stages which are allowed to fail in the preview build
 (like unit tests) will abort the build if they fail in production. And
@@ -33,7 +33,8 @@ primary location at https://iaindavis.dev
 
 [GitHub Actions Spec][production-build]
 
-### Repository Map
+---
+## Repository Map
 Not strictly a part of the website: a GitHub Actions job runs on
 creation or update of any branch (or tag). That job runs the
 command-line utility `tree` to create a map of the repository contents
