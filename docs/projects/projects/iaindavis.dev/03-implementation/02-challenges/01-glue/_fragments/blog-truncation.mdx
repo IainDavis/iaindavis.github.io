@@ -1,0 +1,20 @@
+import Expandable from '@site/src/components/Expandable/Expandable'
+
+## Blog Truncation
+<Expandable>
+
+    Docusaurus allows you to set a custom token for determining where, when shown as
+    part of a list, a blog post will be truncated.
+
+    Docusaurus _does not_ automatically strip the new token from the blog post content
+    when viewed outside of a list.
+
+    See this [related blog
+    post](/blog/2024/09/16/2024-09-16-fixing-blog-post-truncation/fixing-blog-post-truncation)
+
+    The fix for this was to add a [custom Remark plugin][remark-blog-filter] to the [docusaurus configuration][remark-blog-filter-applied]
+
+</Expandable>
+
+[remark-blog-filter]: https://github.com/IainDavis/iaindavis.github.io/blob/main/src/buildUtils/docusaurus/remark/removeTruncateMarker.ts  "src/buildUtils/docusaurus/remark/removeTruncateMarker.ts"
+[remark-blog-filter-applied]: https://github.com/IainDavis/iaindavis.github.io/blob/main/docusaurus.config.ts#L58-L60

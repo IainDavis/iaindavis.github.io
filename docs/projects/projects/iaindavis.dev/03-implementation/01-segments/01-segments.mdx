@@ -1,0 +1,47 @@
+---
+title: Major Segments
+---
+import Expandable from '@site/src/components/Expandable/Expandable';
+
+As of this writing, this website features three broad segments relying on different technologies
+
+### Website
+The core of this site is a Docusaurus static documentation site,
+making use of primarily the `docs` and `blog` plugins.
+
+The bulk of the content is written in MDX with occasional use of
+Mermaid diagrams and other Docusaurus extensions.
+
+Docusaurus provides a customizable navbar and footer that is applicable to all plugins.
+
+Custom UI elements
+are React (18) components, written in TypeScript.
+
+<Expandable>
+    #### Pages
+    Static pages managed by the Docusaurus 'pages' plugin. Currently limited to the landing page.
+
+    #### Docs
+    The bulk of the planned content relies on the Docusaurus 'docs' plugin. Docs feature an auto-generated sidebar and table of contents, as well as forward/back navigation.
+
+    #### Blog
+    A developer blog is currently the only use of the Docusaurus 'blog' plugin, but this may be extended at a later date to include a release history/changelog and any other time-series types of information.
+    The blog page features time-sequential ordering, a 'recent items' menu, grouping posts by tag, and sharing profile information about the author(s)
+</Expandable>
+
+### Custom Components
+This site features a small (but growing) number of custom React
+components to extend the in-built capabilities of Docusaurus
+
+### Storybook
+A Storybook showcase of the custom components has been integrated with
+the website and published alongside it
+[here](https://iaindavis.dev/storybook/iaindavis.dev)
+
+Storybook stories have also been incorporated into the unit test suite.
+
+### Reports
+Building the website generates reports, which are shared on the website.
+Currently generated reports are:
+* Unit tests (pass/fail for individual tests)
+* Unit test coverage
