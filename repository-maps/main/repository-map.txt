@@ -98,7 +98,57 @@
 │   │   └── 03-zoom
 │   │       └── 03-zoom.mdx
 │   └── projects
-│       └── projects.mdx
+│       └── projects
+│           ├── _category_.yml
+│           ├── iaindavis.dev
+│           │   ├── 02-key-features
+│           │   │   └── 02-key-features.mdx
+│           │   ├── 03-implementation
+│           │   │   ├── 01-segments
+│           │   │   │   └── 01-segments.mdx
+│           │   │   ├── 02-challenges
+│           │   │   │   ├── 01-glue
+│           │   │   │   │   ├── 01-glue.mdx
+│           │   │   │   │   ├── _fragments
+│           │   │   │   │   │   ├── blog-truncation.mdx
+│           │   │   │   │   │   ├── copying-styles.mdx
+│           │   │   │   │   │   └── webpack.mdx
+│           │   │   │   │   └── _resources
+│           │   │   │   │       └── bad-syntax-highlighting.png
+│           │   │   │   ├── 02-other-challenges
+│           │   │   │   │   ├── 02-other-challenges.mdx
+│           │   │   │   │   └── _fragments
+│           │   │   │   │       └── test-with-css-module.mdx
+│           │   │   │   └── _category_.yml
+│           │   │   ├── 03-ci-cd
+│           │   │   │   └── 03-ci-cd.mdx
+│           │   │   ├── 03-implementation.mdx
+│           │   │   └── 04-tests
+│           │   │       └── 04-tests.mdx
+│           │   ├── 04-key-learnings
+│           │   │   └── 04-key-learnings.mdx
+│           │   ├── 05-future-plans
+│           │   │   └── 05-future-plans.mdx
+│           │   ├── _fragments
+│           │   │   ├── high-level-summary.mdx
+│           │   │   ├── project-links.mdx
+│           │   │   └── tech-used.mdx
+│           │   └── iaindavis.dev.mdx
+│           └── nova
+│               ├── 01-key-features
+│               │   └── 01-key-features.mdx
+│               ├── 02-challenges
+│               │   └── 02-challenges.mdx
+│               ├── 03-future-plans
+│               │   └── 03-future-plans.mdx
+│               ├── _fragments
+│               │   ├── high-level-summary.mdx
+│               │   ├── project-links.mdx
+│               │   └── tech-used.mdx
+│               ├── _resources
+│               │   ├── Nova_AI.png
+│               │   └── nova-jira-issue.png
+│               └── nova.mdx
 ├── docusaurus.config.ts
 ├── package.json
 ├── sidebars.ts
@@ -188,4 +238,4 @@
 ├── vitest.setup.ts
 └── yarn.lock
 
-64 directories, 124 files
+86 directories, 152 files
