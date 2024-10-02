@@ -83,8 +83,6 @@
 │   │       └── editorsNote.mdx
 │   ├── 2024-09-25-deploy-to-prod-automation
 │   │   └── 2024-09-25-deploy-to-prod-automation.mdx
-│   ├── 2024-09-25-externalizing-nova
-│   │   └── 2024-09-25-externalizing-nova.md
 │   ├── authors.yml
 │   └── tags.yml
 ├── docs
@@ -238,4 +236,4 @@
 ├── vitest.setup.ts
 └── yarn.lock
 
-86 directories, 152 files
+85 directories, 151 files
