@@ -1,0 +1,128 @@
+---
+title: Actual Content!
+authors:
+    - iain
+date: 2024-10-04T16:25
+---
+import Demos from './_fragments/demoFragment.mdx'
+
+It's been a while since I posted here!
+
+Actually, I posted here about a week ago about some of the things I
+was working on with Nova, but I wrote it in a bit of a rush, and I
+_**hated**_ that blog post. It was disorganized and the content didn't
+really relate to the title at all, so I deleted it.
+
+Since then, this week and a goodly chunk of last week have been all about producing content
+for this here website.
+
+TRUNCATE_HERE
+
+### Projects
+I've finally put some flesh on the [projects
+section][section-projects]. At the moment, this is limited to this
+here website and Nova. I felt like I was spending enough time on Nova
+that they deserved the 'project' status. I [externalized all her various
+instructions into a GitHub repo][]. When I get back to
+actually working on it, I'll likely add a page for my GMail Tools
+AppsScript project.
+
+Each section features a quick overview, relevant links, challenges
+faced, and a more detailed summary of details.
+
+### Bio
+I've added a [new Bio section][section-bio]. I considered just
+mirroring my LinkedIn bio here, but it seemed like an opportunity to
+go into a bit more depth and add a bit of color to the picture of who
+I am. The rest of the site is pretty business-like. If someone wants
+the briefer synopsis, they still have the overview page and the
+LinkedIn profile they can go to.
+
+### New Components
+I've written [a handful of very simple React
+components][bio-components] during this work. I kind of thought they'd
+be just use-once components, so I've just defined them in place, but
+in retrospect, I think they probably have some utility outside the bio
+section. For now, I've left them where they are, but I've scheduled
+some work on my backlog to move them into the appropriate location and
+write tests and stories for them. There'll likely be a round of
+refinement as well, since they're pretty basic at the moment.
+
+The new components do roughly two things:
+* Make use of the CSS `float` property to float a section of content
+  which allows more interesting layouts with very little additional overhead
+* Generate a delimited set of links within an MDX document. In place,
+  allowing a set of links to be defined [in the frontmatter header][yaml-frontmatter]
+
+<Demos/>
+
+### Other Things
+I've added a good bit of capability to Nova. She can now submit Jira
+tickets for me, as well as PR reviews. It's so much easier now to
+capture an idea that happens in flow without _leaving_ the flow. And
+I've added a build stage that generates a map of my repository (using
+the command-line utility `tree`) which Nova can use to infer the
+locations of files in my repository, which really has streamlined
+getting Nova on the same page as me when discussing a set of changes
+to a file.
+
+### Coming Soon
+#### New Content
+- Katas page
+- Update footer and Navbar
+- Gmail Tools project page
+
+#### Catching up
+- Need to flesh out the test suite, now that it's all automated, then bump up
+  coverage limits
+- Fix up my Logo component so it's scalable (you can see a place where it
+  _ought_ to scale, but _doesn't_ on the [project overview page][website-project-overview] for this website)
+- Add styleguide, linting, Git hooks, prose checking, all that stuff. Probably
+  lower priority than content and getting more aggressive about job-hunting at
+  this stage.
+
+#### New features
+I think I'm going to add a menu for selecting a preview environment, and a
+visual indicator that lets you know when you're _in_ a preview environment.
+Haven't really figured out how I'm going to go about that yet, but it does give
+me a meaningful interaction with an API, which is something I wanted to add
+here.
+
+#### Putting Lipstick on a Pig
+I've got a little section of images and videos from my various hobbies in the
+bio section. It's currently just a CSS flex-box, and it looks attrocious. I
+think I'm going to change that to a carousel, which is probably going to finally
+force me to commit to one component library or another. There'll be some
+research to do there, and I'm glad I've got Nova to help me do it.
+
+#### Nova
+I've got a few tickets in to do some refinements on Nova. At the moment, I have
+to continually remind her of my Jira project key, and the format she's supposed
+to use to submit requests. A few other things that rub a bit.
+
+Lots to do. I doubt I'll get through all of it in the next couple weeks, but
+we'll see how far I _do_ get. Stay tuned.
+
+{/* NAMED LINKS */}
+[section-projects]: 
+    /docs/projects/iaindavis.dev
+    "Projects section"
+
+[section-bio]:
+    /docs/bio/bio
+    "Bio section"
+
+[yaml-frontmatter]:
+    https://github.com/IainDavis/iaindavis.github.io/blob/main/docs/bio/bio/bio.mdx?plain=1#L3-L18
+
+[bio-components]:
+    https://github.com/IainDavis/iaindavis.github.io/tree/main/docs/bio/bio/_components
+    The set of components I created for my 'bio' section
+
+[website-project-overview]:
+    /docs/projects/iaindavis.dev
+    "Website project overview"
+
+[nova-repo]:
+    https://github.com/IainDavis/Nova
+    "Nova's repository"
