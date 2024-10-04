@@ -1,0 +1,391 @@
+---
+title: Career Skills
+---
+import React from 'react';
+export const summaryStyle = {
+    fontStyle: 'italic',
+    paddingLeft: '2em'
+}
+export const Summary = ({children}) => React.createElement('div', { style: summaryStyle }, children) 
+
+---
+## Languages
+### JavaScript
+<Summary>
+    I first started using JavaScript during my internship at
+    Intuit in 2018.
+
+    I'm a big fan. Features like the nullish coalescing operator
+    and the spread operator really can simplify your code a great
+    deal. I'm also fond of async/await, and Promise.all, for how
+    they simplify asynchronous actions.
+
+    I've also gravitated from strict OOP in my more Java-centric
+    days to a more functional style, largely thanks to JavaScript
+    and TypeScript.
+
+</Summary>
+
+### TypeScript
+<Summary>
+    I was introduced to TypeScript as part of the Books-to-Tax
+    project on the Cronulla team at Intuit Sydney. I was
+    skeptical, at first, that JavaScript **needed** a type system,
+    but I came around in the end.
+
+    This is my language of choice, these days. All the benefits of
+    JavaScript, plus type-safety and code completion. If I'm
+    setting out to write something myself, I'll generally reach
+    for TypeScript first. I would describe my TypeScript skills as
+    "good enough to accomplish what I need to, not so good that
+    anyone reading my code also has to be a TypeScript expert. I'm
+    learning all the time how to write more concise TypeScript"
+
+    I still have a long way to go learning the configuration options
+
+</Summary>
+
+### Java
+<Summary>
+    This was the language-of-preference at my university (SJSU, 2015-2018). All
+    of my training in Object-Oriented Programming and Design was in Java.
+    Also, during my time at Intuit in San Diego, the majority of the
+    back-ends we worked on were written in Java (+ framework).
+
+    I've used v8, v11, and v17. I like to write using the Streams API.
+
+    Most of the back-ends we've worked on at Intuit Sydney (2021-2024)
+    have been Node back-ends, so my Java is a bit rusty, but I'm quite
+    confident I could pick it up again quickly.
+</Summary>
+
+### Groovy
+<Summary>
+    I'm nothing like a Groovy expert, but I did work on a Spring Boot
+    repository during the PrISM Sunset project where all of the tests
+    were written in Groovy. I _really_ liked some of the tools it has
+    for navigating and parsing structured data. It had features that
+    were a bit like Python that way. Would love to work in Groovy (or
+    something like it) again.
+</Summary>
+
+### C
+<Summary>
+    My earliest formal training was in C. It was the lingua-franca at
+    De Anza College (2012-2015, the last year before they switched to
+    Java), and all my training in basic programming concepts and Data
+    Structures was implemented in C.  I've done a fair bit of work
+    with Abstract Data Types in C.
+    
+    That's all pretty long ago now, though. I'm fond of C, but I
+    haven't worked with it in ages.
+</Summary>
+
+### Python
+<Summary>
+    Limited, but some hands-on experience. I've done some study and
+    tutorials, but my most hand-on work with Python was writing the
+    validation scripts for the PrISM sunset work at Intuit San Diego
+    (2019-2020).
+
+    I've never worked in any Python frameworks.
+</Summary>
+
+### Ruby
+<Summary>
+    Quite limited. We took over some assets from the LATAM region that
+    were written in Ruby. Our job was just to provide continuing
+    support until those assets could be decommissioned, but I did give
+    myself a bit of a Ruby crash-course to prepare for that. To do any
+    serious development though, I'd have to learn a good bit.
+</Summary>
+
+### VB/VBA
+<Summary>
+    I took some introductory courses in VB. Let's not talk about it anymore.
+</Summary>
+
+### ActionScript
+<Summary>
+    ActionScript was "my first love," so to speak. It's the language
+    that brought me to programming in the early 2000s.(via Macromedia
+    Flash). I never use it anymore, but it'll always have a place in
+    my heart.
+</Summary>
+
+---
+## Frameworks
+### React
+<Summary>
+    I suppose I probably first encountered React in any meaningful way
+    at Intuit Sydney (2021-2024), but it's essentially my go-to for
+    front end work, now.
+</Summary>
+
+### Spring Boot
+<Summary>
+    Spring Boot was the framework of choice at Intuit San Diego
+    (2020-2021). Almost every service we had was built on it. I've had
+    a good deal of experience working in Spring Boot, but also dealing
+    with the idiosyncracies of Spring Boot packages (different folder
+    structure). I also have non-trivial experience engaging with the
+    Spring data layer, writing JQL queries, understanding foreign-key
+    relationships and who "owns" them, and how those queries get
+    translated into SQL instructions.
+</Summary>
+
+### Docusaurus
+<Summary>
+    I'm a Docusaurus evangelist. I'm sure there are other frameworks
+    doing similar things, so maybe it's fairer to say I'm an MDX
+    evangelist, and Docusaurus is just the framework I'm most familiar
+    with. I think documentation generally is a big deficit in this
+    industry, and Docusaurus promises to improve the situation by
+    making large chunks of documentation either re-usable or
+    automatable.
+</Summary>
+
+---
+## Build Tools
+### Maven
+<Summary>
+    Probably most of my experience directly manipulating a build tool
+    has been with Maven. I've had experience with multi-module
+    projects, Spring Boot projects, the `shade` plugin, adjusting
+    build order, etc. etc.
+</Summary>
+
+### Gradle
+<Summary>
+    Limited experience, but it seems mostly pretty similar to Maven. Confident I can engage with it productively
+</Summary>
+
+### Webpack
+<Summary>
+    Mostly I've dealt with webpack as a tool that runs transparently
+    to me. It's mostly since I've been working on this website that
+    I've had to get into any deeper interaction with it, which has
+    mostly been about changing module loaders, and syncing babel
+    configurations across Storybook and Docusaurus. I'm certainly not
+    afraid to get in it and get my hands dirty, though.
+</Summary>
+
+### Vite
+<Summary>
+    I've had my first hands-on experience with Vite setting up this website.
+    (I'm using Vitest for my unit tests). I've not had to do much
+    configuration with it, but I'm pretty impressed by its speed. Even
+    with my tiny limited test suite, the difference is noticable.
+    Looking forward to working with it in the future. For now,
+    Docusaurus keeps me tethered to Webpack.
+</Summary>
+
+---
+## Databases
+### SQL
+<Summary>
+    I've had to work with many flavors of SQL. Most commonly that's
+    been MySQL/MariaDB, but I've also had non-trivial interactions
+    with SQL Server that included digging into stored procedures. I've
+    also performed a major-version upgrade on a PostgreSQL server that
+    required getting into the weeds a bit on replication.
+
+    Not an expert, but not really a fresh-faced newbie, either.
+
+    I've also occasionally used SQLite in my own projects.
+</Summary>
+
+### Dynamo DB
+<Summary>
+    I've had some limited interaction with Dynamo DB. Pretty much all just access, no setup or configuration.
+</Summary>
+
+### Redis
+<Summary>
+    More or less the same as Dynamo DB
+</Summary>
+
+### Other NoSQL implementations
+<Summary>
+    Intuit has its own proprietary persistence solutions, which I have
+    had significant engagement with.
+</Summary>
+
+---
+## Cloud Platforms
+### AWS
+<Summary>
+    A few years ago, Intuit switched from all owned datacenters to
+    fully hosted on AWS. I've never been a DevOps guru, but I have had
+    many opportunities to work with AWS. In particular, I've worked
+    with EC2 Instances (including Security Groups and Auto-Scaling
+    rules), CloudWatch, CloudFront, S3, RDS (performed a major-version
+    upgrade on a PostgreSQL cluster with replication), a bit of Route53.
+    The AWS Console is familiar to me, and I've been in fairly diverse areas of the space.
+
+    I've also used AWS in my personal projects, although I tend to
+    avoid it these days, as I like to keep my projects free, to the
+    extent that is possible.
+</Summary>
+
+---
+## Containers/Deployments
+### Docker
+Some experience, although mostly as a user of Docker appliances. I
+have done some training on creating Docker images/containers from the
+command line, but I've seldom had to set anything up for myself in
+practice.
+
+### Kubernetes
+I have a fair amount of experience engaging with Kubernetes as a user
+of Kubernetes deployments. To that end, I've looked at configurations,
+mostly in a troubleshooting mode, but rarely had to set one up
+directly. I have done some off-duty exploration of interacting with
+Kubernetes via the command line using `kubectrl` and done some
+organized training about basic kubernetes concepts. I'm hardly an
+expert, but I'm familiar with basic concepts.
+
+---
+## Test Frameworks
+### JUnit
+<Summary>
+    I've extensively used JUnit in both its v4 and v5 versions. I've written my own JUnit 5 extensions to
+    * isolate tests with respect to the system properties
+    * make logging a testable element
+</Summary>
+
+### Jest
+<Summary>
+    Jest has been the only test framework I've used for
+    JavaScript/TypeScript up until this website (which uses Vitest,
+    very similar to Jest). I'm quite familiar with this tool and have
+    written module mocks at both global and local scope, and am very
+    comfortable with the parameterized tests API.
+</Summary>
+
+### React Testing
+<Summary>
+    I've done testing of React components using both Enzyme and React-Testing-Library
+</Summary>
+
+### Karate
+<Summary>
+    Karate is Intuit's in-house declarative test-writing tool (open
+    sourced). I've used it. I won't lie, I kind of hate it. But I have
+    successfully used it.
+</Summary>
+
+### Cypress
+<Summary>
+    We used Cypress for our E2E tests in the Books-to-Tax project.  I
+    really like the UX for Cypress, nice preview environment, the
+    logging is great, and the ability to step back through test events
+    is really, really wonderful. I'm less enthusiastic about the
+    developer experience.  Cypress introduces a lot of its own idioms
+    to handle asynchronicity and what is exposed within the tests
+    themselves, and learning it is a bit like learning an entirely new
+    language.
+
+    I've had extensive experience with Cypress. I wrote a module to
+    automate creation of test accounts (using Intuit's test-account
+    API) and make them available to the tests.
+</Summary>
+
+### Playwright
+<Summary>
+    I've used Playwright a good deal less than Cypress, but I'm very
+    pleased that it uses much more conventional JavaScript syntax.
+    Looking forward to working with it more in the future so I can
+    make a more thorough comparison against Cypress.
+</Summary>
+
+---
+## Tools
+### Storybook
+<Summary>
+    I first used Storybook on the Books-to-Tax project at Intuit
+    Sydney (2021-2024). Our senior included it in the project to allow
+    the front end work to proceed before the back-end work was in
+    place (at the time we were sharing the project with another team
+    who had the back-end responsibility). We integrated a mock API
+    which allowed the front-end work to proceed right away. I was also
+    really impressed with how it tightened up the feedback loop. It's
+    a whole lot easier to view your modified component in the
+    Storybook preview environment than to get it loaded up into a
+    deployed E2E environment that might still require multiple
+    page-navigations to get to the change you wanted to see. It was
+    also great for simulating load times, failed calls, etc. All the
+    non-happy-path circumstances.
+
+    This website has been my first foray into setting up Storybook for
+    myself (To be fair, it may be overkill in this instance). I don't
+    think I'll do any significant React development without it (or
+    something like it) again.
+    
+    I've used a fair few of Storybook's extension features, including
+    setting up my own decorators and plugins (the storybook for this
+    site includes a decorator that translates Storybook's theme
+    implementation into one that applies to Docusaurus's components)
+</Summary>
+
+### Confluence/Jira
+<Summary>
+    A lot of exposure to Jira as a developer. I'm using it now in my
+    own projects, which is giving me a bit more notion of the project
+    administrator side as well.  I've used Confluence a great deal,
+    but it was the Confluence Enterprise product, which I suspect was
+    several versions out of date.
+</Summary>
+
+### Splunk
+<Summary>
+    I've got better-than-beginner abilities with Splunk. I can do the
+    odd join, or arrive at derived values, and use those as the basis
+    for dashboards.
+
+    not a Splunk Wizard, but competent beyond just "find this userID or transaction ID".
+</Summary>
+
+### Excel/Google Sheets
+<Summary>
+    I firmly believe that this is an underrated skill among developers
+    and software engineers. The ability to present data in a way that
+    is comprehensible to non-technical people, but also that can be
+    sliced-and-diced in ways that reveal things about the data is really valuable.
+</Summary>
+
+---
+## Soft Skills
+### Determined Problem-Solver
+<Summary>
+    I like to understand how things work. That usually means I'm well
+    suited to understand why they **don't** work, too. I dig in and
+    often work from first principles until I can get to an answer
+</Summary>
+
+### Good Written Communication
+<Summary>
+    Hopefully, this website serves as evidence of this.
+
+    I tend to write highly structured PRs... my goal is to answer as
+    many questions for the reviewer as I can, before they ask them.
+
+    That usually means describing the intent of the change, as well as
+    any trade-offs consciously made.
+
+    Good written communication isn't just about choosing the right
+    words, but also about **organization of information**. I think far
+    too many developers tend to just do a brain-dump (understandably,
+    given time pressures) and say "well, at least it's out there". But
+    extracting the actual knowledge out of that sort of documentation
+    can be a time-consuming and exhausting chore.
+</Summary>
+
+### Collaborator
+<Summary>
+    One of my favorite collaborations has been with a tax-expert, who
+    wasn't a software person at all. We worked together to determine
+    the appropriate mapping from accounting categories to lines on a
+    tax form. We interacted across a 17-hour time zone difference,
+    through occasional short meetings, Slack, and a lot of Google Sheets.
+</Summary>

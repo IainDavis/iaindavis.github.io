@@ -86,7 +86,7 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'projectsSidebar',
           position: 'left',
-          label: 'Projects'
+          label: 'Projects',
         },
         {
           type: 'docSidebar',
@@ -104,6 +104,12 @@ const config: Config = {
           position: 'right',
         },
       ],
+    },
+    docs: {
+      sidebar: {
+        hideable: true,
+        autoCollapseCategories: true,
+      }
     },
     footer: {
       style: 'dark',
