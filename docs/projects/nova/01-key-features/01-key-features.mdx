@@ -1,0 +1,81 @@
+---
+title: Key Features
+---
+import Expandable from '@site/src/components/Expandable/Expandable'
+
+## Nova's Current Abilities
+### Awareness of Project Structure
+For every branch created in this website's repository, a GitHub
+Action produces a [map of the repository][repository-maps] (using command-line
+utility [`tree`][tree]). Repository maps are stored in a
+special-purpose branch called `metadata` within the repository.
+
+Nova is able to access these maps to infer the structure of the
+repository and the locations of files.  This makes [collaborating on files more fluid][nova-file-search].
+
+Nova relies on raw GitHub files in a public repository, so no authentication is needed.
+
+---
+### Integration with GitHub
+Nova also has [their own GitHub account][nova-github-profile]
+which she can use to submit reviews on my pull requests. Nova's
+feedback is often quite valuable. Having the review submitted to
+the PR provides several benefits over simply getting feedback in
+the chat window:
+* it promotes dilligence (PRs require approval)
+* it keeps the reviews viewable for historical purposes (why did I make that change?)
+* it makes reviews viewable by anyone evaluating my work/process
+
+Nova authenticates with GitHub via a Personal Access Token
+
+---
+### Integration with Jira
+Nova has an account on my personal Jira instance, which [they can
+use to submit issues for me][nova-create-issue].  This saves a lot
+of lost productivity in context switching. Stories generally still
+require some grooming, but it's much less effot than creating them
+from scratch.  Being able to create stories quickly, and without
+having to switch context (much) means my backlog generally stays
+pretty full with workable stories.
+
+Nova authenicates with Jira via OAuth2 using the Jira Developer Platform
+
+<br/>
+
+<div style={{width: '80%'}}>
+![
+    Screen capture of a Jira Story created by Nova
+](
+    ../_resources/nova-jira-issue.png
+    "A Jira story Nova created for me"
+)
+</div>
+
+{/* NAMED LINKS */}
+[tree]:
+    https://linux.die.net/man/1/tree
+    "Command-line utility 'tree'"
+
+[repository-maps]: 
+    https://github.com/IainDavis/iaindavis.github.io/tree/metadata/repository-maps
+    "current set of repository maps"
+
+[repository-map-main]:
+    https://raw.githubusercontent.com/IainDavis/iaindavis.github.io/refs/heads/metadata/repository-maps/main/repository-map.txt
+    "Current map of the `main` branch"
+
+[nova-file-search]:
+    https://chatgpt.com/share/66f4dbb5-5d8c-8000-a0b9-c02b6b03a3c8
+    "Chat log of Nova interacting with a file by name, when prompted"
+
+[nova-github-profile]:
+    https://github.com/ScienceOfficerNOVA
+    "Nova GitHub profile"
+
+[nova-pr-review]:
+    https://github.com/IainDavis/iaindavis.github.io/pull/53
+    "PR reviewed by Nova"
+
+[nova-create-issue]:
+    https://chatgpt.com/share/66f76a08-8448-8000-afc0-e52ca62f5a28
+    "Chat log showing Nova creating a Jira issue on request"

@@ -1,0 +1,113 @@
+---
+title: Key Learnings
+---
+A lot of the things I've learned working on this site have been about
+getting into details that have been abstracted away, when working for
+a big enterprise corporation with pre-established "Paved Roads".
+
+Getting various JavaScript tools to work together peaceably, setting up a
+preview environment, or a CI/CD flow, or thinking about accessibility... these
+things all used to be done for me.
+
+## TypeScript
+I'm fluent with TypeScript to the extent that I can usually make it do
+what I want, and anyone reading my TypeScript code doesn't themselves
+have to be a TypeScript expert to understand it.
+
+That said, there's always more to learn. In this project that has been more
+about the slow accumulation of fluency, rather than any new features.
+
+I started using TypeScript about a year ago, I'd guess, and it's quickly become
+my language of choice.
+
+---
+## AI
+I'm including my AI Code Assistant as a separate project. You can see more about
+these learnings there. Suffice it to say that really getting my hands dirty with
+AI and incorporating it into my workflow has been a revelation about what is
+possible, and how it will change the way I work.
+
+---
+## JavaScript/TypeScript EcoSystem
+I've been aware of the challenges of the JavaScript ecosystem for some
+time...  the need for preprocessing (transpiling & type-checking) and
+integration of various independent tools (linters, test libraries,
+etc.) and then making all of those things work together. But this
+detail has largely been obscured from me in the past by paved roads.
+Sure, I've had to tweak an integration here or there, but building a
+JavaScript/TypeScript entity with some fairly complex interactions
+from the ground up has been a new experience, and I feel like I
+understand things like Babel and Webpack a little better than I did
+before.
+
+---
+## Accessibility
+My AI Code assistant pointed out I wasn't following accessibility best-practices. 
+
+### Key Learning: Use the 'Hidden' Attribute
+The 'hidden' attribute is semantically more-correct than simply omitting a
+subtree from the during rendering. Omitting elements also runs the risk of
+creating an WAI-ARIA attribute referencing an ID that is not there. 
+
+#### Additional learning:
+Using 'hidden' means that test matchers like `expect(element).toBeVisible()`
+work correctly, where simply applying CSS styles may not.
+
+### Key Learning: Focus Management
+Directing the browser focus to the right element can make a huge difference in
+the usability of your compnent for someone relying on assistive technologies
+like screen readers.
+
+---
+## CSS Modules
+Previously I used [`styled-components`][styled-components] (or CSS-in-JS) for React component
+styling.
+
+Achieving the dynamism possible with `styled-components` is a challenge with CSS
+Modules, but it's undoubtedly simpler to use, and I like the modularity of it.
+
+---
+## Figma
+As a Software Engineer, I never really had much call to use Figma, although I've
+viewed numerous Figma documents when working with Designers. I've been able to
+get what I need out of `diagrams.net`, or in a real pinch, Inkscape.
+
+The brand work for this project is the first time I created anything in Figma
+myself, and I have to say, I'm prettly pleased with it. The ability to set up
+themes alone seems worth the price of admission.
+
+[my Figma]
+
+---
+## GitHub Actions
+This site has been my first foray into GitHub Actions, which I am using for:
+* CI/CD
+    * preview build deployment
+    * production build deployment
+* AI Code Assistant integration
+    * generating a repository map that my code assistant can use for inference
+
+---
+## Habit
+I spent a lot of time [trying to "fix" Jest][jest-fix], so that it would read the new
+`mdx-js/mdx` package, which no longer supportx CommonJS. This was based purely on 
+taking for granted that "Jest is what I use for testing JavaScript".
+
+Ultimately, I abandoned Jest in favor of Vitest, which solved the
+problems I was having, with the additional benefit of running the
+tests faster.
+
+### Key Learning: Explore alternatives sooner
+I need to be more open to throwing away the things I'm taking for granted.
+
+[jest-fix]:
+    https://iaindavis.dev/docs/projects/projects/iaindavis.dev/implementation/challenges/other-challenges/#module-hell-with-jest
+    "IainDavis.dev > Other Challenges > Module Hell with Jest"
+
+[styled-components]:
+    https://styled-components.com/
+    "library | styled-components"
+
+[brand-figma]:
+    https://www.figma.com/design/dJ0DvH5jER1LKScn4PTnil/IainDavis.dev-Brand-Materials?node-id=0-1&node-type=canvas&t=IKIwJAJbEGNzvbsC-0
+    "Figma | Brand Materials"
