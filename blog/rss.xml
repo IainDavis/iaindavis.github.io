@@ -4,11 +4,122 @@
         <title>IainDavis.dev | Developer Blog</title>
         <link>https://iaindavis.github.io/blog</link>
         <description>A Blog where I will document what I am working on and looking forward to as I develop my personal website</description>
-        <lastBuildDate>Tue, 24 Sep 2024 12:37:00 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 04 Oct 2024 16:25:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <copyright>Copyright © 2024 Iain S. Davis. Built with Docusaurus.</copyright>
+        <item>
+            <title><![CDATA[Actual Content!]]></title>
+            <link>https://iaindavis.github.io/blog/2024/10/04/2024-10-04-actual-content/actual-content</link>
+            <guid>https://iaindavis.github.io/blog/2024/10/04/2024-10-04-actual-content/actual-content</guid>
+            <pubDate>Fri, 04 Oct 2024 16:25:00 GMT</pubDate>
+            <description><![CDATA[It's been a while since I posted here!]]></description>
+            <content:encoded><![CDATA[<p>It's been a while since I posted here!</p>
+<p>Actually, I posted here about a week ago about some of the things I
+was working on with Nova, but I wrote it in a bit of a rush, and I
+<em><strong>hated</strong></em> that blog post. It was disorganized and the content didn't
+really relate to the title at all, so I deleted it.</p>
+<p>Since then, this week and a goodly chunk of last week have been all about producing content
+for this here website.</p>
+<p></p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="projects">Projects<a href="https://iaindavis.github.io/blog/2024/10/04/2024-10-04-actual-content/actual-content#projects" class="hash-link" aria-label="Direct link to Projects" title="Direct link to Projects">​</a></h3>
+<p>I've finally put some flesh on the <a title="Projects section" href="https://iaindavis.github.io/docs/projects/iaindavis.dev">projects
+section</a>. At the moment, this is limited to this
+here website and Nova. I felt like I was spending enough time on Nova
+that they deserved the 'project' status. I [externalized all her various
+instructions into a GitHub repo][]. When I get back to
+actually working on it, I'll likely add a page for my GMail Tools
+AppsScript project.</p>
+<p>Each section features a quick overview, relevant links, challenges
+faced, and a more detailed summary of details.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="bio">Bio<a href="https://iaindavis.github.io/blog/2024/10/04/2024-10-04-actual-content/actual-content#bio" class="hash-link" aria-label="Direct link to Bio" title="Direct link to Bio">​</a></h3>
+<p>I've added a <a title="Bio section" href="https://iaindavis.github.io/docs/bio/bio">new Bio section</a>. I considered just
+mirroring my LinkedIn bio here, but it seemed like an opportunity to
+go into a bit more depth and add a bit of color to the picture of who
+I am. The rest of the site is pretty business-like. If someone wants
+the briefer synopsis, they still have the overview page and the
+LinkedIn profile they can go to.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="new-components">New Components<a href="https://iaindavis.github.io/blog/2024/10/04/2024-10-04-actual-content/actual-content#new-components" class="hash-link" aria-label="Direct link to New Components" title="Direct link to New Components">​</a></h3>
+<p>I've written <a href="https://github.com/IainDavis/iaindavis.github.io/tree/main/docs/bio/bio/_components" target="_blank" rel="noopener noreferrer">a handful of very simple React
+components</a> during this work. I kind of thought they'd
+be just use-once components, so I've just defined them in place, but
+in retrospect, I think they probably have some utility outside the bio
+section. For now, I've left them where they are, but I've scheduled
+some work on my backlog to move them into the appropriate location and
+write tests and stories for them. There'll likely be a round of
+refinement as well, since they're pretty basic at the moment.</p>
+<p>The new components do roughly two things:</p>
+<ul>
+<li>Make use of the CSS <code>float</code> property to float a section of content
+which allows more interesting layouts with very little additional overhead</li>
+<li>Generate a delimited set of links within an MDX document. In place,
+allowing a set of links to be defined <a href="https://github.com/IainDavis/iaindavis.github.io/blob/main/docs/bio/bio/bio.mdx?plain=1#L3-L18" target="_blank" rel="noopener noreferrer">in the frontmatter header</a></li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="new-component-demos">New Component Demos<a href="https://iaindavis.github.io/blog/2024/10/04/2024-10-04-actual-content/actual-content#new-component-demos" class="hash-link" aria-label="Direct link to New Component Demos" title="Direct link to New Component Demos">​</a></h4>
+<div class="container_hWMK"><div tabindex="1" data-testid="expandable-section-:R6rlbeh:" id="expandable-section-:R6rlbeh:" class="expandableBlock_ggz7" hidden=""><div class="tabs-container tabList__CuJ"><ul role="tablist" aria-orientation="horizontal" class="tabs"><li role="tab" tabindex="0" aria-selected="true" class="tabs__item tabItem_LNqP tabs__item--active">Float Demo</li><li role="tab" tabindex="-1" aria-selected="false" class="tabs__item tabItem_LNqP">Links Demo</li></ul><div role="tabpanel" class="tabItem_Ymn6 margin-top--md"><div class="playgroundContainer_X_Ta"><div class="playgroundHeader_dyrN">Live Editor</div><div class="playgroundEditor_Q6Y7"><pre class="prism-code language-tsx" style="margin:0;outline:none;padding:10px;font-family:inherit;color:#393A34;background-color:#f6f8fa" spellcheck="false"><span class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">function</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">LeftFloatedDemo</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span>
+</span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token keyword" style="color:#00009f">return</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain"></span>
+</span><span class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token tag punctuation" style="color:#393A34">&lt;</span><span class="token tag punctuation" style="color:#393A34">&gt;</span><span class="token plain-text"></span>
+</span><span class="token-line" style="color:#393A34"><span class="token plain-text">            </span><span class="token tag punctuation" style="color:#393A34">&lt;</span><span class="token tag class-name" style="color:#00009f">LeftFloated</span><span class="token tag" style="color:#00009f"> </span><span class="token tag attr-name" style="color:#00a4db">width</span><span class="token tag attr-value punctuation attr-equals" style="color:#393A34">=</span><span class="token tag attr-value punctuation" style="color:#393A34">"</span><span class="token tag attr-value" style="color:#e3116c">100px</span><span class="token tag attr-value punctuation" style="color:#393A34">"</span><span class="token tag punctuation" style="color:#393A34">&gt;</span><span class="token plain-text"></span>
+</span><span class="token-line" style="color:#393A34"><span class="token plain-text">                </span><span class="token tag punctuation" style="color:#393A34">&lt;</span><span class="token tag class-name" style="color:#00009f">Logo</span><span class="token tag" style="color:#00009f"> </span><span class="token tag attr-name" style="color:#00a4db">variant</span><span class="token tag attr-value punctuation attr-equals" style="color:#393A34">=</span><span class="token tag attr-value punctuation" style="color:#393A34">'</span><span class="token tag attr-value" style="color:#e3116c">compact-square</span><span class="token tag attr-value punctuation" style="color:#393A34">'</span><span class="token tag punctuation" style="color:#393A34">/&gt;</span><span class="token plain-text"></span>
+</span><span class="token-line" style="color:#393A34"><span class="token plain-text">            </span><span class="token tag punctuation" style="color:#393A34">&lt;/</span><span class="token tag class-name" style="color:#00009f">LeftFloated</span><span class="token tag punctuation" style="color:#393A34">&gt;</span><span class="token plain-text"></span>
+</span><span class="token-line" style="color:#393A34"><span class="token plain-text">            This flows neatly around the floated Logo</span>
+</span><span class="token-line" style="color:#393A34"><span class="token plain-text">            component, wrapping when it reaches the end of the</span>
+</span><span class="token-line" style="color:#393A34"><span class="token plain-text">            available space.</span>
+</span><span class="token-line" style="color:#393A34"><span class="token plain-text">            </span><span class="token tag punctuation" style="color:#393A34">&lt;</span><span class="token tag class-name" style="color:#00009f">ClearFloat</span><span class="token tag punctuation" style="color:#393A34">/&gt;</span><span class="token plain-text"></span>
+</span><span class="token-line" style="color:#393A34"><span class="token plain-text">            And this content resumes after the end of the floated content.</span>
+</span><span class="token-line" style="color:#393A34"><span class="token plain-text">        </span><span class="token tag punctuation" style="color:#393A34">&lt;/</span><span class="token tag punctuation" style="color:#393A34">&gt;</span><span class="token plain"></span>
+</span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span>
+</span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span>
+</span></pre></div><div class="playgroundHeader_dyrN">Result</div><div class="playgroundPreview_DzOI"><div>Loading...</div></div></div></div></div></div><button tabindex="0" class="toggle_dJXd" aria-expanded="false" aria-controls="expandable-section-toggle-:R6rlbeh:">show demos...</button></div>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="other-things">Other Things<a href="https://iaindavis.github.io/blog/2024/10/04/2024-10-04-actual-content/actual-content#other-things" class="hash-link" aria-label="Direct link to Other Things" title="Direct link to Other Things">​</a></h3>
+<p>I've added a good bit of capability to Nova. She can now submit Jira
+tickets for me, as well as PR reviews. It's so much easier now to
+capture an idea that happens in flow without <em>leaving</em> the flow. And
+I've added a build stage that generates a map of my repository (using
+the command-line utility <code>tree</code>) which Nova can use to infer the
+locations of files in my repository, which really has streamlined
+getting Nova on the same page as me when discussing a set of changes
+to a file.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="coming-soon">Coming Soon<a href="https://iaindavis.github.io/blog/2024/10/04/2024-10-04-actual-content/actual-content#coming-soon" class="hash-link" aria-label="Direct link to Coming Soon" title="Direct link to Coming Soon">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="new-content">New Content<a href="https://iaindavis.github.io/blog/2024/10/04/2024-10-04-actual-content/actual-content#new-content" class="hash-link" aria-label="Direct link to New Content" title="Direct link to New Content">​</a></h4>
+<ul>
+<li>Katas page</li>
+<li>Update footer and Navbar</li>
+<li>Gmail Tools project page</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="catching-up">Catching up<a href="https://iaindavis.github.io/blog/2024/10/04/2024-10-04-actual-content/actual-content#catching-up" class="hash-link" aria-label="Direct link to Catching up" title="Direct link to Catching up">​</a></h4>
+<ul>
+<li>Need to flesh out the test suite, now that it's all automated, then bump up
+coverage limits</li>
+<li>Fix up my Logo component so it's scalable (you can see a place where it
+<em>ought</em> to scale, but <em>doesn't</em> on the <a title="Website project overview" href="https://iaindavis.github.io/docs/projects/iaindavis.dev">project overview page</a> for this website)</li>
+<li>Add styleguide, linting, Git hooks, prose checking, all that stuff. Probably
+lower priority than content and getting more aggressive about job-hunting at
+this stage.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="new-features">New features<a href="https://iaindavis.github.io/blog/2024/10/04/2024-10-04-actual-content/actual-content#new-features" class="hash-link" aria-label="Direct link to New features" title="Direct link to New features">​</a></h4>
+<p>I think I'm going to add a menu for selecting a preview environment, and a
+visual indicator that lets you know when you're <em>in</em> a preview environment.
+Haven't really figured out how I'm going to go about that yet, but it does give
+me a meaningful interaction with an API, which is something I wanted to add
+here.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="putting-lipstick-on-a-pig">Putting Lipstick on a Pig<a href="https://iaindavis.github.io/blog/2024/10/04/2024-10-04-actual-content/actual-content#putting-lipstick-on-a-pig" class="hash-link" aria-label="Direct link to Putting Lipstick on a Pig" title="Direct link to Putting Lipstick on a Pig">​</a></h4>
+<p>I've got a little section of images and videos from my various hobbies in the
+bio section. It's currently just a CSS flex-box, and it looks attrocious. I
+think I'm going to change that to a carousel, which is probably going to finally
+force me to commit to one component library or another. There'll be some
+research to do there, and I'm glad I've got Nova to help me do it.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="nova">Nova<a href="https://iaindavis.github.io/blog/2024/10/04/2024-10-04-actual-content/actual-content#nova" class="hash-link" aria-label="Direct link to Nova" title="Direct link to Nova">​</a></h4>
+<p>I've got a few tickets in to do some refinements on Nova. At the moment, I have
+to continually remind her of my Jira project key, and the format she's supposed
+to use to submit requests. A few other things that rub a bit.</p>
+<p>Lots to do. I doubt I'll get through all of it in the next couple weeks, but
+we'll see how far I <em>do</em> get. Stay tuned.</p>
+<!-- -->
+<p>The set of components I created for my 'bio' section</p>]]></content:encoded>
+            <author>iain@iaindavis.dev (Iain Davis)</author>
+        </item>
         <item>
             <title><![CDATA[Automating Production Deployments]]></title>
             <link>https://iaindavis.github.io/blog/2024/09/25/2024-09-25-deploy-to-prod-automation/deploy-to-prod-automation</link>
