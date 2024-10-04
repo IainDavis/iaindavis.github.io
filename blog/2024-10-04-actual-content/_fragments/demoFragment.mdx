@@ -1,0 +1,69 @@
+import Expandable from '@site/src/components/Expandable/Expandable'
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+
+#### New Component Demos
+<Expandable expandPrompt='show demos...' collapsePrompt='hide demos'>
+<Tabs lazy>
+    <TabItem value='Float Demo'>
+        ```jsx live
+        function LeftFloatedDemo() {
+            return (
+                <>
+                    <LeftFloated width="100px">
+                        <Logo variant='compact-square'/>
+                    </LeftFloated>
+                    This flows neatly around the floated Logo
+                    component, wrapping when it reaches the end of the
+                    available space.
+                    <ClearFloat/>
+                    And this content resumes after the end of the floated content.
+                </>
+            )
+        }
+        ```
+    </TabItem>
+    <TabItem value="Links Demo">
+
+        :::tip
+        Because of the limitations of the code editor, I've defined my links as a
+        JavaScript array, but in an actual Docusaurus page, these would likely be
+        defined in the YAML frontmatter, as seen [here][yaml-frontmatter]
+
+        The equivalent definition for the above would be like this:
+        ```yml
+        ---
+        links:
+            - label: Linked In
+              tooltipText: Find me on LinkedIn
+              url: https://www.linkedin.com/in/iaindavis-dev/
+            - label: GitHub
+              tooltipText: View my GitHub profile
+              url: https://github.com/IainDavis
+        ---
+        ```
+        :::
+
+        ```jsx live
+        function LinksDemo() {
+            const links = [
+                {
+                    label: "Linked In",
+                    tooltipText: "Find me on LinkedIn",
+                    url: "https://www.linkedin.com/in/iaindavis-dev/",
+                },
+                {
+                    label: "GitHub",
+                    tooltipText: "View my GitHub profile",
+                    url: "https://github.com/IainDavis",
+                }
+            ]
+
+            return <Links links={links}/>
+        }
+        ```
+
+    </TabItem>
+</Tabs>
+</Expandable>
