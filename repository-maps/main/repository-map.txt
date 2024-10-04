@@ -86,6 +86,49 @@
 │   ├── authors.yml
 │   └── tags.yml
 ├── docs
+│   ├── bio
+│   │   └── bio
+│   │       ├── 01-work-and-education
+│   │       │   ├── 01-work-and-education.mdx
+│   │       │   ├── _fragments
+│   │       │   │   └── timeline.mdx
+│   │       │   └── _resources
+│   │       │       ├── aaron-bros-berkeley.jpg
+│   │       │       ├── band-geeks.jpg
+│   │       │       ├── fashion-plate.jpg
+│   │       │       ├── ghedi-jam-session.jpg
+│   │       │       ├── intuit-badge.jpg
+│   │       │       ├── jr-prom-with-mina.jpg
+│   │       │       ├── me-and-phil.jpg
+│   │       │       ├── me-and-the-boys-at-ghedi.jpg
+│   │       │       ├── me-marzia-chris-in-rome.jpg
+│   │       │       ├── rapid-prototyping-challenge.jpg
+│   │       │       ├── sjsu-said-yes.jpg
+│   │       │       └── view-from-the-top.jpg
+│   │       ├── 02-personal-life
+│   │       │   ├── 02-personal-life.mdx
+│   │       │   └── _resources
+│   │       │       ├── antithesis.jpg
+│   │       │       ├── bendy-arm-robot.jpg
+│   │       │       ├── candi-with-the-dts.jpg
+│   │       │       ├── dictators.jpg
+│   │       │       ├── duck-rider.jpg
+│   │       │       ├── fashionable-sock-puppet.jpg
+│   │       │       ├── hunter-hampers.png
+│   │       │       ├── immortalized-in-watercolor.jpg
+│   │       │       ├── last-call-rodeo.jpg
+│   │       │       ├── nat-geo-portrait.jpg
+│   │       │       ├── quolo-quillsong.jpg
+│   │       │       └── the-old-homestead.jpg
+│   │       ├── 03-skills
+│   │       │   └── 03-skills.mdx
+│   │       ├── _components
+│   │       │   ├── ClearFloat.tsx
+│   │       │   ├── LeftFloated.tsx
+│   │       │   ├── Links.tsx
+│   │       │   ├── RightFloated.tsx
+│   │       │   └── index.tsx
+│   │       └── bio.mdx
 │   ├── brand
 │   │   ├── 00-figma
 │   │   │   └── 00-figma.mdx
@@ -96,57 +139,55 @@
 │   │   └── 03-zoom
 │   │       └── 03-zoom.mdx
 │   └── projects
-│       └── projects
-│           ├── _category_.yml
-│           ├── iaindavis.dev
-│           │   ├── 02-key-features
-│           │   │   └── 02-key-features.mdx
-│           │   ├── 03-implementation
-│           │   │   ├── 01-segments
-│           │   │   │   └── 01-segments.mdx
-│           │   │   ├── 02-challenges
-│           │   │   │   ├── 01-glue
-│           │   │   │   │   ├── 01-glue.mdx
-│           │   │   │   │   ├── _fragments
-│           │   │   │   │   │   ├── blog-truncation.mdx
-│           │   │   │   │   │   ├── copying-styles.mdx
-│           │   │   │   │   │   └── webpack.mdx
-│           │   │   │   │   └── _resources
-│           │   │   │   │       └── bad-syntax-highlighting.png
-│           │   │   │   ├── 02-other-challenges
-│           │   │   │   │   ├── 02-other-challenges.mdx
-│           │   │   │   │   └── _fragments
-│           │   │   │   │       └── test-with-css-module.mdx
-│           │   │   │   └── _category_.yml
-│           │   │   ├── 03-ci-cd
-│           │   │   │   └── 03-ci-cd.mdx
-│           │   │   ├── 03-implementation.mdx
-│           │   │   └── 04-tests
-│           │   │       └── 04-tests.mdx
-│           │   ├── 04-key-learnings
-│           │   │   └── 04-key-learnings.mdx
-│           │   ├── 05-future-plans
-│           │   │   └── 05-future-plans.mdx
-│           │   ├── _fragments
-│           │   │   ├── high-level-summary.mdx
-│           │   │   ├── project-links.mdx
-│           │   │   └── tech-used.mdx
-│           │   └── iaindavis.dev.mdx
-│           └── nova
-│               ├── 01-key-features
-│               │   └── 01-key-features.mdx
-│               ├── 02-challenges
-│               │   └── 02-challenges.mdx
-│               ├── 03-future-plans
-│               │   └── 03-future-plans.mdx
-│               ├── _fragments
-│               │   ├── high-level-summary.mdx
-│               │   ├── project-links.mdx
-│               │   └── tech-used.mdx
-│               ├── _resources
-│               │   ├── Nova_AI.png
-│               │   └── nova-jira-issue.png
-│               └── nova.mdx
+│       ├── iaindavis.dev
+│       │   ├── 02-key-features
+│       │   │   └── 02-key-features.mdx
+│       │   ├── 03-implementation
+│       │   │   ├── 01-segments
+│       │   │   │   └── 01-segments.mdx
+│       │   │   ├── 02-challenges
+│       │   │   │   ├── 01-glue
+│       │   │   │   │   ├── 01-glue.mdx
+│       │   │   │   │   ├── _fragments
+│       │   │   │   │   │   ├── blog-truncation.mdx
+│       │   │   │   │   │   ├── copying-styles.mdx
+│       │   │   │   │   │   └── webpack.mdx
+│       │   │   │   │   └── _resources
+│       │   │   │   │       └── bad-syntax-highlighting.png
+│       │   │   │   ├── 02-other-challenges
+│       │   │   │   │   ├── 02-other-challenges.mdx
+│       │   │   │   │   └── _fragments
+│       │   │   │   │       └── test-with-css-module.mdx
+│       │   │   │   └── _category_.yml
+│       │   │   ├── 03-ci-cd
+│       │   │   │   └── 03-ci-cd.mdx
+│       │   │   ├── 03-implementation.mdx
+│       │   │   └── 04-tests
+│       │   │       └── 04-tests.mdx
+│       │   ├── 04-key-learnings
+│       │   │   └── 04-key-learnings.mdx
+│       │   ├── 05-future-plans
+│       │   │   └── 05-future-plans.mdx
+│       │   ├── _fragments
+│       │   │   ├── high-level-summary.mdx
+│       │   │   ├── project-links.mdx
+│       │   │   └── tech-used.mdx
+│       │   └── iaindavis.dev.mdx
+│       └── nova
+│           ├── 01-key-features
+│           │   └── 01-key-features.mdx
+│           ├── 02-challenges
+│           │   └── 02-challenges.mdx
+│           ├── 03-future-plans
+│           │   └── 03-future-plans.mdx
+│           ├── _fragments
+│           │   ├── high-level-summary.mdx
+│           │   ├── project-links.mdx
+│           │   └── tech-used.mdx
+│           ├── _resources
+│           │   ├── Nova_AI.png
+│           │   └── nova-jira-issue.png
+│           └── nova.mdx
 ├── docusaurus.config.ts
 ├── package.json
 ├── sidebars.ts
@@ -236,4 +277,4 @@
 ├── vitest.setup.ts
 └── yarn.lock
 
-85 directories, 151 files
+93 directories, 184 files
