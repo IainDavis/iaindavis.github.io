@@ -1,0 +1,66 @@
+Basic file and folder options. These eventually get grouped into
+`findOrCreate` operations in `fileAndFolderHandling.gs`, but this file
+contains just the interactions with `DriveApp`
+
+They're pretty straight-forward.
+
+```javascript title="folderAndFileOps.gs" showLineNumbers
+const getFolderById = (folderId) => () => {
+  try {
+    Logger.log(`Getting folder with ID: ${folderId}`)
+    const folder = DriveApp.getFolderById(folderId);
+    if(folder) Logger.log(`found folder ${folder.getName()} at ${folder.getUrl()}`);
+    return folder;
+  } catch (e) {
+    Logger.log(`unable to find folder with ID ${folderId}: ${e instanceof Error ? e.message : e}`)
+    return null;
+  }
+}
+
+const findFolderByName = (folderName, parentFolder = DEFAULT_PARENT) => () => {
+  const folders = parentFolder.getFoldersByName(folderName);
+  folder = folders.hasNext() ? folders.next() : null;
+  if(folder) {
+    Logger.log(`found folder "${folderName}" with ID: ${folder.getId()}`);
+  } else {
+    Logger.log(`found no folders called '${folderName} under ${parentFolder.getUrl()}`);
+  }
+  return folder;
+}
+
+const findFileByName = (fileName, parentFolder = DEFAULT_PARENT) => () => {
+  const files = parentFolder.getFilesByName(fileName);
+  const file = files.hasNext() ? files.next() : null;
+  if(file) {
+    Logger.log(`found file "${fileName}" with ID: ${file.getId()}`);
+  } else {
+    Logger.log(`found no files called '${fileName} under ${parentFolder.getUrl()}`);
+  }
+  return file;
+}
+
+const createFolder = (folderName, parentFolder = DEFAULT_PARENT) => () => {
+  Logger.log(`creating new Folder "${folderName}" at ${parentFolder.getName()}`)
+  try {
+    const folder = parentFolder.createFolder(folderName);
+    Logger.log(`successfully created folder "${folderName}" with ID ${folder.getId()} at ${folder.getUrl()}`)
+    return folder;
+  } catch (e) {
+    Logger.log(`Failed to create file ${folderName} at ${parentFolder.getUrl()}: ${e instanceof Error ? e.message : e }`);
+    return null;
+  }
+}
+
+const cloneTemplate = (fileName, parentFolder = DEFAULT_PARENT) => () => {
+  Logger.log(`creating new File "${fileName}" at ${parentFolder.getName()}`)
+
+  try {
+    const file = DriveApp.getFileById(CL_TEMPLATE_DOC_ID).makeCopy(fileName, parentFolder);
+    Logger.log(`successfully created file "${fileName}" with ID ${file.getId()} at URL ${file.getUrl()}`)
+    return file;
+  } catch (e) {
+    Logger.log(`Failed to create file ${fileName} at ${parentFolder.getUrl()}: ${e instanceof Error ? e.message : e }`);
+    return null;
+  }
+}
+```

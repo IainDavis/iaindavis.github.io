@@ -1,0 +1,62 @@
+---
+title: Implementation Details
+---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+import { RightFloated, ClearFloat } from '@site/docs/bio/bio/_components';
+
+import Main from './_fragments/tab-code.gs.mdx'
+import RangeHandling from './_fragments/tab-rangehandling.gs.mdx'
+import JobListingRecord from './_fragments/tab-joblistingrecord.gs.mdx'
+import FolderAndFileOps from './_fragments/tab-folderandfileops.gs.mdx'
+import FolderAndFileHandling from './_fragments/tab-folderandfilehandling.gs.mdx'
+import UpdateCoverLetter from './_fragments/tab-updateCoverLetter.gs.mdx'
+import UI from './_fragments/tab-ui.gs.mdx'
+
+## Modules
+<RightFloated width="35%">
+    :::info
+    Unfortunately, the script is bound to the spreadsheet, and I can't
+    share it directly without making the sheet open to the world. I'll
+    share the code here, as a next-best effort.
+    :::
+</RightFloated>
+
+In Google AppsScript, everything exists in the global scope. You can
+get the benefits of modules if you develop locally, and synchronize
+your changes with `clasp`, but that seemed [a bit
+heavy-weight][tt-heavyweight] for this project.  That said, I wanted
+to keep my code as organized as I could so, barring some utility
+functions and constants, I broke it up into the following chunks:
+<ClearFloat/>
+
+<Tabs>
+    <TabItem value="Code.gs">
+        <Main/>
+    </TabItem>
+    <TabItem value="rangeHandling.gs">
+        <RangeHandling/>
+    </TabItem>
+    <TabItem value="jobListingRecord.gs">
+        <JobListingRecord/>
+    </TabItem>
+    <TabItem value="folderAndFileOps.gs">
+        <FolderAndFileOps/>
+    </TabItem>
+    <TabItem value="folderAndFileHandling.gs">
+        <FolderAndFileHandling/>
+    </TabItem>
+    <TabItem value="updateCoverLetter.gs">
+        <UpdateCoverLetter/>
+    </TabItem>
+    <TabItem value="ui.gs">
+        <UI/>
+    </TabItem>
+</Tabs>
+
+
+{/* TOOLTIPS */}
+[tt-heavyweight]:
+    .
+    "I spent about two days on this, not counting the documentation, and that's already more time than I intended to spend"

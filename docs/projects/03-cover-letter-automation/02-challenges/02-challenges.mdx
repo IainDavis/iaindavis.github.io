@@ -1,0 +1,31 @@
+---
+title: Challenges
+---
+## The Google APIs
+The Google APIs are surprisingly difficult to work with, and things
+you would expect to find are not there. There's no easy way to
+overwrite the body of one document with the body of another, for
+example. You can _copy_ a document, to be sure. But if you want to
+preserve version history, all you can do is step through the children
+of the body of the source document and copy them across one-by-one.
+
+### Problem
+I went through several iterations of trying to create the cover letter files.
+1. Creating the file with the `DriveApp` class... not possible to create a Google Docs folder this way.
+1. Creating a file with the `DocumentApp` class: will only create the
+    document at the Drive root folder, and moving a file is also
+    suprisingly challenging
+1. Creating a file through the `Drive.Files` API: I was able to
+    successfully create a file in the Google Docs format (and MIME type),
+    but it created a default header that I could not remove that broke the
+    output.
+
+### Solution
+In the end, I didn't bother creating a new file at all, I just cloned
+the template directly. It means I'm essentially copying the template
+twice, on first-creation of every cover letter, because the actual
+update phase doesn't know whether the document is a fresh clone or
+not, but I figure that's small concern for this limited use case. If
+this were a bigger scale project, I'd spend some more time trying to
+figure this out, but I'm probably not going to apply for enough jobs
+to have to worry about scaling issues and efficiency.

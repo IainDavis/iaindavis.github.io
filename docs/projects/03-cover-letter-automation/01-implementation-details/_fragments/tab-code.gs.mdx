@@ -1,0 +1,35 @@
+Code.gs is the entry point for the script, and performs high-level orchestration.
+
+I would probably be wise to extract the late-added logic that writes
+the URL of the created (or updated) cover-letter to the spreadsheet
+into it's own module, but I've already invested a lot of time in this,
+and it's essentially a one-liner.
+
+```javascript title="Code.gs" showLineNumbers
+function generateCoverLetters() {
+  const sheet = SpreadsheetApp
+    // this is a bound script -- activeSpreadsheet is always the same sheet, and always non-null
+    .getActiveSpreadsheet()
+    .getSheetByName(JOB_LISTINGS_SHEET_NAME);
+
+  const effectiveRange = getEffectiveRange(sheet);
+  const jobListingRows = effectiveRange.getValues();
+  
+  for ([i, listingRow] of jobListingRows.entries()){
+    if(listingRow.every(value => value === '')) continue;
+    const listing = mapDataRowToJobListingRecord(listingRow);
+
+    const coverLetterFile = createCoverLetterPathAndFile(listing);
+    updateCoverLetter(coverLetterFile, listing);
+    
+    sheet.getRange(effectiveRange.getRow() + i, 7).setFormula(`=HYPERLINK("${coverLetterFile.getUrl()}", "Cover Letter")`);
+  };
+}
+
+function onOpen() {
+  const ui = SpreadsheetApp.getUi();
+  ui.createMenu('Job Listing Tools')
+    .addItem('Generate Cover Letters', 'generateCoverLetters')
+    .addToUi();
+}
+```
