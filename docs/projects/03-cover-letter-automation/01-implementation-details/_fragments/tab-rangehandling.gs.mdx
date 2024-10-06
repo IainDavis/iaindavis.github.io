@@ -1,0 +1,83 @@
+rangeHandling.gs performs a series of operations on Google Sheets
+ranges. Not on the values in the ranges -- transformations of the
+ranges themselves.
+
+These are:
+* expand the range to include all columns in the sheet (to ensure we capture all the required data)
+* strip the header row from the range, if it is included
+* supply a default range if the range has no rows (after stripping headers) or if all cells in the range are empty.
+
+Each of these depend on having access to the sheet, therefore the
+functions are defined as the return value of factories, and the sheet
+is supplied by way of an `init` function.
+
+These initialized functions are then wrapped in decorators and
+composed into a sequence of operations that performs a meaningful
+task, in this case: returning a range in the spreadsheet value that:
+* includes the selected portion of the spreadsheet, except the header row
+* includes all columns for selected rows
+**OR** a range in the spreadsheet that:
+* includes all rows and columns with meaningful data (default if an empty range is selected);
+
+:::tip
+by convention, a `compose` function generally uses 'reduceRight'. I
+generally prefer to use `reduce` as it puts the definition of
+operations in the same order they will be executed, which seems much
+more intuitive to me.
+:::
+
+```javascript title="rangeHandling.gs" showLineNumbers
+const isRangeEmpty = (range) => !range || range.getNumRows() > 1 && range.getValues()[0].every(cell => cell === "");
+const rangeIncludesHeaderRow = (range) => range && range.getRow() === 1;
+const getDefaultRange = (sheet) => sheet && sheet.getRange(2, 1, sheet.getLastRow() - 1, sheet.getLastColumn());
+
+
+const getActiveRangeFactory = (sheet) => () => sheet.getActiveRange()
+
+expandRangeFactory = (sheet) => (range) => {
+  Logger.log('Expanding range to include all spreadsheet columns')
+  return newRange = sheet.getRange(range.getRow(), 1, range.getLastRow(), sheet.getLastColumn());
+}
+
+const stripHeaderRowFactory = (sheet) => (range) => {
+  if(rangeIncludesHeaderRow(range) && range.getNumRows() === 1) {
+    return null;
+  }
+
+  const [firstRow, numRows] = rangeIncludesHeaderRow(range) 
+    ? [2, range.getNumRows() - 1]
+    : [range.getRow(), range.getNumRows()];
+
+  return sheet.getRange(firstRow, range.getColumn(), numRows, range.getNumColumns());
+}
+
+const applyDefaultIfEmptyFactory = (sheet) => (range) => {
+  if(isRangeEmpty(range)) {
+    Logger.log("Range is empty. Using default range (all data rows)");
+    return getDefaultRange(sheet);
+  }
+  return range;
+}
+
+const initRangeFuncs = (sheet) => ({
+  getActiveRange: logRangeTransform(getActiveRangeFactory(sheet), 'getActiveRange'),
+  expandRange: logRangeTransform(skipIfNull(expandRangeFactory(sheet)), 'expandRange'),
+  stripHeaderRow: logRangeTransform(skipIfNull(stripHeaderRowFactory(sheet)), 'stripHeaderRow'),
+  applyDefaultIfEmpty: logRangeTransform(applyDefaultIfEmptyFactory(sheet), 'applyDefaultIfEmpty'), 
+});
+
+// if the active range is empty, select all data in the sheet
+const getEffectiveRange = (sheet) => {
+  const {getActiveRange, expandRange, stripHeaderRow, applyDefaultIfEmpty} = initRangeFuncs(sheet);
+
+  const applyTransforms = compose(
+    getActiveRange,
+    expandRange,
+    stripHeaderRow,
+    applyDefaultIfEmpty
+  );
+
+  const effectiveRange = applyTransforms(sheet);
+  return isRangeEmpty(effectiveRange) ? getDefaultRange(sheet) : effectiveRange;
+}
+```

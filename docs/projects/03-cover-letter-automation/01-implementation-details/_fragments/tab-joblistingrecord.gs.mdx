@@ -1,0 +1,21 @@
+This very simple file just includes the transformation from a row of
+data in the spreadsheet to a JavaScript object that can be passed
+around and manipulated more easily.
+
+```javascript title="jobListingRecord.gs" showLineNumbers
+const _mapDataRowToJobListingRecord = ([companyName, roleTitle, uniqueId, hiringManager, listedAt]) => ({
+    companyName,
+    roleTitle,
+    uniqueId,
+    hiringManager: hiringManager || DEFAULT_HIRING_MANAGER,
+    listedAt,
+    coverLetterDate: toCoverLetterDate(new Date())
+});
+
+const mapDataRowToJobListingRecord = (row) => {
+  Logger.log(`mapping row: ${row} to object`);
+  const obj = _mapDataRowToJobListingRecord(row);
+  Logger.log(`mapped result: ${JSON.stringify(obj)}`);
+  return obj;
+}
+```

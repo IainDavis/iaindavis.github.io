@@ -1,0 +1,72 @@
+Like `Code.gs`, this file could probably use some further decomposition.
+
+This file assumes we have already retrieved (or created) the
+cover-letter file at its appointed place in the Drive.
+
+It opens the template file, and the cover letter file, and copies the
+content from one to the other, preserving formatting. This has the
+advantage (over replacing the file) of preserving version history.
+Then, in the cloned document, it replaces the placeholder tokens with
+the actual values from the spreadsheet.
+
+Note: there are a couple of peculiar lines here:
+```javascript
+const firstParagraph = body.getChild(0)
+if(!firstParagraph.asParagraph().getText().trim()) firstParagraph.removeFromParent();
+```
+
+These are there because the `body.clear()` function still leaves a
+single empty space or newline or something. The end result is that
+everything you append from the source document works just fine, except
+that there's an empty bar just at the top of the page. If such a line
+exists in the document, these two lines of script remove it.
+
+```javascript title="updateCoverLetter.gs" showLineNumbers
+function* getChildren(section) {
+  for (index of range(section.getNumChildren())) {
+    yield section.getChild(index).copy();
+  }
+}
+
+const getAppendFunc = (element) => ({
+  [DocumentApp.ElementType.PARAGRAPH]: (body) => body.appendParagraph(element),
+  [DocumentApp.ElementType.LIST_ITEM]: (body) => body.appendListItem(element),
+  [DocumentApp.ElementType.TABLE]: (body) => body.appendTable(element),
+}[element.getType()])
+
+function updateCoverLetter(coverLetterFile, jobListingRecord) {
+  let templateDoc, coverLetterDoc;
+
+  try {
+    templateDoc = DocumentApp.openById(CL_TEMPLATE_DOC_ID);
+    coverLetterDoc = DocumentApp.openById(coverLetterFile.getId());
+
+    const body = coverLetterDoc.getBody();
+    body.setMarginTop(0);
+    body.clear();
+
+    for(child of getChildren(templateDoc.getBody())) {
+      const appendElementTo = getAppendFunc(child);
+      appendElementTo(body);
+    }
+
+    const firstParagraph = body.getChild(0)
+    if(!firstParagraph.asParagraph().getText().trim()) firstParagraph.removeFromParent();
+
+    body.replaceText(COMPANY_NAME_TOKEN, jobListingRecord.companyName);
+    body.replaceText(ROLE_TITLE_TOKEN, jobListingRecord.roleTitle);
+    body.replaceText(HIRING_MANAGER_TOKEN, jobListingRecord.hiringManager);
+    body.replaceText(LISTED_AT_TOKEN, jobListingRecord.listedAt);
+    body.replaceText(CL_DATE_TOKEN, jobListingRecord.coverLetterDate);
+
+    Logger.log(`Updated cover letter: ${coverLetterFile.getName()}`);
+
+  } catch (e) {
+    Logger.log(`Failed to update cover letter: ${e instanceof Error ? e.message : e}`);
+  } finally {
+    templateDoc?.saveAndClose();
+    coverLetterDoc?.saveAndClose();
+  }
+}
+
+```

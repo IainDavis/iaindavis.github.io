@@ -1,0 +1,16 @@
+File creates a custom menu in the Google Sheets app so the script can
+be run without having to open the script editor in another tab.
+
+Note that the `onOpen` function is supposed to run automatically when
+the document opens, but to make this work, I had to set up an explicit
+trigger in the AppsScript editor.
+
+```javascript title="ui.gs" showLineNumbers
+function onOpen() {
+  const ui = SpreadsheetApp.getUi();
+  ui.createMenu('Job Listing Tools')
+    .addItem('Generate Cover Letters', 'generateCoverLetters')
+    .addToUi();
+}
+
+```

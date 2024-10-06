@@ -1,0 +1,88 @@
+The point of this file is to find each folder on the path to the
+cover-letter file, creating it if it does not exist, then do the same
+for the cover-letter file itself, [cloning it from the template
+file][tt-cloning] if it doesn't already exist, and returning the
+existing file if it does
+
+Functions in this file compose the basic folder and file operations
+from `folderAndFileOps.gs` into higher-level operations. This file
+uses the same pattern of [initializing functions using factories][tt-initializing], then
+wrapping them in decorators and composing them, making for a highly
+maintainable and readable file.
+
+
+```javascript title="folderAndFileHandling.gs" showLineNumbers
+const generateCompanyFolderName = (jobListingRecord) => `${jobListingRecord.companyName}`;
+const generateListingFolderName = (jobListingRecord) => `${jobListingRecord.roleTitle} | ${jobListingRecord.uniqueId}`
+const generateCoverLetterName = (jobListingRecord) => `Cover Letter -- ${jobListingRecord.companyName} | ${jobListingRecord.uniqueId}`
+
+const DEFAULT_PARENT = DriveApp.getRootFolder();
+
+const findOrCreateEmploymentFolderFactory = compose(
+  logFileTransform(getFolderById(EMPLOYMENT_FOLDER_ID), 'getEmploymentFolderById'),
+  skipIfNonNull(logFileTransform(findFolderByName(EMPLOYMENT_FOLDER_NAME), 'findEmploymentFolderByName')),
+  skipIfNonNull(logFileTransform(createFolder(EMPLOYMENT_FOLDER_NAME), 'createEmploymentFolder'))
+);
+
+const findOrCreateCompanyFolderFactory = (jobListingRecord) => (employmentFolder) => {
+  const folderName = generateCompanyFolderName(jobListingRecord);
+  const {companyName} = jobListingRecord;
+
+  return compose(
+    logFileTransform(findFolderByName(companyName, employmentFolder), 'findCompanyFolderByName'),
+    skipIfNonNull(logFileTransform(createFolder(companyName, employmentFolder), 'createCompanyFolder'))
+  )
+}
+
+const findOrCreateListingFolderFactory = (jobListingRecord) => (companyFolder) => {
+  const folderName = generateListingFolderName(jobListingRecord);
+
+  return compose(
+    logFileTransform(findFolderByName(folderName, companyFolder), 'findListingFolderByName'),
+    skipIfNonNull(logFileTransform(createFolder(folderName, companyFolder), 'createListingFolder')),
+  )
+}
+
+const findOrCreateCoverLetterFileFactory = (jobListingRecord) => (listingFolder) => {
+  const coverLetterFilename = generateCoverLetterName(jobListingRecord);
+
+  return compose(
+    logFileTransform(findFileByName(coverLetterFilename, listingFolder), 'findCoverLetterFileByName'),
+    skipIfNonNull(logFileTransform(cloneTemplate(coverLetterFilename, listingFolder), 'createCoverLetterFile')),
+  )
+}
+
+const initFolderTransforms = (jobListingRecord) => ({
+  findOrCreateEmploymentFolder: findOrCreateEmploymentFolderFactory,
+  findOrCreateCompanyFolder: findOrCreateCompanyFolderFactory(jobListingRecord),
+  findOrCreateListingFolder: findOrCreateListingFolderFactory(jobListingRecord),
+  findOrCreateCoverLetter: findOrCreateCoverLetterFileFactory(jobListingRecord),
+});
+
+function createCoverLetterPathAndFile(jobListingRecord) {
+
+  const {
+    findOrCreateEmploymentFolder,
+    findOrCreateCompanyFolder,
+    findOrCreateListingFolder,
+    findOrCreateCoverLetter
+  } = initFolderTransforms(jobListingRecord);
+
+  const employmentFolder = findOrCreateEmploymentFolder();
+  const companyFolder = findOrCreateCompanyFolder(employmentFolder)();
+  const listingFolder = findOrCreateListingFolder(companyFolder)();
+  const coverLetter = findOrCreateCoverLetter(listingFolder)();
+
+  return coverLetter;
+}
+
+
+```
+
+[tt-initializing]:
+    .
+    "This time with the jobListingRecord object from `jobListingRecord.gs`"
+
+[tt-cloning]:
+    .
+    "The cloning isn't actually necessary for the file contents, as we're going to overwrite it anyway, but creating a file from scratch at the right location in the drive is suprisingly challenging, and you end up with some unhelpful defaults. By cloning, we end up with the same margins, no header, etc."
