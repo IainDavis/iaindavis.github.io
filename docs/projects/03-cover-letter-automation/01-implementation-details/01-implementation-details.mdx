@@ -28,15 +28,7 @@ get the benefits of modules if you develop locally, and synchronize
 your changes with `clasp`, but that seemed [a bit
 heavy-weight][tt-heavyweight] for this project.  That said, I wanted
 to keep my code as organized as I could so, barring some utility
-functions and constants, I broke it up into the following six modules
-(files):
-
-* Code.gs (top-level orchestration)
-* rangeHandling (interpretting current selection & applying defaults)
-* jobListingRecords (mapping row-data to JavaScript objects)
-* folderAndFileOps (basic file-system navigation and I/O)
-* folderAndFileHandling (higher-level folder operations (_e.g._, create series of folders to contain the cover letter))
-* updateCoverLetter (write template content and substitute placeholders)
+functions and constants, I broke it up into the following chunks:
 
 <Tabs>
     <TabItem value="Code.gs">
