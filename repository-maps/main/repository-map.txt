@@ -87,6 +87,8 @@
 │   │   ├── 2024-10-04-actual-content.mdx
 │   │   └── _fragments
 │   │       └── demoFragment.mdx
+│   ├── 2024-10-06-cover-letter-automation
+│   │   └── 2024-10-06-cover-letter-automation.mdx
 │   ├── authors.yml
 │   └── tags.yml
 ├── docs
@@ -284,4 +286,4 @@
 ├── vitest.setup.ts
 └── yarn.lock
 
-97 directories, 187 files
+98 directories, 188 files
