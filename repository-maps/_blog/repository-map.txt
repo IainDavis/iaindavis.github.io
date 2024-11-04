@@ -89,6 +89,8 @@
 │   │       └── demoFragment.mdx
 │   ├── 2024-10-06-cover-letter-automation
 │   │   └── 2024-10-06-cover-letter-automation.mdx
+│   ├── 2024-11-01-disruption
+│   │   └── 2024-11-01-disruption.mdx
 │   ├── authors.yml
 │   └── tags.yml
 ├── docs
@@ -145,7 +147,8 @@
 │   │   └── 03-zoom
 │   │       └── 03-zoom.mdx
 │   └── projects
-│       ├── iaindavis.dev
+│       ├── 01-iaindavis.dev
+│       │   ├── 01-iaindavis.dev.mdx
 │       │   ├── 02-key-features
 │       │   │   └── 02-key-features.mdx
 │       │   ├── 03-implementation
@@ -174,26 +177,45 @@
 │       │   │   └── 04-key-learnings.mdx
 │       │   ├── 05-future-plans
 │       │   │   └── 05-future-plans.mdx
+│       │   └── _fragments
+│       │       ├── high-level-summary.mdx
+│       │       ├── project-links.mdx
+│       │       └── tech-used.mdx
+│       ├── 02-nova
+│       │   ├── 01-key-features
+│       │   │   └── 01-key-features.mdx
+│       │   ├── 02-challenges
+│       │   │   └── 02-challenges.mdx
+│       │   ├── 02-nova.mdx
+│       │   ├── 03-future-plans
+│       │   │   └── 03-future-plans.mdx
 │       │   ├── _fragments
 │       │   │   ├── high-level-summary.mdx
 │       │   │   ├── project-links.mdx
 │       │   │   └── tech-used.mdx
-│       │   └── iaindavis.dev.mdx
-│       └── nova
-│           ├── 01-key-features
-│           │   └── 01-key-features.mdx
+│       │   └── _resources
+│       │       ├── Nova_AI.png
+│       │       └── nova-jira-issue.png
+│       └── 03-cover-letter-automation
+│           ├── 01-implementation-details
+│           │   ├── 01-implementation-details.mdx
+│           │   └── _fragments
+│           │       ├── tab-code.gs.mdx
+│           │       ├── tab-folderandfilehandling.gs.mdx
+│           │       ├── tab-folderandfileops.gs.mdx
+│           │       ├── tab-joblistingrecord.gs.mdx
+│           │       ├── tab-rangehandling.gs.mdx
+│           │       ├── tab-ui.gs.mdx
+│           │       └── tab-updateCoverLetter.gs.mdx
 │           ├── 02-challenges
 │           │   └── 02-challenges.mdx
-│           ├── 03-future-plans
-│           │   └── 03-future-plans.mdx
-│           ├── _fragments
-│           │   ├── high-level-summary.mdx
-│           │   ├── project-links.mdx
-│           │   └── tech-used.mdx
-│           ├── _resources
-│           │   ├── Nova_AI.png
-│           │   └── nova-jira-issue.png
-│           └── nova.mdx
+│           ├── 03-cover-letter-automation.mdx
+│           ├── 03-key-learnings
+│           │   └── 03-key-learnings.mdx
+│           └── _fragments
+│               ├── high-level-summary.mdx
+│               ├── tab-key-features.mdx
+│               └── tab-technology-used.mdx
 ├── docusaurus.config.ts
 ├── package.json
 ├── sidebars.ts
@@ -286,4 +308,4 @@
 ├── vitest.setup.ts
 └── yarn.lock
 
-98 directories, 188 files
+105 directories, 203 files
