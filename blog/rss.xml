@@ -4,11 +4,23 @@
         <title>IainDavis.dev | Developer Blog</title>
         <link>https://iaindavis.github.io/blog</link>
         <description>A Blog where I will document what I am working on and looking forward to as I develop my personal website</description>
-        <lastBuildDate>Sun, 06 Oct 2024 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 02 Nov 2024 11:04:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <copyright>Copyright © 2024 Iain S. Davis. Built with Docusaurus.</copyright>
+        <item>
+            <title><![CDATA[Disruption]]></title>
+            <link>https://iaindavis.github.io/blog/2024/11/01/2024-11-01-disruption/disruption</link>
+            <guid>https://iaindavis.github.io/blog/2024/11/01/2024-11-01-disruption/disruption</guid>
+            <pubDate>Sat, 02 Nov 2024 11:04:00 GMT</pubDate>
+            <description><![CDATA[Hello, readers.]]></description>
+            <content:encoded><![CDATA[<p>Hello, readers.</p>
+<p>Nothing substantive about software development in this post, just a note to explain that I've had some upheaval in my personal life that has meant a significant interruption to the work I'm doing here. I expect to be resuming work here full-speed in the coming days, and picking up my job search where I left off.</p>
+<p>Thanks for your understanding.</p>
+<p></p>]]></content:encoded>
+            <category>personal</category>
+        </item>
         <item>
             <title><![CDATA[Automating Cover Letter Creation -- A Project Report]]></title>
             <link>https://iaindavis.github.io/blog/2024/10/06/2024-10-06-cover-letter-automation/cover-letter-automation</link>
