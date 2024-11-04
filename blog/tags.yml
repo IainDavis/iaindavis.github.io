@@ -77,4 +77,7 @@ svg:
   permalink: /svg
   description: Posts to do with the SVG format
 
-
+personal:
+  label: personal
+  permalink: /personal
+  description: Posts of a personal nature
