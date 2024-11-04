@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkiaindavis_dev=self.webpackChunkiaindavis_dev||[]).push([[6452],{6452:(e,a,i)=>{i.d(a,{createPacketServices:()=>s.$});var s=i(71609);i(19369)}}]);
