@@ -1,0 +1,9 @@
+book-designing-distributed-systems:
+  label: Book | Desigining Distributed Systems
+  permalink: /designing-distributed-systems
+  description: Posts related to the book Designing Distributed Systems (“Designing Distributed Systems by Brendan Burns (O’Reilly). Copyright 2025 Brendan Burns, 978-1-098-15635-0.”)
+
+hands-on:
+  label: Hands-On Exercise
+  permalink: /hands-on
+  description: Posts documenting hands-on exercises

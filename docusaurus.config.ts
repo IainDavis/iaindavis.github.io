@@ -28,6 +28,19 @@ const config: Config = {
   },
   plugins: [
     copyStylesPlugin,
+    [
+      '@docusaurus/plugin-content-blog',
+      {
+        id: 'study-blog',
+        routeBasePath: 'study',
+        path: 'blog-study',
+        blogSidebarCount: 20,
+        truncateMarker: truncateRegex,
+        remarkPlugins: [
+          [ removeTruncateMarker, { regex: truncateRegex, } ],
+        ],
+      }
+    ]
   ],
   themes: [
     '@docusaurus/theme-mermaid',
@@ -104,6 +117,10 @@ const config: Config = {
         {
           to: '/blog',
           label: 'Blog'
+        },
+        {
+          to: '/study',
+          label: 'Study'
         },
         {
           href: 'https://github.com/IainDavis',
