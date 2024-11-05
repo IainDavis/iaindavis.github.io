@@ -1,0 +1,39 @@
+services:
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor
+    container_name: sidecar-topz-cadvisor
+    platform: linux/arm64
+    networks:
+      - sidecar-topz-network
+    privileged: true
+    volumes:
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /cgroup:/cgroup:ro
+
+      - type: bind
+        source: /
+        target: /rootfs
+        read_only: true
+        bind:
+          propagation: rslave
+      - type: bind
+        source: /var/lib/docker
+        target: /var/lib/docker
+        read_only: true
+        bind:
+          propagation: rslave
+
+  nginx:
+    image: nginx
+    container_name: sidecar-topz-nginx
+    networks:
+      - sidecar-topz-network
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+
+networks:
+  sidecar-topz-network:
+    driver: bridge
