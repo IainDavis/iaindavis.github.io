@@ -1,0 +1,59 @@
+### Running the solution
+In the directory that contains the solution files:
+Run the following command to start the solution implementation (will run on port :8080)
+
+```
+docker-compose up -d
+```
+
+<details>
+<summary>Screen captures</summary>
+
+![Screen capture of terminal output of `docker-compose up` command](../../../_resources/docker-up.png "Successful execution of dockerfile should look like this")
+
+![Screen capture of Rancher Desktop UI with created containers running](../../../_resources/running-containers.png)
+
+</details>
+
+#### Observe the solution
+With the Docker stack running:
+* point your browser to [`localhost:8080`][main-app] to see the default NGINX welcome page... this is a stand-in for the "main application"
+* point your browser to [`localhost:8080/cadvisor`][subdomain-root] or [`localhost:8080/cadvisor/containers`][cadvisor-main] to see the UI of the cadvisor sidecar
+* Navigate the cadvisor page to be sure the links work, and external resources are loading (you should see graphs, gauges, _etc._ with data updating in real time)
+
+:::caution
+If running in Mac OS, you will see regularly recurring `500` errors, if you check the Network tabs. This is because cAdvisor is trying to invoke a command that runs the `ps` command-line utility to retrieve some additional system data. This utility is not available on Mac OS. But the absence of this data doesn't otherwise affect cAdvisor, and it remains a useful and valuable tool withoutt these calls.
+:::
+
+<details>
+<summary>Screen captures</summary>
+
+![Screen capture of NGINX default page standing-in as the "main application" in the sidecar pattern](../../../_resources/mock-application.png)
+
+_Note: navigating to `/cadvisor` (which has no actual content) redirects to `/cadvisor/containers`, which is the root of the cAdvisor content.
+![Screen recording showing navigation to 'sidecar' app, with redirect from sidecar root to main page content](../../../_resources/sidecar-redirect.gif)
+
+![Screen capture with cAdvisor styles and fetched data displayed, indicating successful redirect of URLS in meta tags](../../../_resources/data-fetch-success.png)
+
+![Screen capture showing navigation with links, including style and data fetching success](../../../_resources/links-work.gif)
+</details>
+
+#### Stopping the solution
+Navigate to this folder in your clone of this repository
+Run the following command:
+```
+docker-compose down
+```
+
+<details>
+<summary>Screen capture</summary>
+
+![Screen capture showing output of `docker-compose down`](../../../_resources/docker-down.png)
+</details>
+
+<!-- NAMED LINKS -->
+[main-app]: http://localhost:8080
+
+[subdomain-root]: http://localhost:8080/cadvisor/
+
+[cadvisor-main]: http://localhost:8080/cadvisor/containers

@@ -1,0 +1,53 @@
+---
+title: "Hands-On: Sidecar | Topz (Designing Distributed Systems)"
+date: 2024-11-02T12:22
+tags:
+ - book-designing-distributed-systems
+ - hands-on
+---
+import Expandable from '@site/src/components/Expandable/Expandable'
+
+import LocalSetup from './_fragments/local-setup.mdx'
+import Challenges from './_fragments/challenges.mdx'
+import Solutions from './_fragments/solutions.mdx'
+
+## Sidecar Hands-on Exercise: TOPZ
+The purpose of this exercise is to explore the "sidecar" pattern of deploying
+software using containers and container groups.
+
+This exercise has the reader creating an arbitrary containerised
+application and a **sidecar** in the same namespace. The sidecar provides
+resource monitoring for the virtual host.
+
+The provided instructions use a purpose-built utility called `topz`,
+and leaves the main application ambiguous (to be determined by the
+implementer). The implementation is started using Docker CLI commands.
+
+Below is the exercise as defined in the book's text:
+<Expandable>
+Hands On: Deploying the topz Container
+To see the topz sidecar in action, you first need to deploy some other container to act as the application container. Choose an existing application that you are running and deploy it using Docker:
+>
+```
+$ docker run -d <my-app-image>
+<container-hash-value>
+After you run that image, you will receive the identifier for that specific container. It will look something like: cccf82b85000…​ If you don’t have it, you can always look it up using the docker ps command, which will show all currently running containers. Assuming you have stashed that value in an environment variable named APP_ID, you can then run the topz container in the same PID namespace using:
+```
+
+```
+$ docker run --pid=container:${APP_ID} \
+    -p 8080:8080 \
+    brendanburns/topz:db0fa58 \
+    /server --addr=0.0.0.0:8080
+```
+This will launch the topz sidecar in the same PID namespace as the application container. Note that you may need to change the port that the sidecar uses for serving if your application container is also running on port 8080. Once the sidecar is running, you can visit http://localhost:8080/topz to get a complete readout of the processes that are running in the application container and their resource usage.
+
+You can mix this sidecar with any other existing container to easily get a view into how the container is using its resources via a web interface.
+</Expandable>
+
+TRUNCATE_HERE
+
+<LocalSetup/>
+<Challenges/>
+<Solutions/>
+

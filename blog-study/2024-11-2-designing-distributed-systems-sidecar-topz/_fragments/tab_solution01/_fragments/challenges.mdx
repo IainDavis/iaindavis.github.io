@@ -1,0 +1,13 @@
+### Solution 01 Challenges
+#### Path and Port Rewriting:
+    * Managed cAdvisor’s links and assets that initially lacked correct paths and port information, leading to broken links and missing resources.
+
+#### Handling Trailing Slashes and Redirects:
+    * Configured Nginx to append trailing slashes on specific routes (top-level routes) that otherwise report a 404. Note that for routes below the top level (_e.g._, `/containers/docker`), _including_ the trailing slash is an error
+    * Addressed issues where URLs were incorrectly rewritten, causing multiple redirects or incorrect paths.
+
+#### Caching and Profile-Specific Issues:
+    * Resolved persistent caching issues where browser profiles retained outdated URL mappings, leading to debugging obstacles.
+
+#### Optimizing Resource Buffering:
+    * Increased Nginx buffer sizes and disabled disk buffering to handle the larger upstream data from cAdvisor, which required handling more data-intensive API responses. This was largely a developer-experience issue, as I like to view log output in [`lnav`](https://lnav.org/ "The LogFile Navigator | command-line log viewer) and the warnings announcing exceeding buffer sizes were disrupting the lnav display output.
