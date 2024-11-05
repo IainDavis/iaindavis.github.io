@@ -1,0 +1,31 @@
+---
+title: "A Few Small Updates"
+date: 2024-11-05T13:35
+authors:
+    - iain
+---
+Brief update to indicate some of the work I've done here in the last few days:
+
+TRUNCATE_HERE
+
+1. Minor security updates prompted by GitHub's Dependabot.
+1. Upgrading Docusaurus: `v3.5.2` → `v3.6.0`
+
+    This implies a transition from `webpack` to the rust-based equivalent `Rspack`. I'm a bit concerned that may have some consequences for the existing interactions between vite, babel, and webpack, but so far all seems well.
+
+    Happily looking forward to improved mermaid support. Hopefully I can take advantage of interactive menus in rendered mermaid diagrams, though I haven't tested this, and it may require some additional configuration to override the default mermaid implementation for a newer one.
+1. Added a separate instance of the Docusaurus blog plugin
+
+    I've been wanting a way to capture and publish this activity for a while. Indeed, it's part of the reason I wanted this website to exist in the first place -- partly for making visible to potential employers any activites that aren't encompassed in projects, but also for my own reference if I should want to look back on things I've previously learned.
+    
+    I've gone through several iterations of this, either in concept or in partial implementation. Each version has varied in which elements are stored in their own independent repository, and which elements were stored here. In the end, I've landed on a hybrid solution with the actual solution files in [their own repository](https://github.com/IainDavis/book-exercises) and the documentation in this repository, allowing me access to all Docusaurus offers when describing my efforts, as well as the custom components I've created.
+
+    Using the Docusaurus `blog` plugin gives me a historical record of what I've done, as well as being searchable by tags. At the moment, I'm intending to group tags into three rough categories: 
+    * exercise source (usually a book, but maybe sometimes a video or other document)
+    * kind: (hands-on exercies, commentary, etc.)
+    * topic/tech: allow me to filter all results that have to with (for example) NGINX, regardless of where the exercise came from
+
+    An earlier iteration intended to use the existing blog, but I saw several advantages in splitting it off into a separate instance:
+    * Independent RSS feeds prevent me spamming LinkedIn with information not related to the development of my projects
+    * Avoid polluting my main `tags` file with a lot of tags for various exercise sources, and individual technologies, where more general categories are appropriate
+    * It's useful to separate the histories... if I want to review all the exercises I've done that leveraged NGINX, I don't necessarily want every mention of NGINX from my main blog.
