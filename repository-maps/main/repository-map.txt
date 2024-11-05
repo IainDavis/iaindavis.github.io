@@ -93,6 +93,35 @@
 │   │   └── 2024-11-01-disruption.mdx
 │   ├── authors.yml
 │   └── tags.yml
+├── blog-study
+│   ├── 2024-11-2-designing-distributed-systems-sidecar-topz
+│   │   ├── 2024-11-2-designing-distributed-systems-sidecar-topz.mdx
+│   │   ├── _fragments
+│   │   │   ├── TOPZ_02.mdx
+│   │   │   ├── challenges.mdx
+│   │   │   ├── local-setup.mdx
+│   │   │   ├── solutions.mdx
+│   │   │   └── tab_solution01
+│   │   │       ├── TOPZ_01.mdx
+│   │   │       └── _fragments
+│   │   │           ├── challenges.mdx
+│   │   │           ├── comments.mdx
+│   │   │           ├── how-to-run.mdx
+│   │   │           ├── solution-artifacts.mdx
+│   │   │           └── solution-design.mdx
+│   │   ├── _resources
+│   │   │   ├── data-fetch-success.png
+│   │   │   ├── docker-down.png
+│   │   │   ├── docker-up.png
+│   │   │   ├── links-work.gif
+│   │   │   ├── mock-application.png
+│   │   │   ├── running-containers.png
+│   │   │   └── sidecar-redirect.gif
+│   │   └── _solution-elements
+│   │       └── 01
+│   │           ├── docker-compose.yaml
+│   │           └── nginx.conf
+│   └── tags.yml
 ├── docs
 │   ├── bio
 │   │   └── bio
@@ -308,4 +337,4 @@
 ├── vitest.setup.ts
 └── yarn.lock
 
-105 directories, 203 files
+113 directories, 224 files
