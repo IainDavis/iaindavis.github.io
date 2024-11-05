@@ -1,0 +1,26 @@
+import Expandable from '@site/src/components/Expandable/Expandable'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+import SolutionArtifacts from './_fragments/solution-artifacts.mdx'
+import SolutionDesign from './_fragments/solution-design.mdx'
+import HowToRun from './_fragments/how-to-run.mdx'
+import Challenges from './_fragments/challenges.mdx'
+import Comments from './_fragments/comments.mdx'
+
+### Overview
+This solution applies Nova's suggestion of replacing the `topz` sidecar (not compatible with either Mac OS or with the Mac Silicon hardware) with an alternate sidecar. It uses NGINX as the "main application", assuming some static content is being served, and `cAdvisor` as the sidecar.
+
+<SolutionArtifacts/>
+<SolutionDesign/>
+---
+<HowToRun/>
+---
+<Challenges/>
+---
+<Comments/>
+
+<!-- NAMED LINKS -->
+
+[main-app]: http://localhost:8080
+[sidecar-root]: http://locahost:8080/cadvisor
