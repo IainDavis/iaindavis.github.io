@@ -58,6 +58,11 @@ ci-cd:
   label: CI/CD
   permalink: ci-cd
   description: Posts to do with Continuous Integration and Deployment
+integration:
+  label: Integration
+  permalink: /integration
+  description: Posts to do with integrating different systems and services
+
 ai:
   label: Artificial Intelligence
   permalink: /ai
