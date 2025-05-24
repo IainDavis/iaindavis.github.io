@@ -10,6 +10,10 @@ tags:
     - infrastructure
     - integration
 ---
+:::note TL;DR
+I created a custom project and work type to expose Jira context to my AI assistant and work around limitations in the API and permissions model. Now I'm able to submit new work ideas, correctly categorized, with less friction.
+:::
+
 I've been pretty lax about working in a structured and organized way in my personal projects. Some of that has to do with life just kind of being a bummer lately. Unemployment is hard. But it also has to do with I just got into some sections of work that felt very unstructured and exploratory. I knew roughly where I wanted to get to, but I didn't know how to get there until I did a lot of learning and made a bunch of mistakes. Now, arguably, that's exactly the kind of stuff I should have been documenting. But _doing_ it took a lot of my time and energy. Today, we're where we are, and there's no use pretending we're somewhere else.
 
 TRUNCATE_HERE
