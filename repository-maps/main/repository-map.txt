@@ -16,6 +16,9 @@
 │   │   └── withDocusaurusStyles.tsx
 │   ├── main.ts
 │   └── preview.tsx
+├── .yarn
+│   └── install-state.gz
+├── .yarnrc.yml
 ├── @types
 │   └── declarations.d.ts
 ├── CNAME
@@ -91,28 +94,44 @@
 │   │   └── 2024-10-06-cover-letter-automation.mdx
 │   ├── 2024-11-01-disruption
 │   │   └── 2024-11-01-disruption.mdx
+│   ├── 2024-11-05-a-few-small-updates
+│   │   └── 2024-11-05-a-few-small-updates.mdx
+│   ├── 2025-05-24-another-catch-up
+│   │   ├── 2025-05-24-another-catch-up.md
+│   │   └── _resources
+│   │       └── Docodylus_sillhouette_logo_.webp
+│   ├── 2025-05-24-jira-discoverability
+│   │   ├── 2025-05-24-jira-discoverability.md
+│   │   └── _resources
+│   │       ├── Nova uses ContextCards.gif
+│   │       ├── add-context-card.png
+│   │       └── issue-created-with-inference.png
 │   ├── authors.yml
 │   └── tags.yml
 ├── blog-study
-│   ├── 2024-11-2-designing-distributed-systems-sidecar-topz
-│   │   ├── 2024-11-2-designing-distributed-systems-sidecar-topz.mdx
+│   ├── 2024-11-02-designing-distributed-systems-sidecar-topz
+│   │   ├── 2024-11-02-designing-distributed-systems-sidecar-topz.mdx
 │   │   ├── _fragments
-│   │   │   ├── TOPZ_02.mdx
 │   │   │   ├── challenges.mdx
 │   │   │   ├── local-setup.mdx
 │   │   │   ├── solutions.mdx
-│   │   │   └── tab_solution01
-│   │   │       ├── TOPZ_01.mdx
+│   │   │   ├── tab_solution01
+│   │   │   │   ├── TOPZ_01.mdx
+│   │   │   │   └── _fragments
+│   │   │   │       ├── challenges.mdx
+│   │   │   │       ├── comments.mdx
+│   │   │   │       ├── how-to-run.mdx
+│   │   │   │       ├── solution-artifacts.mdx
+│   │   │   │       └── solution-design.mdx
+│   │   │   └── tab_solution02
+│   │   │       ├── TOPZ_02.mdx
 │   │   │       └── _fragments
-│   │   │           ├── challenges.mdx
-│   │   │           ├── comments.mdx
-│   │   │           ├── how-to-run.mdx
-│   │   │           ├── solution-artifacts.mdx
-│   │   │           └── solution-design.mdx
+│   │   │           └── multi-arch-approach-nova.mdx
 │   │   ├── _resources
 │   │   │   ├── data-fetch-success.png
 │   │   │   ├── docker-down.png
 │   │   │   ├── docker-up.png
+│   │   │   ├── image-on-docker.png
 │   │   │   ├── links-work.gif
 │   │   │   ├── mock-application.png
 │   │   │   ├── running-containers.png
@@ -121,11 +140,17 @@
 │   │       └── 01
 │   │           ├── docker-compose.yaml
 │   │           └── nginx.conf
+│   ├── 2024-11-09-designing-distributed-systems-ambassador-sharded-redis
+│   │   ├── 2024-11-09-designing-distributed-systems-ambassador-sharded-redis.mdx
+│   │   └── _fragments
+│   │       └── solution-diagram.mdx
+│   ├── 2024-11-09-designing-distributed-systems-ambassador-ten-percent-experiments
+│   │   └── 2024-11-09-designing-distributed-systems-ambassador-ten-percent-experiments.mdx
 │   └── tags.yml
 ├── docs
 │   ├── bio
 │   │   └── bio
-│   │       ├── 01-work-and-education
+│   │       ├── .01-work-and-education
 │   │       │   ├── 01-work-and-education.mdx
 │   │       │   ├── _fragments
 │   │       │   │   └── timeline.mdx
@@ -142,7 +167,7 @@
 │   │       │       ├── rapid-prototyping-challenge.jpg
 │   │       │       ├── sjsu-said-yes.jpg
 │   │       │       └── view-from-the-top.jpg
-│   │       ├── 02-personal-life
+│   │       ├── .02-personal-life
 │   │       │   ├── 02-personal-life.mdx
 │   │       │   └── _resources
 │   │       │       ├── antithesis.jpg
@@ -337,4 +362,4 @@
 ├── vitest.setup.ts
 └── yarn.lock
 
-113 directories, 224 files
+125 directories, 238 files
