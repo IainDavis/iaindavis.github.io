@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkiaindavis_dev=self.webpackChunkiaindavis_dev||[]).push([[1546],{34409:s=>{s.exports=JSON.parse('{"tags":[{"label":"Hands-On Exercise","permalink":"/study/tags/hands-on","description":"Posts documenting hands-on exercises","count":2},{"label":"designing-distributed-systems","permalink":"/study/tags/designing-distributed-systems","count":2}]}')}}]);

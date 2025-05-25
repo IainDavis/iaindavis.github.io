@@ -4,11 +4,135 @@
         <title>IainDavis.dev | Developer Blog</title>
         <link>https://iaindavis.github.io/blog</link>
         <description>A Blog where I will document what I am working on and looking forward to as I develop my personal website</description>
-        <lastBuildDate>Sat, 02 Nov 2024 11:04:00 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 24 May 2025 13:48:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
-        <copyright>Copyright © 2024 Iain S. Davis. Built with Docusaurus.</copyright>
+        <copyright>Copyright © 2025 Iain S. Davis. Built with Docusaurus.</copyright>
+        <item>
+            <title><![CDATA[Empowering Nova with Jira Discoverability]]></title>
+            <link>https://iaindavis.github.io/blog/2025/05/24/2025-05-24-jira-discoverability/jira-discoverability</link>
+            <guid>https://iaindavis.github.io/blog/2025/05/24/2025-05-24-jira-discoverability/jira-discoverability</guid>
+            <pubDate>Sat, 24 May 2025 13:48:00 GMT</pubDate>
+            <description><![CDATA[I created a custom project and work type to expose Jira context to my AI assistant and work around limitations in the API and permissions model. Now I'm able to submit new work ideas, correctly categorized, with less friction.]]></description>
+            <content:encoded><![CDATA[<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>TL;DR</div><div class="admonitionContent_BuS1"><p>I created a custom project and work type to expose Jira context to my AI assistant and work around limitations in the API and permissions model. Now I'm able to submit new work ideas, correctly categorized, with less friction.</p></div></div>
+<p>I've been pretty lax about working in a structured and organized way in my personal projects. Some of that has to do with life just kind of being a bummer lately. Unemployment is hard. But it also has to do with I just got into some sections of work that felt very unstructured and exploratory. I knew roughly where I wanted to get to, but I didn't know how to get there until I did a lot of learning and made a bunch of mistakes. Now, arguably, that's exactly the kind of stuff I should have been documenting. But <em>doing</em> it took a lot of my time and energy. Today, we're where we are, and there's no use pretending we're somewhere else.</p>
+<p></p>
+<p>But the good thing about knowing where we are, is we get to decide what we're going to do next! And one of the things I'm going to do is, now that the work has settled into something that feels a little more predictable and structured, to return to the good practices that I was trying to follow when I first got laid off and decided to start pursuing my own projects so that I could have something to showcase to the world.</p>
+<p>That means posting on this here blog, and tracking my work in Jira, and running something approximating a scrum workflow. I don't really want to work in Scrum, I'd much rather do Kanban for my personal projects, but I think it's important that I practice for my next role, which very often means Scrum.</p>
+<p>Bad news though. I let it go so long that my Jira instance got deleted. In fact, I got a warning before that happened, and I contacted somebody at the help desk who assured me all I had to do to keep it live was to log in once in a while. I don't know if he was mistaken, or I misunderstood, or if it's just been longer since that conversation than I realize, but my Jira instance got deleted, and I'm left with not much to do but start over.</p>
+<p>It may be a blessing in disguise though. When I first set up my Jira instance, I built in the way that I recognized from my time at Intuit, that is, a project-per-team. And since my "team" is only me and my AI assistant, Nova, that meant I had a single project with different work streams only identifiable by labels and components. Looking at it objectively, that never really made much sense, and even less so now that I have more than one project that I'm working on.</p>
+<p>Rebuilding my Jira instance with a one-project-per-product model had some other benefits too. Now I have a Sandbox project where I can try things out with Jira configurations and integrations, and I can still keep any issues generated during those activities around for future reference without polluting my actual work-stream information. I also have an IDEAS project, where I can capture things that might be developed more fully into new epics, and might even spawn new projects (I've got several of these already that I want to capture).</p>
+<p>I also improved on my previous model by introducing a "Tags" field (which I'm seriously considering renaming... "Tags" is too generic for its purpose). The "Tags" field acts essentially the same as the standard "Labels" field, except that "Tags" only allows values from a defined set. Why is that useful? Suppose you're relying on labels to identify how much effort is going into various aspects of development. Suppose one of your team adds the label "docs" and another one adds the label "documentation". Now, to get an accurate picture, you <em>have to know both of those labels exist</em>. This strikes me as singularly error prone, so I invested the time to create a set of options that divide development work into different categories. These work in concert with the Components field. Components define where-in-the-project work is happening, <em>e.g.</em> a specific module or somewhere within the configuration-as-code, and "Tags" identify what sort of work it is, <em>e.g.</em>, adding tests, a new feature, or refactoring.</p>
+<p>All of this custom configuration comes at a cost. Previously, it was pretty easy for Nova to interact with my Jira instance. There was only one project key to know, and pretty much everything had the standard configuration. I needed Nova to be able to discover the current configuration on the fly, and to notice when it changes.</p>
+<p>The obvious first step was to try to fetch all this through the API. Nova has a set of GPT Actions, and a dedicated OAuth2 app and account that allows login to my Jira instance, and this mostly works, but we did run into a wrinkle we couldn't resolve through the API. Discovering the allowed values for the "tags" field requires access to an "Edit Workflows" permission that is simply not grantable to a user who is authenticating via an OAuth2 log in flow. I'm not sure why that permission shouldn't be grantable, or why it's neaded to read a bit of configuration that would be perfectly viewable for the same user through the UI, but here we are.</p>
+<p>The solution has been to add <em>another</em> project to Jira, explicitly for exposing information in a way that Nova can retrieve it. I call this project "Nova Integration" or "NOVAINT", and it supports a single custom issue type (or work type, under the new naming scheme), which is <code>ContextCard</code>. Nova can retrieve ContextCards and treat anything in them as valid context for the remainder of the session.</p>
+<p><img decoding="async" loading="lazy" alt="Screen capture of the custom &amp;quot;Add Context Card&amp;quot; screen in Jira" src="https://iaindavis.github.io/assets/images/add-context-card-52170f83e4725f8ad935dd85edad1969.png" width="821" height="864" class="img_ev3q"></p>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>Alternatives I considered</summary><div><div class="collapsibleContent_i85q"><p>I considered several different approaches for providing Nova with the details of the Tags field</p><ol>
+<li>
+<p><strong>abandoning it altogether</strong>
+This is always a possibility. But I didn't relish the idea of having to remind Nova of the same information over and over again, especially considering there might be variations of the allowed values from one project to another. Also I'm quite stubborn.</p>
+</li>
+<li>
+<p><strong>including it in Nova's instructions</strong>
+This was the earliest and most obvious solution. Simple and direct, but it also would have me not only having to manually maintain Nova's instructions, but to do it outside of Jira. It seems prudent to me to control what Jira exposes from within Jira. I also wanted to avoid polluting Nova's instructions with a lot of detail. The more that's in there, the more likely Nova will get confused about something. Indeed, with just the instructions that <em>are</em> there, we had to do a fair bit of troubleshooting to get Nova not to assume that one project was more important than the others, based on unrelated instructions.</p>
+</li>
+<li>
+<p><strong>including it in Nova's knowledge base</strong>
+This has the advantage of preserving separation of concerns and not polluting Nova's instructions with too much detail, but it suffers from the same need to control Jira-visibility from outside Jira.</p>
+</li>
+</ol></div></div></details>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="consequence">Consequence<a href="https://iaindavis.github.io/blog/2025/05/24/2025-05-24-jira-discoverability/jira-discoverability#consequence" class="hash-link" aria-label="Direct link to Consequence" title="Direct link to Consequence">​</a></h2>
+<p>The end result of all this is that Nova can now dynamically discover what is needed to smooth the creation of new issues in Jira based on our conversations. If we're discussing an idea, and I say "let's capture that as a ticket", Nova can infer the project, components, and tags that are relevant for that work, and populate the ticket as needed with minimal intervention.</p>
+<p><img decoding="async" loading="lazy" alt="Screen recording showing Nova making use of context supplied via ContextCards to correctly infer the right options for a new Jira ticket" src="https://iaindavis.github.io/assets/images/Nova%20uses%20ContextCards-8351cb481553413bec998a4981cfaa90.gif" width="960" height="540" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="Screen capture showing the issue that Nova created" src="https://iaindavis.github.io/assets/images/issue-created-with-inference-41a7f14e56e0d60a9747fc09317f0e14.png" width="1433" height="944" class="img_ev3q"></p>
+<div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>failures</div><div class="admonitionContent_BuS1"><p>I also tried to create a different sort of ContextCard that included instructions, with the intent that Nova would perform whatever actions were in these, without being prompted, after providing the report of the current state of Jira. I could get the actions performed, but not without prompting. I may do some more work on this in the future, as I think I might have spotted what in Nova's instructions are causing confusion. Or it might just be that Nova takes her instructions before an action, and can't augment those instructions based on input recieved during that execution. Not really sure yet, but it seems like an interesting thing to experiment with.</p></div></div>]]></content:encoded>
+            <author>iain@iaindavis.dev (Iain Davis)</author>
+            <category>Automation</category>
+            <category>Artificial Intelligence</category>
+            <category>Nova</category>
+            <category>Infrastructure</category>
+            <category>Integration</category>
+        </item>
+        <item>
+            <title><![CDATA[Another Catch-Up Post]]></title>
+            <link>https://iaindavis.github.io/blog/2025/05/24/2025-05-24-another-catch-up/another-catch-up</link>
+            <guid>https://iaindavis.github.io/blog/2025/05/24/2025-05-24-another-catch-up/another-catch-up</guid>
+            <pubDate>Sat, 24 May 2025 12:22:00 GMT</pubDate>
+            <description><![CDATA[There have been a lot of uncommunicated changes in my codebases.]]></description>
+            <content:encoded><![CDATA[<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>TL;DR</div><div class="admonitionContent_BuS1"><p>There have been a lot of uncommunicated changes in my codebases.</p><ul>
+<li>I've split off a separate component library called <a href="https://github.com/IainDavis-dev/docodylus" target="_blank" rel="noopener noreferrer" title="Docodylus Github repository">Docodylus</a></li>
+<li>I've built a custom internationalization layer for Docodylus on top of Polyglot</li>
+<li>refactored it into a monorepo (a couple times, actually), and am now preparing to release it into the wild as an open-source project on NPM (just as soon as get the quality-check-and-release pipeline in place)</li>
+</ul></div></div>
+<p>It's been a long while. I haven't been posting, and virtually nothing has changed here at IainDavis.dev. But I haven't been idle either. Since I last was regularly updating, I made several decisions that have taken a good long while to carry out, and I abandoned some structure and communication while I was doing it. In retrospect, it was maybe unwise, but at the time it felt like quite enough to be dealing with all the things I was dealing with and also be doing the learning I needed to do to implement the changes I wanted.</p>
+<p></p>
+<p>And look, it has to be said. Things haven't been great for me. That's not a complaint, just an acknowledgment of my limitations. I'm only human, and the last few months have been a lot.</p>
+<p>First I'll give a general recap (at a very broad level) of what I've been up to and then, in another post, I'll discuss more recent updates, with an eye towards resuming regular updates on this blog again.</p>
+<p>Here's what I've been doing:</p>
+<p>Back when I started adding custom React components to IainDavis.dev, I had a couple of forward-looking notions. The ffirst notion was that it would be smart to make an external library to hold those components, so I could reuse them across projects. In fact, I've had that idea for a long time: that I ought to have a central place to put re-usable units of code, and that could double as a place to share out work that I've done that isn't someone else's intellectual property. The second notion was that I wanted to explore things like internationalization a bit more. I'd used systems already in place, but I'd never had to add it to a greenfield project. In iaindavis.dev, I had configured components with externalized strings as a sort of place-holder for a later, more robust internationalization approach.</p>
+<p>I decided that it wasn't going to be any easier to migrate components from iaindavis.dev to an external library if I waited until there were more of them, and <a href="https://github.com/IainDavis-dev/docodylus" target="_blank" rel="noopener noreferrer" title="Docodylus Github repository">Docodylus</a> was born.</p>
+<p><img decoding="async" loading="lazy" alt="Docodylus logo - A bipedal crocodile wearing a suit and oxford shirt with no tie and the shirt untucked is carrying a briefcase. He walks with purpose, as if he is on his way to sort out your documentation for you. Next to him is the word &amp;quot;Docodylus&amp;quot; in a conservative but attractive serif font." src="https://iaindavis.github.io/assets/images/Docodylus_sillhouette_logo_-32ca8fa155915555b8374cf58c65ee9c.webp" width="2835" height="945" class="img_ev3q"></p>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>why "Docodylus?"</summary><div><div class="collapsibleContent_i85q"><p>Docodylus was born out of Docusaurus. I thought it would be fun to preserve the association with dinosaurs, but also indicate a small evolutionary step. I tried several variations using latin words associated with inheritors of the dinosaur genetic legacy (birds: Ornidocs? Docoraptor?, sharks... no real recognizable latin term to use that people will immediately identify as "shark") but they all felt really clunky and stupid. Docodylus (that latin name for the family of crocodiles is <em>crocodylus</em>) was the only one that felt like it had any flow-and-swagger to it at all, so I went with that. And how that I have the logo, I can't imagine it being anything else. I love that guy.</p></div></div></details>
+<p>Docodylus is intended as a React component library for enhancing documentation and other React-based static websites. Right now, there's only one component in it, and a handful more within iaindavis.dev, waiting their turn to get migrated. All of these are quite simple, but I have plans for more complex and robust components in the future, for example an RSS feed display, so I can bring my social media activity into my website, and an external document viewer to standardize and simplify making external content visible in Docusaurus (I'm primarily focused on Google Drive documents but will try to be as general as might be useful)</p>
+<p>In the course of migrating the Expandable component over, I decided it was as good a time as any to implement the internationalization layer. To be fair, I haven't implemented anything like full internationalization. So far, I haven't needed any other features than translations, so dates, currency, number formats are all potential future work. What I <em>did</em> do though, was to make a lot of decisions to support the design goals of Docodylus, namely delivering only what's needed and customizability.</p>
+<p>Modularity in Docodylus (with respect to i18n) is supported by a custom layer that sits on top of Polyglot. It's essentially a re-implementation of polyglot-react, with a couple of new features. Language files are lazy-loaded based on the locale (specified by the user with a React <code>Context.Provider</code> called <code>I18nProvider</code>) and cached so that the same language file doesn't have to be loaded twice. To be perfectly frank here, language files aren't that big, and I'll probably never support enough languages for it to matter, so this was <em>mostly</em> a learning exercise for me, but I did learn a good bit about React hooks, etc.</p>
+<p>Customizability is not yet supported beyond passing strings to components as properties and having the component explicitly use those strings, but groundwork has been laid. Docodylus uses a TypeScript component to aggregate the ids of translatable strings for <em>every component loaded, and no others</em> into a common type which then will populate the user's code-hints with the allowable, namespaced keys for Docodylus translatable strings. This will allow a user to wholesale override all the default translations for every language Docodylus natively supports, as well as allowing them to supply translations for languages that Docodylus does not natively support.</p>
+<p>Docodylus's i18n layer also supports locale negotiation, which is not supported by Polyglot natively, so if a user requests locale <code>en-CA</code> and there are no Canada-specific translations, Docodylus will fall back automatically to the <code>en</code> locale.</p>
+<p>After the internationalization layer was in place, I set about getting test coverage in place. That's mostly unit tests at this point, although there are a few integration tests as well, specifically for the i18n layer.</p>
+<p>When I initially set up the project, I made it as a single package. I knew eventually I wanted each component to be independently publishable to NPM, but early exploration made me think that was not going to be terribly difficult, so I deferred it until I had something to work on. I was mistaken that it would be trivial. The next significant chunk of work I engaged with was decomposing the library into discrete modules with hard dependency boundaries.</p>
+<p>It took several iterations to get a result I was happy with, and a <em>lot</em> of learning about how the different tools that go into making a monorepo work together. At one point, I had the entire thing implemented with Typescript packages. That exposed the vendor lock-in I had created by relying on the Vite-only feature of <code>import.meta.glob</code>, so I refactored, adding a new module to manage dynamic loading of external files <em>without</em> relying on vendor-specific compile-time constructs. And then I decided I really probably wanted Vite packages anyway, to have the advantages of bundling and tree-shaking. I'm not sorry though, that vendor lock-in might well have come back and bit me in the ass before long.</p>
+<p>Once I had that refactored, and everything running just the way I wanted it, Storybook stopped working altogether. That was baffling for a while, but ultimately it turned out that, because I had made independent packages of everything, Storybook was just trying to use the built artifacts, instead of building them itself from the typescript source. The toolchain used by my builds and that expected by Storybook didn't match up, so Storybook couldn't understand my built modules. I was able to solve that by learning some new things about how conditional exports work, enabling Storybook to read from source again.</p>
+<p>And that more or less brings us to today. The next major chunk of work is to finalize all my automation, tests, quality checks, etc. and Docodylus will be ready to go live on NPM as a tool that other people can use (but probably shouldn't, at least until I get some more actual features into it).</p>
+<p>I'm looking to get on with that in the next week, and also to return to more structured work, and more regular communications about the work. More on that in the next blog post.</p>
+<p>There's loads of work to do after I publish (as prerelease). I've got a ton of documentation to write, and the component that's in there is bare-bones to say the least. There are features to add, and I've learned a good deal about accessibility since I initially wrote it, which I want to incorporate. That has consequences for CSS that may lead me into writing an entire design system... time will tell. And then there are other existing components to migrate, new components to write, and the <em>actual origiinal website</em> to update and maintain in an ongoing way.</p>]]></content:encoded>
+            <author>iain@iaindavis.dev (Iain Davis)</author>
+            <category>React</category>
+            <category>Automation</category>
+            <category>Storybook</category>
+            <category>Trouble-shooting</category>
+            <category>Testing</category>
+            <category>Infrastructure</category>
+        </item>
+        <item>
+            <title><![CDATA[A Few Small Updates]]></title>
+            <link>https://iaindavis.github.io/blog/2024/11/05/2024-11-05-a-few-small-updates/a-few-small-updates</link>
+            <guid>https://iaindavis.github.io/blog/2024/11/05/2024-11-05-a-few-small-updates/a-few-small-updates</guid>
+            <pubDate>Tue, 05 Nov 2024 13:35:00 GMT</pubDate>
+            <description><![CDATA[Brief update to indicate some of the work I've done here in the last few days:]]></description>
+            <content:encoded><![CDATA[<p>Brief update to indicate some of the work I've done here in the last few days:</p>
+<p></p>
+<ol>
+<li>
+<p>Minor security updates prompted by GitHub's Dependabot.</p>
+</li>
+<li>
+<p>Upgrading Docusaurus: <code>v3.5.2</code> → <code>v3.6.0</code></p>
+<p>This implies a transition from <code>webpack</code> to the rust-based equivalent <code>Rspack</code>. I'm a bit concerned that may have some consequences for the existing interactions between vite, babel, and webpack, but so far all seems well.</p>
+<p>Happily looking forward to improved Mermaid support. Hopefully I can take advantage of interactive menus in rendered Mermaid diagrams, though I haven't tested this, and it sounds as though it may require some additional configuration to override the default mermaid version for a newer one.</p>
+</li>
+<li>
+<p>Added a separate instance of the Docusaurus blog plugin for hands-on exercises</p>
+<p>I've been wanting a way to capture and publish this activity for a while. Indeed, it's part of the reason I wanted this website to exist in the first place -- partly for making visible to potential employers any activites that aren't encompassed in projects, but also for my own reference if I should want to look back on things I've previously learned.</p>
+<p>I've gone through several iterations of this, either in concept or in partial implementation. Each version has varied in which elements are stored in their own independent repository, and which elements were stored here. In the end, I've landed on a hybrid solution with the actual solution files in <a href="https://github.com/IainDavis/book-exercises" target="_blank" rel="noopener noreferrer">their own repository</a> and the documentation in this repository, allowing me access to all Docusaurus offers when describing my efforts, as well as the custom components I've created.</p>
+<p>Using the Docusaurus <code>blog</code> plugin gives me a historical record of what I've done, as well as being searchable by tags. At the moment, I'm intending to group tags into three rough categories:</p>
+<ul>
+<li>exercise source (usually a book, but maybe sometimes a video or other document)</li>
+<li>kind: (hands-on exercies, commentary, etc.)</li>
+<li>topic/tech: allow me to filter all results that have to with (for example) NGINX, regardless of where the exercise came from</li>
+</ul>
+<p>An earlier iteration intended to use the existing blog, but I saw several advantages in splitting it off into a separate instance:</p>
+<ul>
+<li>Independent RSS feeds prevent me spamming LinkedIn with information not related to the development of my projects</li>
+<li>Avoid polluting my main <code>tags</code> file with a lot of tags for various exercise sources, and individual technologies, where more general categories are appropriate</li>
+<li>It's useful to separate the histories... if I want to review all the exercises I've done that leveraged NGINX, I don't necessarily want every mention of NGINX from my main blog.</li>
+</ul>
+</li>
+</ol>]]></content:encoded>
+            <author>iain@iaindavis.dev (Iain Davis)</author>
+            <category>Infrastructure</category>
+            <category>My Brand</category>
+        </item>
         <item>
             <title><![CDATA[Disruption]]></title>
             <link>https://iaindavis.github.io/blog/2024/11/01/2024-11-01-disruption/disruption</link>
@@ -1080,65 +1204,6 @@ Docusaurus just that little bit more useful to me.</p>
             <category>Docusaurus</category>
             <category>Custom Docusaurus Components</category>
             <category>React</category>
-        </item>
-        <item>
-            <title><![CDATA[Catch-Up Post]]></title>
-            <link>https://iaindavis.github.io/blog/2024/09/14/2024-09-14-catch-up/catch-up</link>
-            <guid>https://iaindavis.github.io/blog/2024/09/14/2024-09-14-catch-up/catch-up</guid>
-            <pubDate>Sat, 14 Sep 2024 11:23:00 GMT</pubDate>
-            <description><![CDATA[This post is a catch-up post to explain the purpose of this website, and how I got to this point. Going forward, I intend to post]]></description>
-            <content:encoded><![CDATA[<p>This post is a catch-up post to explain the purpose of this website, and how I got to this point. Going forward, I intend to post
-whatever is going on with development of this website here.</p>
-<p></p>
-<p>The intent of this site is to provide a landing place for anybody
-looking into me as a potential hire, where they could view work I had done and
-see engagement with software and the industry in an ongoing way. And to
-learn something about me beyond what's in my CV. I thought it
-would be a good place to showcase:</p>
-<ul>
-<li>Personal projects</li>
-<li>Code katas</li>
-<li>Design katas</li>
-</ul>
-<p>With the design katas in particular, I see an opportunity to showcase the things
-an employer might want to know about a prospect: how do they think about design?
-How do they communicate ideas to technical and non-technical stakeholders? How
-do they make decisions? To be sure, this is an area where I have significant
-room for growth, and the hope is that the work done for this site will serve as
-much for learning and practice as demonstration.</p>
-<p>I started a project a little while ago to help me mitigate some of the
-things in GMail that I find to be shortcomings.  (That project isn't
-finished, but the progress will be shared here when I get back to it).</p>
-<p>While I was working on that, I knew I should be documenting the work. What I'm
-selling isn't the product, but the process, and the organization. I'm not
-selling the projects I build, I'm selling <em>how I build projects</em>. I wasn't
-really making the most of the project I was working on until I could say I
-was doing that.</p>
-<p>For that, I needed a <strong>place</strong> to document the work.  Setting up this
-personal showcase space has always been on my agenda, but I figured I needed to
-make it a priority to help with my job search.</p>
-<p>I already had a personal domain set up. I was using it for email forwarding --
-to give me a professional email address distinct from my personal one, without
-also having to manage separate Google accounts (with separate billing,
-subscriptions, <em>etc.</em>). I had experience using Docusaurus, and publishing it via
-GitHub pages; I maintained a "notes" repository at Intuit, both for organizing
-my own thoughts as I worked on something, and also for sharing out certain
-things. Also, part of what I want to showcase is well-organized documentation,
-so these things are a natural fit.</p>
-<p>To be sure, I have a lot still to do here. But I think I've got things to a
-point where I need to start worrying about content as much as about my
-repositories. People can get here from <a href="https://linkedin/in/IainDavis-dev" target="_blank" rel="noopener noreferrer">my LinkedIn profile</a>
-now, so there better be something here for them to see, even if it's not really
-any projects (beyond the site itself) just yet.</p>
-<p>Hence this catch-up post and getting this blog going.</p>
-<p>I'll post a couple more times today, about decisions I've already made, and
-about what's coming next for this site. Then the intent is to update this
-periodically with my thoughts and decisions related to the development of this
-page.</p>
-<p>Thanks for visiting!</p>]]></content:encoded>
-            <author>iain@iaindavis.dev (Iain Davis)</author>
-            <category>Docusaurus</category>
-            <category>My Brand</category>
         </item>
     </channel>
 </rss>

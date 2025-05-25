@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkiaindavis_dev=self.webpackChunkiaindavis_dev||[]).push([[2024],{82024:(e,i,a)=>{a.d(i,{createArchitectureServices:()=>s.S});var s=a(98815);a(73579)}}]);

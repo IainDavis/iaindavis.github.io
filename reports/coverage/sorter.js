@@ -1,1 +1,196 @@
-var addSorting=function(){"use strict";var e,t={index:0,desc:!1};function r(){return document.querySelector(".coverage-summary")}function n(){return r().querySelector("thead tr")}function o(e){return n().querySelectorAll("th")[e]}function a(){const e=document.getElementById("fileSearch").value,t=document.getElementsByTagName("tbody")[0].children;for(let r=0;r<t.length;r++){const n=t[r];n.textContent.toLowerCase().includes(e.toLowerCase())?n.style.display="":n.style.display="none"}}function l(t){var r,n,o,a,l=t.querySelectorAll("td"),c={};for(o=0;o<l.length;o+=1)r=l[o],n=e[o],a=r.getAttribute("data-value"),"number"===n.type&&(a=Number(a)),c[n.key]=a;return c}function c(){var e,t=r().querySelector("tbody").querySelectorAll("tr");for(e=0;e<t.length;e+=1)t[e].data=l(t[e])}function d(){o(t.index).className+=t.desc?" sorted-desc":" sorted"}function u(){var r,n,a=function(r){var n=e[r];return function(){var a=n.defaultDescSort;t.index===r&&(a=!t.desc),function(t,r){var n,o=e[t].key,a=function(e,t){return(e=e.data[o])<(t=t.data[o])?-1:e>t?1:0},l=a,c=document.querySelector(".coverage-summary tbody"),d=c.querySelectorAll("tr"),u=[];for(r&&(l=function(e,t){return-1*a(e,t)}),n=0;n<d.length;n+=1)u.push(d[n]),c.removeChild(d[n]);for(u.sort(l),n=0;n<u.length;n+=1)c.appendChild(u[n])}(r,a),function(){var e=o(t.index),r=e.className;r=r.replace(/ sorted$/,"").replace(/ sorted-desc$/,""),e.className=r}(),t.index=r,t.desc=a,d()}};for(r=0;r<e.length;r+=1)e[r].sortable&&((n=o(r).querySelector(".sorter").parentElement).addEventListener?n.addEventListener("click",a(r)):n.attachEvent("onclick",a(r)))}return function(){var t,o;r()&&(e=function(){var e,t,r,o=n().querySelectorAll("th"),a=[];for(r=0;r<o.length;r+=1)t={key:(e=o[r]).getAttribute("data-col"),sortable:!e.getAttribute("data-nosort"),type:e.getAttribute("data-type")||"string"},a.push(t),t.sortable&&(t.defaultDescSort="number"===t.type,e.innerHTML=e.innerHTML+'<span class="sorter"></span>');return a}(),c(),t=document.getElementById("filterTemplate"),(o=t.content.cloneNode(!0)).getElementById("fileSearch").oninput=a,t.parentElement.appendChild(o),d(),u())}}();window.addEventListener("load",addSorting);
+/* eslint-disable */
+var addSorting = (function() {
+    'use strict';
+    var cols,
+        currentSort = {
+            index: 0,
+            desc: false
+        };
+
+    // returns the summary table element
+    function getTable() {
+        return document.querySelector('.coverage-summary');
+    }
+    // returns the thead element of the summary table
+    function getTableHeader() {
+        return getTable().querySelector('thead tr');
+    }
+    // returns the tbody element of the summary table
+    function getTableBody() {
+        return getTable().querySelector('tbody');
+    }
+    // returns the th element for nth column
+    function getNthColumn(n) {
+        return getTableHeader().querySelectorAll('th')[n];
+    }
+
+    function onFilterInput() {
+        const searchValue = document.getElementById('fileSearch').value;
+        const rows = document.getElementsByTagName('tbody')[0].children;
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
+            if (
+                row.textContent
+                    .toLowerCase()
+                    .includes(searchValue.toLowerCase())
+            ) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+    }
+
+    // loads the search box
+    function addSearchBox() {
+        var template = document.getElementById('filterTemplate');
+        var templateClone = template.content.cloneNode(true);
+        templateClone.getElementById('fileSearch').oninput = onFilterInput;
+        template.parentElement.appendChild(templateClone);
+    }
+
+    // loads all columns
+    function loadColumns() {
+        var colNodes = getTableHeader().querySelectorAll('th'),
+            colNode,
+            cols = [],
+            col,
+            i;
+
+        for (i = 0; i < colNodes.length; i += 1) {
+            colNode = colNodes[i];
+            col = {
+                key: colNode.getAttribute('data-col'),
+                sortable: !colNode.getAttribute('data-nosort'),
+                type: colNode.getAttribute('data-type') || 'string'
+            };
+            cols.push(col);
+            if (col.sortable) {
+                col.defaultDescSort = col.type === 'number';
+                colNode.innerHTML =
+                    colNode.innerHTML + '<span class="sorter"></span>';
+            }
+        }
+        return cols;
+    }
+    // attaches a data attribute to every tr element with an object
+    // of data values keyed by column name
+    function loadRowData(tableRow) {
+        var tableCols = tableRow.querySelectorAll('td'),
+            colNode,
+            col,
+            data = {},
+            i,
+            val;
+        for (i = 0; i < tableCols.length; i += 1) {
+            colNode = tableCols[i];
+            col = cols[i];
+            val = colNode.getAttribute('data-value');
+            if (col.type === 'number') {
+                val = Number(val);
+            }
+            data[col.key] = val;
+        }
+        return data;
+    }
+    // loads all row data
+    function loadData() {
+        var rows = getTableBody().querySelectorAll('tr'),
+            i;
+
+        for (i = 0; i < rows.length; i += 1) {
+            rows[i].data = loadRowData(rows[i]);
+        }
+    }
+    // sorts the table using the data for the ith column
+    function sortByIndex(index, desc) {
+        var key = cols[index].key,
+            sorter = function(a, b) {
+                a = a.data[key];
+                b = b.data[key];
+                return a < b ? -1 : a > b ? 1 : 0;
+            },
+            finalSorter = sorter,
+            tableBody = document.querySelector('.coverage-summary tbody'),
+            rowNodes = tableBody.querySelectorAll('tr'),
+            rows = [],
+            i;
+
+        if (desc) {
+            finalSorter = function(a, b) {
+                return -1 * sorter(a, b);
+            };
+        }
+
+        for (i = 0; i < rowNodes.length; i += 1) {
+            rows.push(rowNodes[i]);
+            tableBody.removeChild(rowNodes[i]);
+        }
+
+        rows.sort(finalSorter);
+
+        for (i = 0; i < rows.length; i += 1) {
+            tableBody.appendChild(rows[i]);
+        }
+    }
+    // removes sort indicators for current column being sorted
+    function removeSortIndicators() {
+        var col = getNthColumn(currentSort.index),
+            cls = col.className;
+
+        cls = cls.replace(/ sorted$/, '').replace(/ sorted-desc$/, '');
+        col.className = cls;
+    }
+    // adds sort indicators for current column being sorted
+    function addSortIndicators() {
+        getNthColumn(currentSort.index).className += currentSort.desc
+            ? ' sorted-desc'
+            : ' sorted';
+    }
+    // adds event listeners for all sorter widgets
+    function enableUI() {
+        var i,
+            el,
+            ithSorter = function ithSorter(i) {
+                var col = cols[i];
+
+                return function() {
+                    var desc = col.defaultDescSort;
+
+                    if (currentSort.index === i) {
+                        desc = !currentSort.desc;
+                    }
+                    sortByIndex(i, desc);
+                    removeSortIndicators();
+                    currentSort.index = i;
+                    currentSort.desc = desc;
+                    addSortIndicators();
+                };
+            };
+        for (i = 0; i < cols.length; i += 1) {
+            if (cols[i].sortable) {
+                // add the click event handler on the th so users
+                // dont have to click on those tiny arrows
+                el = getNthColumn(i).querySelector('.sorter').parentElement;
+                if (el.addEventListener) {
+                    el.addEventListener('click', ithSorter(i));
+                } else {
+                    el.attachEvent('onclick', ithSorter(i));
+                }
+            }
+        }
+    }
+    // adds sorting functionality to the UI
+    return function() {
+        if (!getTable()) {
+            return;
+        }
+        cols = loadColumns();
+        loadData();
+        addSearchBox();
+        addSortIndicators();
+        enableUI();
+    };
+})();
+
+window.addEventListener('load', addSorting);
