@@ -106,6 +106,13 @@
 │   │       ├── Nova uses ContextCards.gif
 │   │       ├── add-context-card.png
 │   │       └── issue-created-with-inference.png
+│   ├── 2025-05-30-personal-work-log
+│   │   ├── 2025-05-30-personal-work-log.md
+│   │   └── _resources
+│   │       ├── view-by-competency.png
+│   │       ├── view-by-date.png
+│   │       ├── view-by-project.png
+│   │       └── work-log.png
 │   ├── authors.yml
 │   └── tags.yml
 ├── blog-study
@@ -362,4 +369,4 @@
 ├── vitest.setup.ts
 └── yarn.lock
 
-125 directories, 238 files
+127 directories, 243 files
