@@ -1,0 +1,450 @@
+.
+├── .github
+│   └── workflows
+│       ├── cleanup-repository-map.yml
+│       ├── generate-repository-map.yml
+│       ├── preview-deploy.yml
+│       └── production-deploy.yml
+├── .gitignore
+├── .storybook
+│   ├── assets
+│   │   ├── mdx
+│   │   │   └── lorem_ipsum.mdx
+│   │   └── styles
+│   │       └── docusaurus_global.css
+│   ├── decorators
+│   │   └── withDocusaurusStyles.tsx
+│   ├── main.ts
+│   └── preview.tsx
+├── .yarn
+│   └── install-state.gz
+├── .yarnrc.yml
+├── @types
+│   └── declarations.d.ts
+├── CNAME
+├── README.md
+├── babel.config.js
+├── blog
+│   ├── 2024-09-14-catch-up
+│   │   └── 2024-09-14-catch-up.mdx
+│   ├── 2024-09-14-docusaurus-styles-in-storybook
+│   │   ├── 2024-09-14-docusaurus-styles-in-storybook.mdx
+│   │   └── _screengrabs
+│   │       ├── broken.gif
+│   │       ├── fixed.gif
+│   │       └── times-new-roman.png
+│   ├── 2024-09-14-expandable
+│   │   └── 2024-09-14-expandable.mdx
+│   ├── 2024-09-14-impromptu-brand-work
+│   │   ├── 2024-09-14-impromptu-brand-work.mdx
+│   │   └── _resources
+│   │       ├── iaindavis.dev lollipop.png
+│   │       └── lollipop.png
+│   ├── 2024-09-15-automating-linkedin-posts
+│   │   ├── 2024-09-15-automating-linkedin-posts.mdx
+│   │   └── _resources
+│   │       └── zapier-screenshot.png
+│   ├── 2024-09-15-fixing-diffs
+│   │   ├── 2024-09-15-fixing-diffs.mdx
+│   │   ├── _resources
+│   │   │   ├── old_git_diff.png
+│   │   │   └── small_command_line_diff.png
+│   │   └── _screengrabs
+│   │       ├── right.png
+│   │       └── wrong.png
+│   ├── 2024-09-15-logo-component
+│   │   └── 2024-09-15-logo-component.mdx
+│   ├── 2024-09-15-whats-next
+│   │   └── 2024-09-15-whats-next.mdx
+│   ├── 2024-09-16-fixing-blog-post-truncation
+│   │   ├── 2024-09-16-fixing-blog-post-truncation.mdx
+│   │   └── _resources
+│   │       ├── much-better-editor.png
+│   │       ├── much-better-site.png
+│   │       ├── there-is-just-one-more-thing.png
+│   │       ├── there-is-just-one-more-thing.webp
+│   │       ├── truncate-em-i-hardly-know-em.png
+│   │       └── uhwhut.png
+│   ├── 2024-09-16-switching-automation-provider
+│   │   └── 2024-09-16-switching-automation-provider.mdx
+│   ├── 2024-09-20-getting-set-up-for-unit-tests
+│   │   └── 2024-09-20-getting-set-up-for-unit-tests.mdx
+│   ├── 2024-09-21-unit-test-collaboration
+│   │   └── 2024-09-21-unit-test-collaboration.mdx
+│   ├── 2024-09-22-introducing-testing-reports
+│   │   └── 2024-09-22-introducing-testing-reports.mdx
+│   ├── 2024-09-24-automated-preview-build
+│   │   ├── 2024-09-24-automated-preview-build.mdx
+│   │   └── _fragments
+│   │       ├── _resources
+│   │       │   ├── actions.png
+│   │       │   ├── build-in-progress.png
+│   │       │   ├── coverage-report.png
+│   │       │   ├── landing-page.png
+│   │       │   ├── storybook.png
+│   │       │   └── unit-test-report.png
+│   │       └── editorsNote.mdx
+│   ├── 2024-09-25-deploy-to-prod-automation
+│   │   └── 2024-09-25-deploy-to-prod-automation.mdx
+│   ├── 2024-10-04-actual-content
+│   │   ├── 2024-10-04-actual-content.mdx
+│   │   └── _fragments
+│   │       └── demoFragment.mdx
+│   ├── 2024-10-06-cover-letter-automation
+│   │   └── 2024-10-06-cover-letter-automation.mdx
+│   ├── 2024-11-01-disruption
+│   │   └── 2024-11-01-disruption.mdx
+│   ├── 2024-11-05-a-few-small-updates
+│   │   └── 2024-11-05-a-few-small-updates.mdx
+│   ├── 2025-05-24-another-catch-up
+│   │   ├── 2025-05-24-another-catch-up.md
+│   │   └── _resources
+│   │       └── Docodylus_sillhouette_logo_.webp
+│   ├── 2025-05-24-jira-discoverability
+│   │   ├── 2025-05-24-jira-discoverability.md
+│   │   └── _resources
+│   │       ├── Nova uses ContextCards.gif
+│   │       ├── add-context-card.png
+│   │       └── issue-created-with-inference.png
+│   ├── 2025-05-30-personal-work-log
+│   │   ├── 2025-05-30-personal-work-log.md
+│   │   └── _resources
+│   │       ├── view-by-competency.png
+│   │       ├── view-by-date.png
+│   │       ├── view-by-project.png
+│   │       └── work-log.png
+│   ├── authors.yml
+│   └── tags.yml
+├── blog-study
+│   ├── 2024-11-02-designing-distributed-systems-sidecar-topz
+│   │   ├── 2024-11-02-designing-distributed-systems-sidecar-topz.mdx
+│   │   ├── _fragments
+│   │   │   ├── challenges.mdx
+│   │   │   ├── local-setup.mdx
+│   │   │   ├── solutions.mdx
+│   │   │   ├── tab_solution01
+│   │   │   │   ├── TOPZ_01.mdx
+│   │   │   │   └── _fragments
+│   │   │   │       ├── challenges.mdx
+│   │   │   │       ├── comments.mdx
+│   │   │   │       ├── how-to-run.mdx
+│   │   │   │       ├── solution-artifacts.mdx
+│   │   │   │       └── solution-design.mdx
+│   │   │   └── tab_solution02
+│   │   │       ├── TOPZ_02.mdx
+│   │   │       └── _fragments
+│   │   │           └── multi-arch-approach-nova.mdx
+│   │   ├── _resources
+│   │   │   ├── data-fetch-success.png
+│   │   │   ├── docker-down.png
+│   │   │   ├── docker-up.png
+│   │   │   ├── image-on-docker.png
+│   │   │   ├── links-work.gif
+│   │   │   ├── mock-application.png
+│   │   │   ├── running-containers.png
+│   │   │   └── sidecar-redirect.gif
+│   │   └── _solution-elements
+│   │       └── 01
+│   │           ├── docker-compose.yaml
+│   │           └── nginx.conf
+│   ├── 2024-11-09-designing-distributed-systems-ambassador-sharded-redis
+│   │   ├── 2024-11-09-designing-distributed-systems-ambassador-sharded-redis.mdx
+│   │   └── _fragments
+│   │       └── solution-diagram.mdx
+│   ├── 2024-11-09-designing-distributed-systems-ambassador-ten-percent-experiments
+│   │   └── 2024-11-09-designing-distributed-systems-ambassador-ten-percent-experiments.mdx
+│   └── tags.yml
+├── docs
+│   ├── bio
+│   │   └── bio
+│   │       ├── .01-work-and-education
+│   │       │   ├── 01-work-and-education.mdx
+│   │       │   ├── _fragments
+│   │       │   │   └── timeline.mdx
+│   │       │   └── _resources
+│   │       │       ├── aaron-bros-berkeley.jpg
+│   │       │       ├── band-geeks.jpg
+│   │       │       ├── fashion-plate.jpg
+│   │       │       ├── ghedi-jam-session.jpg
+│   │       │       ├── intuit-badge.jpg
+│   │       │       ├── jr-prom-with-mina.jpg
+│   │       │       ├── me-and-phil.jpg
+│   │       │       ├── me-and-the-boys-at-ghedi.jpg
+│   │       │       ├── me-marzia-chris-in-rome.jpg
+│   │       │       ├── rapid-prototyping-challenge.jpg
+│   │       │       ├── sjsu-said-yes.jpg
+│   │       │       └── view-from-the-top.jpg
+│   │       ├── .02-personal-life
+│   │       │   ├── 02-personal-life.mdx
+│   │       │   └── _resources
+│   │       │       ├── antithesis.jpg
+│   │       │       ├── bendy-arm-robot.jpg
+│   │       │       ├── candi-with-the-dts.jpg
+│   │       │       ├── dictators.jpg
+│   │       │       ├── duck-rider.jpg
+│   │       │       ├── fashionable-sock-puppet.jpg
+│   │       │       ├── hunter-hampers.png
+│   │       │       ├── immortalized-in-watercolor.jpg
+│   │       │       ├── last-call-rodeo.jpg
+│   │       │       ├── nat-geo-portrait.jpg
+│   │       │       ├── quolo-quillsong.jpg
+│   │       │       └── the-old-homestead.jpg
+│   │       ├── 03-skills
+│   │       │   └── 03-skills.mdx
+│   │       ├── _components
+│   │       │   ├── ClearFloat.tsx
+│   │       │   ├── LeftFloated.tsx
+│   │       │   ├── Links.tsx
+│   │       │   ├── RightFloated.tsx
+│   │       │   └── index.tsx
+│   │       └── bio.mdx
+│   ├── brand
+│   │   ├── 00-figma
+│   │   │   └── 00-figma.mdx
+│   │   ├── 01-logo
+│   │   │   └── 01-logo.mdx
+│   │   ├── 02-linkedIn
+│   │   │   └── 02-linkedIn.mdx
+│   │   └── 03-zoom
+│   │       └── 03-zoom.mdx
+│   └── projects
+│       ├── 01-iaindavis.dev
+│       │   ├── 01-iaindavis.dev.mdx
+│       │   ├── 02-key-features
+│       │   │   └── 02-key-features.mdx
+│       │   ├── 03-implementation
+│       │   │   ├── 01-segments
+│       │   │   │   └── 01-segments.mdx
+│       │   │   ├── 02-challenges
+│       │   │   │   ├── 01-glue
+│       │   │   │   │   ├── 01-glue.mdx
+│       │   │   │   │   ├── _fragments
+│       │   │   │   │   │   ├── blog-truncation.mdx
+│       │   │   │   │   │   ├── copying-styles.mdx
+│       │   │   │   │   │   └── webpack.mdx
+│       │   │   │   │   └── _resources
+│       │   │   │   │       └── bad-syntax-highlighting.png
+│       │   │   │   ├── 02-other-challenges
+│       │   │   │   │   ├── 02-other-challenges.mdx
+│       │   │   │   │   └── _fragments
+│       │   │   │   │       └── test-with-css-module.mdx
+│       │   │   │   └── _category_.yml
+│       │   │   ├── 03-ci-cd
+│       │   │   │   └── 03-ci-cd.mdx
+│       │   │   ├── 03-implementation.mdx
+│       │   │   └── 04-tests
+│       │   │       └── 04-tests.mdx
+│       │   ├── 04-key-learnings
+│       │   │   └── 04-key-learnings.mdx
+│       │   ├── 05-future-plans
+│       │   │   └── 05-future-plans.mdx
+│       │   └── _fragments
+│       │       ├── high-level-summary.mdx
+│       │       ├── project-links.mdx
+│       │       └── tech-used.mdx
+│       ├── 02-nova
+│       │   ├── 01-key-features
+│       │   │   └── 01-key-features.mdx
+│       │   ├── 02-challenges
+│       │   │   └── 02-challenges.mdx
+│       │   ├── 02-nova.mdx
+│       │   ├── 03-future-plans
+│       │   │   └── 03-future-plans.mdx
+│       │   ├── _fragments
+│       │   │   ├── high-level-summary.mdx
+│       │   │   ├── project-links.mdx
+│       │   │   └── tech-used.mdx
+│       │   └── _resources
+│       │       ├── Nova_AI.png
+│       │       └── nova-jira-issue.png
+│       └── 03-cover-letter-automation
+│           ├── 01-implementation-details
+│           │   ├── 01-implementation-details.mdx
+│           │   └── _fragments
+│           │       ├── tab-code.gs.mdx
+│           │       ├── tab-folderandfilehandling.gs.mdx
+│           │       ├── tab-folderandfileops.gs.mdx
+│           │       ├── tab-joblistingrecord.gs.mdx
+│           │       ├── tab-rangehandling.gs.mdx
+│           │       ├── tab-ui.gs.mdx
+│           │       └── tab-updateCoverLetter.gs.mdx
+│           ├── 02-challenges
+│           │   └── 02-challenges.mdx
+│           ├── 03-cover-letter-automation.mdx
+│           ├── 03-key-learnings
+│           │   └── 03-key-learnings.mdx
+│           └── _fragments
+│               ├── high-level-summary.mdx
+│               ├── tab-key-features.mdx
+│               └── tab-technology-used.mdx
+├── docusaurus.config.ts
+├── package.json
+├── sidebars.ts
+├── src
+│   ├── buildUtils
+│   │   ├── docusaurus
+│   │   │   ├── postBuild
+│   │   │   │   └── copyStylesPlugin.js
+│   │   │   └── remark
+│   │   │       └── removeTruncateMarker.ts
+│   │   └── storybook
+│   │       └── webpack
+│   │           ├── helpers.ts
+│   │           ├── types.ts
+│   │           ├── webpackFinal.ts
+│   │           ├── webpackRules.ts
+│   │           └── webpackTransforms.ts
+│   ├── components
+│   │   ├── Expandable
+│   │   │   ├── Expandable.mdx
+│   │   │   ├── Expandable.module.css
+│   │   │   ├── Expandable.stories.tsx
+│   │   │   ├── Expandable.test.tsx
+│   │   │   ├── Expandable.tsx
+│   │   │   └── __snapshots__
+│   │   │       └── Expandable.test.tsx.snap
+│   │   └── brand
+│   │       └── Logo
+│   │           ├── Logo.module.css
+│   │           ├── Logo.stories.tsx
+│   │           └── Logo.tsx
+│   ├── css
+│   │   └── custom.css
+│   ├── pages
+│   │   ├── index.module.css
+│   │   └── index.tsx
+│   ├── stories
+│   │   └── assets
+│   │       ├── accessibility.png
+│   │       ├── accessibility.svg
+│   │       ├── addon-library.png
+│   │       ├── assets.png
+│   │       ├── avif-test-image.avif
+│   │       ├── context.png
+│   │       ├── discord.svg
+│   │       ├── docs.png
+│   │       ├── figma-plugin.png
+│   │       ├── github.svg
+│   │       ├── share.png
+│   │       ├── styling.png
+│   │       ├── testing.png
+│   │       ├── theming.png
+│   │       ├── tutorials.svg
+│   │       └── youtube.svg
+│   ├── strings
+│   │   ├── Expandable.strings.ts
+│   │   ├── getString.ts
+│   │   └── index.ts
+│   └── theme
+│       └── ReactLiveScope
+│           └── index.tsx
+├── static
+│   ├── .nojekyll
+│   ├── CNAME
+│   ├── img
+│   │   ├── authors
+│   │   │   ├── Nova_AI.png
+│   │   │   └── idavis.jpg
+│   │   ├── linkedIn
+│   │   │   └── linkedin-banner-01.png
+│   │   ├── logo
+│   │   │   ├── logo-compact-dark.svg
+│   │   │   ├── logo-compact-generic.svg
+│   │   │   ├── logo-compact-nobg-generic.svg
+│   │   │   ├── logo-compact-square-generic.svg
+│   │   │   ├── logo-expanded-generic.svg
+│   │   │   └── logo-expanded-nobg-generic.svg
+│   │   ├── logo-favicon.svg
+│   │   └── zoom
+│   │       ├── zoom-bg-01.png
+│   │       ├── zoom-bg-02.png
+│   │       ├── zoom-bg-03.png
+│   │       ├── zoom-bg-04.png
+│   │       ├── zoom-bg-05.png
+│   │       └── zoom-bg-06.png
+│   └── obsidian-notes
+│       ├── java-updates-recap
+│       │   ├── java-08
+│       │   │   ├── `java.time`-recap.html
+│       │   │   ├── default-methods-in-interfaces.html
+│       │   │   ├── functional-interfaces-&-lambdas-recap.html
+│       │   │   ├── optional.html
+│       │   │   └── streams-api.html
+│       │   ├── java-09-&-10
+│       │   │   ├── `jshell`.html
+│       │   │   ├── `var`-keyword.html
+│       │   │   ├── immutable-collections-(list.of,-map.of,-set.of).html
+│       │   │   └── modules-(jpms).html
+│       │   ├── java-11
+│       │   │   ├── files.readstring-&-files.writestring.html
+│       │   │   ├── http-client-api.html
+│       │   │   ├── module-deprecations.html
+│       │   │   └── new-string-methods.html
+│       │   ├── java-12-14
+│       │   │   ├── improvements-to-nullpointerexception-messages.html
+│       │   │   ├── more-new-string-methods.html
+│       │   │   ├── records.html
+│       │   │   ├── switch-expressions.html
+│       │   │   └── text-blocks.html
+│       │   ├── java-15-17
+│       │   │   ├── hidden-classes.html
+│       │   │   ├── pseudo-random-number-generation.html
+│       │   │   └── sealed-classes.html
+│       │   ├── java-18-20
+│       │   │   ├── foreign-function-&-memory-api-(ffm-api).html
+│       │   │   ├── instanceof-pattern-matching.html
+│       │   │   ├── record-&-array-patterns.html
+│       │   │   └── structured-concurrency.html
+│       │   ├── java-21
+│       │   │   ├── sequenced-collections.html
+│       │   │   └── virtual-threads.html
+│       │   ├── java-22-24
+│       │   │   ├── stream-gatherers.html
+│       │   │   └── string-templates.html
+│       │   └── java-updates-recap.html
+│       └── lib
+│           ├── fonts
+│           │   ├── 05b618077343fbbd92b7.ttf
+│           │   ├── 2d5198822ab091ce4305.woff2
+│           │   ├── 454577c22304619db035.ttf
+│           │   ├── 4bb6ac751d1c5478ff3a.woff2
+│           │   ├── 52ac8f3034507f1d9e53.ttf
+│           │   ├── 535a6cf662596b3bd6a6.woff2
+│           │   ├── 70cc7ff27245e82ad414.ttf
+│           │   ├── 72505e6a122c6acd5471.woff2
+│           │   ├── 94f2f163d4b698242fef.otf
+│           │   ├── b5f0f109bc88052d4000.woff2
+│           │   ├── c8ba52b05a9ef10f4758.woff2
+│           │   ├── cb10ffd7684cd9836a05.woff2
+│           │   └── cbe0ae49c52c920fd563.woff2
+│           ├── html
+│           │   └── file-tree.html
+│           ├── media
+│           │   ├── 6155340132a851f6089e.svg
+│           │   └── favicon.png
+│           ├── metadata.json
+│           ├── rss.xml
+│           ├── scripts
+│           │   ├── graph-data.js
+│           │   ├── graph-render-worker.js
+│           │   ├── graph-view.js
+│           │   ├── graph-wasm.js
+│           │   ├── graph-wasm.wasm
+│           │   ├── minisearch.js
+│           │   ├── pixi.js
+│           │   ├── tinycolor.js
+│           │   └── webpage.js
+│           ├── search-index.json
+│           └── styles
+│               ├── global-variable-styles.css
+│               ├── main-styles.css
+│               ├── obsidian.css
+│               └── snippets.css
+├── temp
+│   └── repository-map.txt
+├── tsconfig.json
+├── vitest.config.ts
+├── vitest.setup.ts
+└── yarn.lock
+
+143 directories, 305 files
