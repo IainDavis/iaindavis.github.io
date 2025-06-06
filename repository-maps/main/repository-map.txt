@@ -341,27 +341,105 @@
 ├── static
 │   ├── .nojekyll
 │   ├── CNAME
-│   └── img
-│       ├── authors
-│       │   ├── Nova_AI.png
-│       │   └── idavis.jpg
-│       ├── linkedIn
-│       │   └── linkedin-banner-01.png
-│       ├── logo
-│       │   ├── logo-compact-dark.svg
-│       │   ├── logo-compact-generic.svg
-│       │   ├── logo-compact-nobg-generic.svg
-│       │   ├── logo-compact-square-generic.svg
-│       │   ├── logo-expanded-generic.svg
-│       │   └── logo-expanded-nobg-generic.svg
-│       ├── logo-favicon.svg
-│       └── zoom
-│           ├── zoom-bg-01.png
-│           ├── zoom-bg-02.png
-│           ├── zoom-bg-03.png
-│           ├── zoom-bg-04.png
-│           ├── zoom-bg-05.png
-│           └── zoom-bg-06.png
+│   ├── img
+│   │   ├── authors
+│   │   │   ├── Nova_AI.png
+│   │   │   └── idavis.jpg
+│   │   ├── linkedIn
+│   │   │   └── linkedin-banner-01.png
+│   │   ├── logo
+│   │   │   ├── logo-compact-dark.svg
+│   │   │   ├── logo-compact-generic.svg
+│   │   │   ├── logo-compact-nobg-generic.svg
+│   │   │   ├── logo-compact-square-generic.svg
+│   │   │   ├── logo-expanded-generic.svg
+│   │   │   └── logo-expanded-nobg-generic.svg
+│   │   ├── logo-favicon.svg
+│   │   └── zoom
+│   │       ├── zoom-bg-01.png
+│   │       ├── zoom-bg-02.png
+│   │       ├── zoom-bg-03.png
+│   │       ├── zoom-bg-04.png
+│   │       ├── zoom-bg-05.png
+│   │       └── zoom-bg-06.png
+│   └── obsidian-notes
+│       ├── java-updates-recap
+│       │   ├── java-08
+│       │   │   ├── `java.time`-recap.html
+│       │   │   ├── default-methods-in-interfaces.html
+│       │   │   ├── functional-interfaces-&-lambdas-recap.html
+│       │   │   ├── optional.html
+│       │   │   └── streams-api.html
+│       │   ├── java-09-&-10
+│       │   │   ├── `jshell`.html
+│       │   │   ├── `var`-keyword.html
+│       │   │   ├── immutable-collections-(list.of,-map.of,-set.of).html
+│       │   │   └── modules-(jpms).html
+│       │   ├── java-11
+│       │   │   ├── files.readstring-&-files.writestring.html
+│       │   │   ├── http-client-api.html
+│       │   │   ├── module-deprecations.html
+│       │   │   └── new-string-methods.html
+│       │   ├── java-12-14
+│       │   │   ├── improvements-to-nullpointerexception-messages.html
+│       │   │   ├── more-new-string-methods.html
+│       │   │   ├── records.html
+│       │   │   ├── switch-expressions.html
+│       │   │   └── text-blocks.html
+│       │   ├── java-15-17
+│       │   │   ├── hidden-classes.html
+│       │   │   ├── pseudo-random-number-generation.html
+│       │   │   └── sealed-classes.html
+│       │   ├── java-18-20
+│       │   │   ├── foreign-function-&-memory-api-(ffm-api).html
+│       │   │   ├── instanceof-pattern-matching.html
+│       │   │   ├── record-&-array-patterns.html
+│       │   │   └── structured-concurrency.html
+│       │   ├── java-21
+│       │   │   ├── sequenced-collections.html
+│       │   │   └── virtual-threads.html
+│       │   ├── java-22-24
+│       │   │   ├── stream-gatherers.html
+│       │   │   └── string-templates.html
+│       │   └── java-updates-recap.html
+│       └── lib
+│           ├── fonts
+│           │   ├── 05b618077343fbbd92b7.ttf
+│           │   ├── 2d5198822ab091ce4305.woff2
+│           │   ├── 454577c22304619db035.ttf
+│           │   ├── 4bb6ac751d1c5478ff3a.woff2
+│           │   ├── 52ac8f3034507f1d9e53.ttf
+│           │   ├── 535a6cf662596b3bd6a6.woff2
+│           │   ├── 70cc7ff27245e82ad414.ttf
+│           │   ├── 72505e6a122c6acd5471.woff2
+│           │   ├── 94f2f163d4b698242fef.otf
+│           │   ├── b5f0f109bc88052d4000.woff2
+│           │   ├── c8ba52b05a9ef10f4758.woff2
+│           │   ├── cb10ffd7684cd9836a05.woff2
+│           │   └── cbe0ae49c52c920fd563.woff2
+│           ├── html
+│           │   └── file-tree.html
+│           ├── media
+│           │   ├── 6155340132a851f6089e.svg
+│           │   └── favicon.png
+│           ├── metadata.json
+│           ├── rss.xml
+│           ├── scripts
+│           │   ├── graph-data.js
+│           │   ├── graph-render-worker.js
+│           │   ├── graph-view.js
+│           │   ├── graph-wasm.js
+│           │   ├── graph-wasm.wasm
+│           │   ├── minisearch.js
+│           │   ├── pixi.js
+│           │   ├── tinycolor.js
+│           │   └── webpage.js
+│           ├── search-index.json
+│           └── styles
+│               ├── global-variable-styles.css
+│               ├── main-styles.css
+│               ├── obsidian.css
+│               └── snippets.css
 ├── temp
 │   └── repository-map.txt
 ├── tsconfig.json
@@ -369,4 +447,4 @@
 ├── vitest.setup.ts
 └── yarn.lock
 
-127 directories, 243 files
+143 directories, 305 files
