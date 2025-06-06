@@ -1,0 +1,1636 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Obsidian Vault]]></title><description><![CDATA[Obsidian digital garden]]></description><link>http://github.com/dylang/node-rss</link><image><url>lib/media/favicon.png</url><title>Obsidian Vault</title><link></link></image><generator>Webpage HTML Export plugin for Obsidian</generator><lastBuildDate>Fri, 06 Jun 2025 21:55:37 GMT</lastBuildDate><atom:link href="lib/rss.xml" rel="self" type="application/rss+xml"/><pubDate>Fri, 06 Jun 2025 21:55:35 GMT</pubDate><ttl>60</ttl><dc:creator></dc:creator><item><title><![CDATA[`java.time` recap]]></title><description><![CDATA[ 
+ <br>Starting in Java 8, the new java.time API is a huge improvement. It’s inspired by the <a data-tooltip-position="top" aria-label="https://www.joda.org/joda-time/" rel="noopener nofollow" class="external-link" href="https://www.joda.org/joda-time/" target="_blank">Joda-Time</a> library and designed for immutability, clarity, and thread-safety.<br><br><br>
+<br>Immutability: All time-related objects are immutable.<br>
+
+<br>Clarity: Clear class naming: LocalDate, LocalTime, ZonedDateTime, etc.<br>
+
+<br>Thread-safety: All objects are safe for concurrent use.<br>
+
+<br>Fluent API: Designed for chaining and readability.<br>
+
+<br>Explicitness: No more implicit time zones or side effects.<br>
+
+<br><br><br><br>No time zone or offset — for human-readable local values like a birthday or a time of day.<br>LocalDate date = LocalDate.of(2024, 6, 5);         // 2024-06-05
+LocalTime time = LocalTime.of(14, 30);             // 14:30
+LocalDateTime dt = LocalDateTime.of(date, time);   // 2024-06-05T14:30
+<br><br><br>Used when you need a time zone or UTC offset.<br>ZonedDateTime zoned = ZonedDateTime.now(ZoneId.of("America/New_York"));
+OffsetDateTime offset = OffsetDateTime.now(ZoneOffset.UTC);
+<br><br><br>A machine-readable timestamp representing a point on the timeline in UTC.<br>Instant now = Instant.now();         // e.g., 2025-06-05T20:14:30.123Z
+long epochMilli = now.toEpochMilli();
+<br><br><br>For measuring amounts of time, not absolute points in time.<br>Duration d = Duration.ofHours(5);     // 5 hours
+Period p = Period.ofDays(3);          // 3 days
+<br>
+`Duration` represents precise time spans in seconds and nanoseconds, suitable for clock-time calculations (e.g., between two `Instant`s).
+<br>`Period` represents calendar-based intervals in years, months, and days, and accounts for variable month lengths and leap years. Use `Duration` for machine time and `Period` for human time.
+
+---<br><br><br>LocalDate tomorrow = LocalDate.now().plusDays(1);
+LocalTime newTime = LocalTime.now().minusMinutes(15);
+<br><br>if (LocalDate.now().isAfter(someOtherDate)) { ... }
+<br><br>DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+LocalDateTime dt = LocalDateTime.parse("2025-06-05 18:00", fmt);
+System.out.println(dt.format(fmt));  // round-trip
+<br><br><br>
+<br>You must provide a ZoneId for anything time zone-aware. No more silent assumptions.<br>
+
+<br>Don't mix and match types unless you're converting intentionally:
+
+<br>ZonedDateTime → Instant<br>
+
+<br>LocalDate ≠ LocalDateTime<br>
+
+
+
+<br>Watch out for Period vs. Duration: one is calendar-based, the other is clock-based.<br>
+
+<br>Don't expect Instant to format nicely — it’s a raw point in time, not for display.<br>
+
+<br><br><br>ZonedDateTime deadline = ZonedDateTime.now(ZoneId.of("UTC")).plusDays(2);
+Duration untilDeadline = Duration.between(Instant.now(), deadline.toInstant());
+
+System.out.println("You have " + untilDeadline.toHours() + " hours left.");
+<br><br><br><br><br><br><br><br><br><br><br><br><br>DateTimeFormatter fmt = DateTimeFormatter.ofPattern("MMM dd yyyy");
+System.out.println(LocalDate.now().format(fmt));  // Jun 05 2025
+<br><br>String s = "2025-06-05 14:00";
+DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+LocalDateTime dt = LocalDateTime.parse(s, fmt);
+<br><br>ZonedDateTime nowUtc = ZonedDateTime.now(ZoneId.of("UTC"));
+ZonedDateTime nowNy = nowUtc.withZoneSameInstant(ZoneId.of("America/New_York"));
+<br><br>Instant start = Instant.now();
+// ... do stuff
+Instant end = Instant.now();
+Duration elapsed = Duration.between(start, end);
+System.out.println("Elapsed: " + elapsed.toMillis() + " ms");
+]]></description><link>java-updates-recap/java-08/`java.time`-recap.html</link><guid isPermaLink="false">Java Updates Recap/Java 08/`java.time` recap.md</guid><pubDate>Fri, 06 Jun 2025 17:38:41 GMT</pubDate></item><item><title><![CDATA[Default Methods in Interfaces]]></title><description><![CDATA[ 
+ <br>Default methods in interfaces were introduced in Java 8 to address a key limitation: interfaces couldn’t evolve without breaking implementations. Default methods allow interface authors to add new methods with default behavior, preserving backward compatibility.<br><br><br>public interface Greeter {
+    void greet(String name);
+
+    default void greetFormally(String name) {
+        System.out.println("Good day, " + name + ".");
+    }
+}
+<br>Any class implementing Greeter only has to define greet, but automatically gets greetFormally.<br><br><br>
+<br>Backwards compatibility: Interfaces can evolve without forcing all implementers to update.<br>
+
+<br>Avoid utility classes: You can encapsulate behavior right in the interface.<br>
+
+<br>Enable mixin-style composition of behaviors (somewhat like traits in Scala or Rust).<br>
+
+<br><br><br><br>public interface Timer {
+    long getStartTime();
+
+    default long elapsed() {
+        return System.currentTimeMillis() - getStartTime();
+    }
+}
+<br><br>interface Logger {
+    default void log(String msg) {
+        System.out.println("[LOG] " + msg);
+    }
+}
+<br>A class can mix in Logger and call log(...) without defining it.<br><br><br><br>interface A {
+    default void sayHello() { System.out.println("Hello from A"); }
+}
+interface B {
+    default void sayHello() { System.out.println("Hello from B"); }
+}
+class C implements A, B {
+    // Must override sayHello()
+    public void sayHello() {
+        A.super.sayHello();  // or B.super.sayHello()
+    }
+}
+<br>The compiler forces resolution of ambiguity. You must explicitly override.<br><br><br>You cannot declare default methods for methods like equals, hashCode, or toString. These already exist in java.lang.Object, so trying to override them in an interface will produce a compilation error.<br><br><br>Classes implementing the interface can override default methods as needed:<br>class PoliteGreeter implements Greeter {
+    public void greet(String name) {
+        System.out.println("Hello " + name);
+    }
+
+    public void greetFormally(String name) {
+        System.out.println("It’s a pleasure, " + name);
+    }
+}
+]]></description><link>java-updates-recap/java-08/default-methods-in-interfaces.html</link><guid isPermaLink="false">Java Updates Recap/Java 08/Default Methods in Interfaces.md</guid><pubDate>Fri, 06 Jun 2025 17:19:42 GMT</pubDate></item><item><title><![CDATA[Functional Interfaces & Lambdas recap]]></title><description><![CDATA[ 
+ <br>Perfect. Let’s revisit Lambda expressions and functional interfaces in Java, and I’ll follow that with a note about interfaces in Python.<br><br><br>Lambda expressions were introduced in Java 8 to bring functional programming elements to the language. They provide a concise way to represent an instance of a functional interface (i.e., an interface with exactly one abstract method).<br>Syntax:<br>(parameters) -&gt; expression
+<br>Or with a block:<br>(parameters) -&gt; {
+    // statements
+    return result;
+}
+<br><br>// Functional interface
+@FunctionalInterface
+interface Adder {
+    int add(int a, int b);
+}
+
+// Lambda usage
+Adder adder = (a, b) -&gt; a + b;
+System.out.println(adder.add(3, 4)); // 7
+<br><br><br>Java provides a few built-in functional interfaces in the java.util.function package, such as:<br>
+<br>Predicate&lt;T&gt; – boolean test(T t)<br>
+
+<br>Function&lt;T, R&gt; – R apply(T t)<br>
+
+<br>Supplier&lt;T&gt; – T get()<br>
+
+<br>Consumer&lt;T&gt; – void accept(T t)<br>
+
+<br>BinaryOperator&lt;T&gt; – T apply(T t1, T t2)<br>
+
+<br>You can create your own by ensuring the interface has exactly one abstract method and optionally marking it with @FunctionalInterface.]]></description><link>java-updates-recap/java-08/functional-interfaces-&amp;-lambdas-recap.html</link><guid isPermaLink="false">Java Updates Recap/Java 08/Functional Interfaces &amp; Lambdas recap.md</guid><pubDate>Fri, 06 Jun 2025 16:29:49 GMT</pubDate></item><item><title><![CDATA[Optional]]></title><description><![CDATA[ 
+ <br>Optional&lt;T&gt; was introduced in Java 8 as a container object which may or may not hold a non-null value. It's designed to reduce the risk of NullPointerException and to promote functional, declarative-style coding patterns.<br><br><br>It's a final class in java.util:<br>Optional&lt;String&gt; maybeName = Optional.of("Nova");
+Optional&lt;String&gt; emptyName = Optional.empty();
+Optional&lt;String&gt; possiblyNull = Optional.ofNullable(mightBeNull());
+<br><br><br><br>Optional.of("hello");           // throws if null
+Optional.ofNullable(someValue); // null-safe
+Optional.empty();               // represents no value
+<br><br>optional.isPresent();         // true if value is present
+optional.isEmpty();           // true if absent (Java 11+)
+<br><br>optional.get();               // ⚠️ throws NoSuchElementException if empty
+optional.orElse("default");   // safe default
+optional.orElseGet(() -&gt; computeExpensiveDefault());
+optional.orElseThrow();       // throws NoSuchElementException if empty
+<br>You can also supply a custom exception:<br>optional.orElseThrow(() -&gt; new IllegalStateException("Missing value!"));
+<br><br><br>These are safe, null-avoiding operations:<br>optional.map(String::toUpperCase);      // Optional&lt;T&gt; -&gt; Optional&lt;U&gt;
+optional.flatMap(...);                  // avoid nested Optionals
+<br><br>Optional&lt;String&gt; maybeName = Optional.of("Nova");
+
+String upper = maybeName
+    .map(String::toUpperCase)
+    .orElse("UNKNOWN");
+<br><br><br>Optional&lt;String&gt; maybeName = Optional.of("Nova");
+
+maybeName.filter(name -&gt; name.length() &gt; 3);
+// Still Optional["Nova"]
+
+maybeName.filter(name -&gt; name.length() &gt; 10);
+// Optional.empty
+<br><br><br>Because Optionals are monads, you can chain them fluently:<br>Optional&lt;User&gt; maybeUser = getUser();
+
+String username = maybeUser
+    .map(User::getProfile)
+    .map(Profile::getUsername)
+    .orElse("anonymous");
+<br><br><br>
+<br>Don’t use Optional.get() without checking isPresent() — defeats the point.<br>
+
+<br>Don’t use Optional in fields or method parameters unless there’s a very good reason.<br>
+
+<br>Don’t use Optional&lt;T&gt; for collections. Use empty collections instead.<br>
+
+<br>// ❌ bad
+void doSomething(Optional&lt;List&lt;String&gt;&gt; names);
+
+// ✅ better
+void doSomething(List&lt;String&gt; names); // Use empty list for none
+<br><br><br>
+<br>ifPresentOrElse(...) — more expressive conditionals<br>
+
+<br>stream() — treat Optional as a Stream of 0 or 1 items<br>
+
+<br>optional.ifPresentOrElse(
+  value -&gt; System.out.println("Got: " + value),
+  () -&gt; System.out.println("Nothing there")
+);
+
+optional.stream().forEach(System.out::println);
+<br><br><br><br>Use when one value depends on another.<br>Optional&lt;User&gt; user = getUser();
+Optional&lt;Address&gt; address = user.flatMap(User::getAddress);
+<br>This avoids:<br>if (user.isPresent()) {
+  if (user.get().getAddress().isPresent()) {
+    ...
+<br>Chaining keeps things clean and safe.<br><br><br>Optional&lt;User&gt; maybeUser = getUser();
+Optional&lt;String&gt; maybeCity = maybeUser
+    .flatMap(User::getAddress)
+    .map(Address::getCity);
+<br>Each step safely returns an empty Optional if any part fails.<br><br><br>If you have independent values and want to act only if all are present, you have to use nested flatMap()s — Java doesn’t offer a built-in Optional.zip().<br>Optional&lt;String&gt; first = Optional.of("Nova");
+Optional&lt;String&gt; last = Optional.of("AI");
+
+Optional&lt;String&gt; fullName = first.flatMap(f -&gt;
+    last.map(l -&gt; f + " " + l)
+);
+<br>For more than two, you typically want to break it out:<br>Optional&lt;String&gt; a = ...
+Optional&lt;String&gt; b = ...
+Optional&lt;String&gt; c = ...
+
+Optional&lt;String&gt; combined = a.flatMap(x -&gt;
+    b.flatMap(y -&gt;
+        c.map(z -&gt; x + y + z)
+    )
+);
+<br><br><br>Optional&lt;Order&gt; maybeOrder = getOrder();
+maybeOrder
+  .filter(order -&gt; order.getTotal() &gt; 0)
+  .ifPresent(order -&gt; process(order));
+<br><br><br>If you're collecting Optionals:<br>List&lt;Optional&lt;String&gt;&gt; optionals = List.of(
+    Optional.of("a"),
+    Optional.empty(),
+    Optional.of("b")
+);
+
+List&lt;String&gt; present = optionals.stream()
+    .flatMap(Optional::stream)  // stream() turns Optional into 0-1 elements
+    .collect(Collectors.toList());
+<br><br><br><br>// ❌ Bad
+Optional&lt;String&gt; maybeName = ...
+String name = maybeName.get(); // Throws if empty
+<br><br>// ❌ Don't do this
+Optional&lt;Optional&lt;String&gt;&gt; nested = Optional.of(Optional.of("Nova"));
+<br>Always flatten with flatMap.<br><br><br>class User {
+    Optional&lt;String&gt; name; // ❌ Not recommended
+}
+<br>Use null, and wrap with Optional.ofNullable() at access sites instead. Java frameworks (like Jackson, JPA) often don’t handle Optional&lt;T&gt; fields well.<br><br><br>// ❌ Don’t do this
+void setName(Optional&lt;String&gt; name);
+
+// ✅ Do this
+void setName(String name); // Accept null if optional
+<br>If the argument is optional, just accept a nullable reference.<br><br><br>// ❌ Bad
+Optional&lt;List&lt;String&gt;&gt; names;
+
+// ✅ Good
+List&lt;String&gt; names = Collections.emptyList();
+<br>Empty collections convey absence better, with less overhead.]]></description><link>java-updates-recap/java-08/optional.html</link><guid isPermaLink="false">Java Updates Recap/Java 08/Optional.md</guid><pubDate>Fri, 06 Jun 2025 17:05:45 GMT</pubDate></item><item><title><![CDATA[Streams API]]></title><description><![CDATA[ 
+ <br><br>The Streams API allows you to process sequences of elements (like those from collections) declaratively. Think of it like a pipeline: you take a data source, transform it through a sequence of operations, and then collect the result.<br>Streams don’t store data; they operate on data from collections, arrays, or I/O channels.<br><br><br>A typical stream pipeline has three steps:<br>collection.stream()      // 1. Create stream
+         .filter(...)    // 2. Intermediate operations
+         .map(...)       //    (can chain many)
+         .collect(...)   // 3. Terminal operation
+<br><br><br><br>These return another stream and are only executed when a terminal operation is triggered:<br>
+<br>.filter(Predicate)<br>
+
+<br>.map(Function)<br>
+
+<br>.flatMap(Function)<br>
+
+<br>.distinct()<br>
+
+<br>.sorted()<br>
+
+<br>.limit(n), .skip(n)<br>
+
+<br>.peek(Consumer) (use with caution – mostly for debugging)<br>
+
+<br><br>These trigger computation:<br>
+<br>.collect(Collector)<br>
+
+<br>.forEach(Consumer)<br>
+
+<br>.reduce(...)<br>
+
+<br>.count(), .anyMatch(...), .allMatch(...), .noneMatch(...)<br>
+
+<br>.findFirst(), .findAny()<br>
+
+<br><br><br>Common terminal operation. Examples:<br>List&lt;String&gt; names = people.stream()
+                           .map(Person::getName)
+                           .collect(Collectors.toList());
+<br>You can also use:<br>
+<br>toSet()<br>
+
+<br>toMap()<br>
+
+<br>joining()<br>
+
+<br>groupingBy()<br>
+
+<br>partitioningBy()<br>
+
+<br><br><br>You can process streams in parallel with .parallelStream() or .parallel():<br>list.parallelStream().filter(...).collect(...);
+<br>Java handles the threading, but you must be cautious about thread safety and side effects.<br><br><br>
+<br>Streams are consumed once. They cannot be reused.<br>
+
+<br>Order matters: unless you explicitly sort, streams preserve encounter order from their source.<br>
+
+<br>Prefer stateless and non-interfering lambdas (avoid modifying external state).<br>
+
+<br><br><br>List&lt;String&gt; names = List.of("Alice", "Bob", "Charlie");
+
+List&lt;String&gt; uppercased = names.stream()
+    .filter(name -&gt; name.length() &lt;= 4)
+    .map(String::toUpperCase)
+    .collect(Collectors.toList());
+// ["ALICE", "BOB"]
+<br><br><br><br>Yes — unless an operation explicitly creates a new object, the same instance flows through each stage of the pipeline.<br>For example:<br>Stream&lt;Person&gt; stream = people.stream()
+    .filter(p -&gt; p.getAge() &gt; 18)
+    .map(p -&gt; {
+        p.setVerified(true); // side effect on the same object
+        return p;
+    });
+<br>Here, .map() is not creating a new object — it's modifying the original. Streams do not enforce immutability, so side effects are possible and dangerous if used carelessly.<br><br><br>No — sorted() is not in-place. The stream pipeline is functional in intent, so it produces a new stream with elements in sorted order.<br>Under the hood, sorted() uses TimSort, a hybrid sorting algorithm derived from merge sort and insertion sort, optimized for real-world data. It’s the same algorithm used by Arrays.sort() on objects.<br><br><br>distinct() uses .equals() and .hashCode(), relying on the behavior of a HashSet internally to filter out duplicates.<br>So:<br>
+<br>For primitives (e.g., IntStream), equality is value-based.<br>
+
+<br>For objects, ensure .equals() and .hashCode() are properly implemented if you want distinct() to behave meaningfully.<br>
+
+<br><br><br>You're right. peek() is often labeled as a debugging aid because it’s non-terminal and doesn’t change the stream's content — but it’s valid for side effects like:<br>
+<br>Logging<br>
+
+<br>Audit hooks<br>
+
+<br>Metrics collection<br>
+
+<br>External notifications<br>
+
+<br>That said, side effects in streams break referential transparency, so use them only when the semantic benefit outweighs the cost of impurity.<br><br><br><br>Summary:<br>
+Streams are more declarative and constrained. Generators are more flexible but imperative.<br>
+Streams give you what, generators give you how.<br><br><br><br>Groups elements based on a classifier function, returning a Map&lt;K, List&lt;T&gt;&gt;.<br>Map&lt;Integer, List&lt;String&gt;&gt; grouped =
+    List.of("a", "bb", "ccc", "dd", "e").stream()
+        .collect(Collectors.groupingBy(String::length));
+
+// Output:
+// {
+//   1 = ["a", "e"],
+//   2 = ["bb", "dd"],
+//   3 = ["ccc"]
+// }
+<br>You can also customize the type of collection used:<br>Map&lt;Integer, Set&lt;String&gt;&gt; groupedToSet =
+    list.stream().collect(Collectors.groupingBy(
+        String::length,
+        Collectors.toSet()
+    ));
+<br><br>Partitions into two groups based on a boolean predicate. Returns Map&lt;Boolean, List&lt;T&gt;&gt;.<br>Map&lt;Boolean, List&lt;Integer&gt;&gt; partitioned =
+    List.of(1, 2, 3, 4, 5).stream()
+        .collect(Collectors.partitioningBy(n -&gt; n % 2 == 0));
+
+// Output:
+// {
+//   true = [2, 4],
+//   false = [1, 3, 5]
+// }
+<br><br><br>If you need more control, you can implement your own collector. The key components:<br>Collector&lt;T, A, R&gt;
+<br>
+<br>T: type of input<br>
+
+<br>A: mutable accumulator<br>
+
+<br>R: result<br>
+
+<br>Here’s a custom collector that joins strings but adds a * separator instead of a comma:<br>Collector&lt;String, StringJoiner, String&gt; starJoiner =
+    Collector.of(
+        () -&gt; new StringJoiner("*"),          // supplier
+        StringJoiner::add,                    // accumulator
+        StringJoiner::merge,                  // combiner (for parallelism)
+        StringJoiner::toString                // finisher
+    );
+
+String result = Stream.of("a", "b", "c").collect(starJoiner);
+// Output: "a*b*c"
+<br>Or you could build your own Collector.of(...) to aggregate values into a custom data structure or format.<br><br>Let me know if you want a walkthrough of writing a more advanced custom collector — maybe one that returns a map of counts or applies a transformation on-the-fly.]]></description><link>java-updates-recap/java-08/streams-api.html</link><guid isPermaLink="false">Java Updates Recap/Java 08/Streams API.md</guid><pubDate>Fri, 06 Jun 2025 16:48:08 GMT</pubDate></item><item><title><![CDATA[`jshell`]]></title><description><![CDATA[ 
+ <br>jshell is a Java REPL (Read-Eval-Print Loop), introduced in Java 9. It provides an interactive shell for experimenting with Java code, testing snippets, evaluating expressions, and learning the language — without having to create full .java files, compile them, and run them through a main method.<br><br><br>Think of it as Java's answer to Python’s interactive shell, Node.js’s REPL, or Ruby's IRB. It significantly reduces the ceremony required to test small pieces of code, making it great for prototyping, quick tests, or exploring APIs.<br><br><br>When you launch jshell from the command line:<br>jshell
+<br>You're dropped into an interactive environment. You can write Java statements or expressions directly:<br>jshell&gt; int x = 42
+x ==&gt; 42
+
+jshell&gt; System.out.println(x + 8)
+50
+<br>You can define methods, classes, import packages, and more — all incrementally:<br>jshell&gt; int add(int a, int b) {
+   ...&gt; return a + b;
+   ...&gt; }
+|  created method add(int,int)
+
+jshell&gt; add(3, 5)
+$3 ==&gt; 8
+<br>Note the use of temporary variables like $3. jshell tracks unnamed results automatically.<br><br><br>Inside jshell, you can use commands prefixed with /:<br>
+<br>/vars — lists all declared variables<br>
+
+<br>/methods — lists all methods you've defined<br>
+
+<br>/list — shows the history<br>
+
+<br>/save myfile.jsh — saves session to a file<br>
+
+<br>/open myfile.jsh — loads code from a file<br>
+
+<br>/exit — exits the REPL<br>
+
+<br><br><br>
+<br>Not ideal for large or performance-sensitive code<br>
+
+<br>No GUI/visual debugger integration<br>
+
+<br>Best for exploratory work, not full program development<br>
+
+<br><br><br>
+<br>Experimenting with the Java API<br>
+
+<br>Learning Java concepts interactively<br>
+
+<br>Quick validation of snippets (e.g., regex, date formatting)<br>
+
+<br>Trying out small algorithms without setting up a project<br>
+
+]]></description><link>java-updates-recap/java-09-&amp;-10/`jshell`.html</link><guid isPermaLink="false">Java Updates Recap/Java 09 &amp; 10/`jshell`.md</guid><pubDate>Fri, 06 Jun 2025 17:47:57 GMT</pubDate></item><item><title><![CDATA[`var` keyword]]></title><description><![CDATA[ 
+ <br><br>Java introduced the var keyword as a way to infer the type of a local variable at compile time, making code more concise without sacrificing type safety.<br><br>You can use var for local variables with initializers:<br>var message = "Hello";        // inferred as String
+var count = 42;               // inferred as int
+var list = new ArrayList&lt;String&gt;();  // inferred as ArrayList&lt;String&gt;
+<br>Rules:<br>
+<br>Must be initialized at the point of declaration.
+<br>Cannot be used for fields, method parameters, or return types (until later features).
+<br>The inferred type is final — var is not dynamic.
+<br><br><br>Though var wasn't available as a keyword yet, Java 9 allowed effectively final variables to be used in try-with-resources without requiring explicit re-declaration:<br>BufferedReader reader = Files.newBufferedReader(path);
+try (reader) {
+    // use reader
+}
+<br>This resembles var-like behavior, in that you don't need to repeat the type. But reader must still be effectively final.<br><br><br>🟡 Java 11 addition (mention for future reference):<br>list.forEach((var item) -&gt; System.out.println(item));
+<br>Why?<br>
+<br>Enables annotations on lambda parameters (e.g., @Nonnull).
+<br>All parameters in a lambda must either use var or none — no mixing.
+<br><br><br>
+<br>var is not dynamic typing.
+<br>You cannot use var at class level (no fields), or in method signatures (parameters or return types).
+<br>It's syntactic sugar; the compiled bytecode is the same.
+<br><br><br>Here’s a concise cheatsheet comparing Java’s var with similar type inference features in other popular languages:<br><br><br><br>
+<br>Mutability control: Java’s var does not imply immutability; contrast this with Kotlin or Rust.<br>
+
+<br>Scope limitations: Java’s var is strictly for local variables, not class fields or method signatures.<br>
+
+<br>No runtime typing: Java remains statically typed; var only removes redundancy, not type constraints.<br>
+
+<br>Let me know if you'd like a visual version or Mermaid diagram for presentation.]]></description><link>java-updates-recap/java-09-&amp;-10/`var`-keyword.html</link><guid isPermaLink="false">Java Updates Recap/Java 09 &amp; 10/`var` keyword.md</guid><pubDate>Fri, 06 Jun 2025 17:56:33 GMT</pubDate></item><item><title><![CDATA[Immutable Collections (List.of, Map.of, Set.of)]]></title><description><![CDATA[ 
+ <br>Absolutely. Here's a broader discussion of immutable collections in Java 9, with focused detail on List.of(), Set.of(), and Map.of() as the core entry points.<br><br><br>Java 9 introduced factory methods for immutable collections—a significant step forward in how developers work with constant data structures. Before Java 9, creating immutable collections required verbose use of wrapper methods or third-party libraries (like Guava).<br><br>
+<br>Safety: Prevents accidental modification of shared collections.
+<br>Thread-safety: Immutable objects can be freely shared across threads without synchronization.
+<br>Performance: No need for defensive copies.
+<br>Intentionality: Signals to readers that the collection is meant to be constant.
+<br><br><br><br>List&lt;String&gt; fruits = List.of("apple", "banana", "cherry");
+<br>
+<br>Creates an unmodifiable list.
+<br>No null values allowed.
+<br>Throws UnsupportedOperationException if mutation is attempted.<br>
+
+<br><br>Set&lt;String&gt; vowels = Set.of("a", "e", "i", "o", "u");
+<br>
+<br>No duplicates or nulls.
+<br>Backed by an internal compact, efficient, unmodifiable implementation.
+<br><br>Map&lt;String, Integer&gt; ages = Map.of("Alice", 30, "Bob", 25);
+<br>
+<br>Up to 10 key-value pairs with Map.of(...).
+<br>Use Map.ofEntries(...) for more:
+Map&lt;String, Integer&gt; map = Map.ofEntries(
+  Map.entry("x", 1),
+  Map.entry("y", 2)
+);
+
+
+<br>Throws if keys or values are null or if keys are duplicated.
+<br><br><br>Attempting any of the following will throw an exception:<br>fruits.add("mango");                     // UnsupportedOperationException
+ages.put("Charlie", 40);                // UnsupportedOperationException
+<br><br><br><br>List&lt;String&gt; oldWay = Collections.unmodifiableList(
+  Arrays.asList("a", "b", "c")
+);
+<br>
+<br>Verbose and not truly immutable: underlying ArrayList is still modifiable if referenced.<br>
+
+<br><br>List&lt;String&gt; betterWay = List.of("a", "b", "c");
+<br>
+<br>Truly immutable.
+<br>Clear intent and safer semantics.
+<br><br><br>
+<br>These methods were added to the java.util.List, Set, and Map interfaces directly as static methods.
+<br>They return optimized implementations tuned for small fixed-size collections.
+<br>These collections implement Serializable, but not RandomAccess in all cases, so indexing may vary.
+<br><br><br><br><br><br>Yes, exactly.<br>
+<br>The immutability provided by List.of(), Set.of(), etc. applies only to the structure: you cannot add, remove, or reorder elements.<br>
+
+<br>However, if the collection holds mutable objects, those objects can still be modified.<br>
+
+<br>List&lt;List&lt;String&gt;&gt; nested = List.of(new ArrayList&lt;&gt;(List.of("a")));
+nested.get(0).add("b");  // This is allowed!
+<br>To prevent this, you’d need to defensively copy or use truly immutable types inside.<br><br><br>You're spot on.<br>
+<br>The immutability guarantees that no thread can structurally mutate the collection (add/remove elements).<br>
+
+<br>But the contents are still live references unless they themselves are immutable.<br>
+
+<br>To get true thread-safe immutability, you need:<br>
+<br>An immutable collection<br>
+
+<br>Containing only immutable objects<br>
+
+<br>Example with record in Java 14+:<br>record Person(String name, int age) {}
+List&lt;Person&gt; people = List.of(new Person("Alice", 30)); // now both structure and contents are immutable
+<br><br><br>This is a design choice based on:<br>
+<br>Avoiding ambiguity in behavior (e.g., does contains(null) mean “missing” or “invalid”?)<br>
+
+<br>Simplifying implementation<br>
+
+<br>Preventing NullPointerException from custom comparators or hash functions<br>
+
+<br>The JDK's Set.of() will throw a NullPointerException at construction time if you try this:<br>Set&lt;String&gt; s = Set.of("a", null); // throws
+<br><br>You can:<br>
+<br>Use a custom sentinel object to represent null, e.g.:
+static final Object NULL = new Object();
+
+
+<br>Or wrap values in Optional, though this changes semantics:
+Set&lt;Optional&lt;String&gt;&gt; s = Set.of(Optional.empty(), Optional.of("x"));
+
+
+<br>But you’ll have to manage extraction carefully — Optional.empty() is still not equal to null, and not all use cases are compatible with it.]]></description><link>java-updates-recap/java-09-&amp;-10/immutable-collections-(list.of,-map.of,-set.of).html</link><guid isPermaLink="false">Java Updates Recap/Java 09 &amp; 10/Immutable Collections (List.of, Map.of, Set.of).md</guid><pubDate>Fri, 06 Jun 2025 18:16:09 GMT</pubDate></item><item><title><![CDATA[Modules (JPMS)]]></title><description><![CDATA[ 
+ <br>Here’s a focused breakdown of JPMS, introduced in Java 9 as part of Project Jigsaw:<br><br><br>Java’s module system introduces a higher-level packaging construct than JARs. It aims to:<br>
+<br>Improve encapsulation<br>
+
+<br>Provide better dependency management<br>
+
+<br>Enable smaller runtime images via jlink<br>
+
+<br><br><br><br>Each module has a module-info.java file at its root. This file declares:<br>
+<br>What packages the module exports<br>
+
+<br>What modules it requires<br>
+
+<br>module com.example.utils {
+    requires java.logging;
+    exports com.example.utils.helpers;
+}
+<br><br>Only the packages listed under exports are visible to other modules.<br><br>Declares dependencies on other modules. The compiler and runtime use this to enforce modular boundaries.<br><br><br>The JDK itself has been modularized. For example:<br>
+<br>java.base (always required)<br>
+
+<br>java.sql<br>
+
+<br>java.xml<br>
+
+<br>jdk.compiler<br>
+
+<br><br><br>
+<br>A named module has a module-info.java.<br>
+
+<br>An unnamed module is a legacy classpath-based JAR that does not declare module metadata. These can access all exported packages of named modules.<br>
+
+<br><br><br># Compile
+javac -d out --module-source-path src $(find src -name "*.java")
+
+# Run
+java --module-path out -m com.example.main/com.example.Main
+<br><br><br>
+<br>Better encapsulation: Avoid public APIs leaking unintentionally.<br>
+
+<br>Reliable configuration: Catch missing dependencies at compile time.<br>
+
+<br>Scalable systems: Encourages clean architectural layering.<br>
+
+<br>Custom runtimes: Use jlink to produce minimal JVMs for your app.<br>
+
+]]></description><link>java-updates-recap/java-09-&amp;-10/modules-(jpms).html</link><guid isPermaLink="false">Java Updates Recap/Java 09 &amp; 10/Modules (JPMS).md</guid><pubDate>Fri, 06 Jun 2025 17:44:17 GMT</pubDate></item><item><title><![CDATA[Files.readString & Files.writeString]]></title><description><![CDATA[ 
+ <br>Excellent. These additions simplify common file I/O use cases by removing the boilerplate of BufferedWriter, InputStreamReader, or StringBuilder loops.<br><br><br>Writes a string directly to a file.<br>Path path = Path.of("example.txt");
+Files.writeString(path, "Hello, world!");
+<br>
+<br>Creates or overwrites the file by default.<br>
+
+<br>Optionally takes StandardOpenOption like APPEND, CREATE, etc.<br>
+
+<br>Files.writeString(path, "Appended line\n", StandardOpenOption.APPEND);
+<br><br><br>Reads the entire content of a file into a String.<br>Path path = Path.of("example.txt");
+String content = Files.readString(path);
+System.out.println(content);
+<br>
+<br>Automatically uses UTF-8 unless another charset is specified.<br>
+
+<br><br><br>You can specify a charset:<br>Files.readString(path, StandardCharsets.ISO_8859_1);
+<br>And write with options:<br>Files.writeString(path, "data", StandardCharsets.UTF_8, StandardOpenOption.CREATE);
+<br><br><br>Before Java 11:<br>String content = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
+<br>After Java 11:<br>String content = Files.readString(path);
+<br>Cleaner, safer, and harder to get wrong.<br><br>Let me know if you want to explore binary data equivalents or how this interacts with BufferedReader, BufferedWriter, or memory-mapped files.]]></description><link>java-updates-recap/java-11/files.readstring-&amp;-files.writestring.html</link><guid isPermaLink="false">Java Updates Recap/Java 11/Files.readString &amp; Files.writeString.md</guid><pubDate>Fri, 06 Jun 2025 18:27:23 GMT</pubDate></item><item><title><![CDATA[HTTP Client API]]></title><description><![CDATA[ 
+ <br>Java 11 introduced the standardized java.net.http.HttpClient API, a much-needed modern replacement for the outdated HttpURLConnection.<br><br>Before Java 11:<br>
+<br>HttpURLConnection was verbose, error-prone, and synchronous.<br>
+
+<br>Developers frequently reached for third-party libraries like:
+
+<br>Apache HttpClient<br>
+
+<br>OkHttp<br>
+
+
+
+<br>Java 9 introduced an incubating version of HttpClient, and Java 11 finalized it into the JDK.<br><br><br>java.net.http.HttpClient
+java.net.http.HttpRequest
+java.net.http.HttpResponse
+<br><br><br>HttpClient client = HttpClient.newHttpClient();
+
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("https://example.com"))
+    .build();
+
+HttpResponse&lt;String&gt; response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+System.out.println("Status: " + response.statusCode());
+System.out.println("Body: " + response.body());
+<br>
+<br>HttpClient handles the actual connection.<br>
+
+<br>HttpRequest describes the request.<br>
+
+<br>HttpResponse&lt;T&gt; wraps the result.<br>
+
+<br>BodyHandlers control how the response is deserialized.<br>
+
+<br><br><br>String json = "{\"name\": \"Nova\"}";
+
+HttpRequest postRequest = HttpRequest.newBuilder()
+    .uri(URI.create("https://example.com/api"))
+    .header("Content-Type", "application/json")
+    .POST(HttpRequest.BodyPublishers.ofString(json))
+    .build();
+
+HttpResponse&lt;String&gt; postResponse = client.send(postRequest, HttpResponse.BodyHandlers.ofString());
+<br><br><br>client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+      .thenApply(HttpResponse::body)
+      .thenAccept(System.out::println);
+<br>Returns a CompletableFuture&lt;HttpResponse&lt;String&gt;&gt;.<br><br><br>
+<br>Supports HTTP/1.1 and HTTP/2 (automatically negotiated)<br>
+
+<br>Built-in support for timeouts, redirects, proxies<br>
+
+<br>Fluent, immutable builder APIs<br>
+
+<br>No external dependencies<br>
+
+<br><br>Unfortunately, Java still doesn't have first-class JSON support in the JDK, even in Java 24.<br>This omission is deliberate: the maintainers prefer to leave JSON handling to the ecosystem rather than introduce a "blessed" standard. As a result, you're still expected to use a third-party library such as:<br><br><br><br>ObjectMapper mapper = new ObjectMapper();
+
+String json = mapper.writeValueAsString(Map.of("name", "Nova"));
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("https://example.com"))
+    .header("Content-Type", "application/json")
+    .POST(HttpRequest.BodyPublishers.ofString(json))
+    .build();
+<br>And deserializing:<br>Map&lt;String, Object&gt; result = mapper.readValue(response.body(), Map.class);
+<br><br><br><br>Here’s a concise comparison of the major Java JSON libraries:<br><br>The de facto standard for JSON in Java<br>
+<br>✅ Powerful and flexible (annotations, mixins, views)<br>
+
+<br>✅ Excellent performance<br>
+
+<br>✅ Rich ecosystem (databind, dataformat, module support)<br>
+
+<br>✅ Works well with Java records (since Java 14+)<br>
+
+<br>❌ Can be verbose without annotations<br>
+
+<br>❌ Deep object graphs can cause surprises if not configured properly<br>
+
+<br>ObjectMapper mapper = new ObjectMapper();
+String json = mapper.writeValueAsString(obj);
+MyType obj = mapper.readValue(json, MyType.class);
+<br><br><br>Simpler, lightweight alternative from Google<br>
+<br>✅ Very easy to use<br>
+
+<br>✅ No need for annotations<br>
+
+<br>✅ Decent performance for most use cases<br>
+
+<br>❌ Weaker support for complex scenarios (custom naming, polymorphism)<br>
+
+<br>❌ Slower and less actively maintained than Jackson<br>
+
+<br>Gson gson = new Gson();
+String json = gson.toJson(obj);
+MyType obj = gson.fromJson(json, MyType.class);
+<br><br><br>Official Jakarta EE APIs (like JAXB but for JSON)<br>
+<br>✅ Standardized (especially in enterprise settings)<br>
+
+<br>✅ JSON-P for lower-level streaming (like JsonReader)<br>
+
+<br>❌ Verbose and clunky for most modern use cases<br>
+
+<br>❌ Poor ergonomics outside of Jakarta EE containers<br>
+
+<br>Jsonb jsonb = JsonbBuilder.create();
+String json = jsonb.toJson(obj);
+MyType obj = jsonb.fromJson(json, MyType.class);
+<br><br><br>]]></description><link>java-updates-recap/java-11/http-client-api.html</link><guid isPermaLink="false">Java Updates Recap/Java 11/HTTP Client API.md</guid><pubDate>Fri, 06 Jun 2025 18:36:28 GMT</pubDate></item><item><title><![CDATA[Module  deprecations]]></title><description><![CDATA[ 
+ <br>Absolutely. Here’s a revised and annotated summary of the Java EE modules removed in Java 11, including:<br>
+<br>✅ What each module does.
+<br>🗑️ Why it was removed.
+<br>🔁 How to replace it now.
+<br><br><br><br>
+<br>Purpose: Converts Java objects to/from XML (marshalling/unmarshalling).<br>
+
+<br>Removal Reason: Low usage and better served as an external dependency (now maintained by Jakarta).<br>
+
+<br>Replacement:
+implementation 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.1'
+implementation 'org.glassfish.jaxb:jaxb-runtime:3.0.1'
+
+
+<br><br><br>
+<br>Purpose: Build and consume SOAP-based web services.<br>
+
+<br>Removal Reason: SOAP is legacy for most modern Java apps. RESTful APIs have become the norm.<br>
+
+<br>Replacement:
+
+<br>Use <a data-tooltip-position="top" aria-label="https://eclipse-ee4j.github.io/metro-jax-ws/" rel="noopener nofollow" class="external-link" href="https://eclipse-ee4j.github.io/metro-jax-ws/" target="_blank">Metro JAX-WS</a> or <a data-tooltip-position="top" aria-label="https://cxf.apache.org/" rel="noopener nofollow" class="external-link" href="https://cxf.apache.org/" target="_blank">Apache CXF</a>.<br>
+
+
+
+<br><br><br>
+<br>Purpose: Supports annotations like @WebService, used alongside JAX-WS.<br>
+
+<br>Removal Reason: JAX-WS deprecation rendered this module redundant.<br>
+
+<br>Replacement:
+implementation 'jakarta.xml.ws:jakarta.xml.ws-api:3.0.1'
+
+
+<br><br><br>
+<br>Purpose: Determines the type of data and how to process it, particularly for email, MIME types, etc.<br>
+
+<br>Removal Reason: Niche usage, and easily replaced.<br>
+
+<br>Replacement:
+implementation 'com.sun.activation:jakarta.activation:2.0.1'
+
+
+<br><br><br>
+<br>Purpose: Manage transactions across multiple resources (e.g., database + message queue).<br>
+
+<br>Removal Reason: Used mainly in Java EE environments; shifted to Jakarta EE.<br>
+
+<br>Replacement:
+implementation 'jakarta.transaction:jakarta.transaction-api:2.0.1'
+
+
+<br><br><br>
+<br>Purpose: Allows Java to interoperate with remote objects in other languages (e.g., C++).<br>
+
+<br>Removal Reason: Obsolete, rarely used, heavyweight.<br>
+
+<br>Replacement: Use modern alternatives like:
+
+<br>gRPC<br>
+
+<br>RESTful APIs<br>
+
+<br>RMI (still supported in Java)<br>
+
+
+
+<br><br><br>
+<br>Purpose: Provides general-purpose annotations like @PostConstruct, @Resource, @Generated.<br>
+
+<br>Removal Reason: EE-specific and moved to Jakarta.<br>
+
+<br>Replacement:
+implementation 'jakarta.annotation:jakarta.annotation-api:2.1.1'
+
+
+<br><br><br><br>Let me know if you want this exported to a markdown doc or integrated into your workspace.]]></description><link>java-updates-recap/java-11/module-deprecations.html</link><guid isPermaLink="false">Java Updates Recap/Java 11/Module  deprecations.md</guid><pubDate>Fri, 06 Jun 2025 18:42:25 GMT</pubDate></item><item><title><![CDATA[New  String Methods]]></title><description><![CDATA[ 
+ <br>Java 11 introduced several new methods on the String class, primarily aimed at improving text processing. These additions are small, but thoughtfully targeted at common annoyances.<br>Here's a breakdown:<br><br><br>Returns true if the string is empty or contains only whitespace.<br>"   ".isBlank();     // true
+"hello".isBlank();   // false
+"".isBlank();        // true
+<br>
+This is more expressive than trim().isEmpty() and doesn’t allocate a new string.
+<br><br><br>Splits the string into a Stream of lines using line terminators (\n, \r, \r\n).<br>String poem = "roses are red\nviolets are blue";
+poem.lines().forEach(System.out::println);
+// "roses are red"
+// "violets are blue"
+<br>
+This is very handy for processing multiline input with Stream operations.
+<br><br><br>Like trim(), but uses Unicode-aware whitespace rules.<br>"\u2000hello\u2000".strip();       // "hello" (removes Unicode spaces)
+"   hello   ".trim();              // also "hello", but only removes ASCII space
+
+"  hello  ".stripLeading();        // "hello  "
+"  hello  ".stripTrailing();       // "  hello"
+<br>
+trim() only removes ASCII whitespace (\u0020), not others like \u2000.
+<br><br><br>Repeats the string a given number of times.<br>"ha".repeat(3);   // "hahaha"
+<br>
+Much cleaner than a loop or StringBuilder.
+<br><br><br><br>Let me know if you want to walk through internal implementation notes, performance considerations, or anything less obvious about these.]]></description><link>java-updates-recap/java-11/new-string-methods.html</link><guid isPermaLink="false">Java Updates Recap/Java 11/New  String Methods.md</guid><pubDate>Fri, 06 Jun 2025 18:18:55 GMT</pubDate></item><item><title><![CDATA[Improvements to NullPointerException messages]]></title><description><![CDATA[ 
+ <br>Absolutely — the NullPointerException improvement is small in scope but huge in practical impact.<br><br><br>Java 14 introduced enhanced NullPointerException messages that show exactly what was null in an expression chain — instead of just saying “null pointer” without context.<br><br>a.b.c.d();  // if 'b' is null
+<br>Previously you'd just get:<br>NullPointerException
+<br>That’s... not helpful. Which part was null? You’d have to step through it manually.<br><br><br>With the JVM option enabled:<br>-XX:+ShowCodeDetailsInExceptionMessages
+<br>You'll get:<br>Exception in thread "main" java.lang.NullPointerException: Cannot invoke "C.d()" because "a.b.c" is null
+<br>💡 It pinpoints the exact sub-expression that evaluated to null!<br><br><br>This feature is opt-in in Java 14 through Java 16:<br>java -XX:+ShowCodeDetailsInExceptionMessages YourProgram
+<br>It became enabled by default in Java 17 LTS and later.<br><br><br>The JVM enhances the bytecode to track null dereferences more precisely — essentially noting where the null arose in a chain of method or field access, so it can emit a more informative error message.<br><br><br>
+<br>Easier debugging<br>
+
+<br>Less need for IDE breakpoints or printlns<br>
+
+<br>Especially helpful in method chains and fluent APIs<br>
+
+<br>A genuine quality-of-life boost<br>
+
+]]></description><link>java-updates-recap/java-12-14/improvements-to-nullpointerexception-messages.html</link><guid isPermaLink="false">Java Updates Recap/Java 12-14/Improvements to NullPointerException messages.md</guid><pubDate>Fri, 06 Jun 2025 20:32:41 GMT</pubDate></item><item><title><![CDATA[More New String  methods]]></title><description><![CDATA[ 
+ <br><br>Adds or removes leading whitespace from each line in a multi-line string.<br><br>
+<br>Positive n → Adds n spaces to the start of each line.<br>
+
+<br>Negative n → Removes up to |n| spaces from the start of each line.<br>
+
+<br>Handles empty lines and line breaks gracefully.<br>
+
+<br>Always ends the result with a line terminator (like \n).<br>
+
+<br><br>String block = "line1\nline2\nline3";
+String indented = block.indent(2);
+System.out.println(indented);
+/*
+  line1
+  line2
+  line3
+*/
+<br><br><br>Allows fluent transformation of a string using a function. Very handy for chaining logic or integrating with lambdas.<br><br>String result = "hello"
+    .transform(s -&gt; s.toUpperCase())
+    .transform(s -&gt; "*** " + s + " ***");
+
+System.out.println(result); // *** HELLO ***
+<br>
+<br>Works with any function that takes a String and returns type R.<br>
+
+<br>Encourages more functional, chainable, and expressive code.<br>
+
+<br><br><br>]]></description><link>java-updates-recap/java-12-14/more-new-string-methods.html</link><guid isPermaLink="false">Java Updates Recap/Java 12-14/More New String  methods.md</guid><pubDate>Fri, 06 Jun 2025 20:26:37 GMT</pubDate></item><item><title><![CDATA[Records]]></title><description><![CDATA[ 
+ <br>Absolutely — Records are one of the most impactful and elegant additions to modern Java. They were introduced as a preview feature in Java 14, stabilized in Java 16, and are fully available in Java 24.<br><br><br>A record is a special kind of Java class that is:<br>
+<br>Immutable by default<br>
+
+<br>Concise: declares fields, constructor, accessors, equals(), hashCode(), and toString() automatically<br>
+
+<br>Used primarily as a data carrier — like DTOs or value objects<br>
+
+<br>Think of it as Java’s answer to Kotlin’s data class or a slightly heavier version of a Python @dataclass.<br><br><br>public record Point(int x, int y) {}
+<br>This is equivalent to writing:<br>public final class Point {
+    private final int x;
+    private final int y;
+
+    public Point(int x, int y) { this.x = x; this.y = y; }
+
+    public int x() { return x; }
+    public int y() { return y; }
+
+    public boolean equals(Object o) { ... }
+    public int hashCode() { ... }
+    public String toString() { ... }
+}
+<br>
+🔹 The parameter names in the declaration are the field names. No need to re-declare.
+<br><br><br>
+<br>Fields are implicitly private final and cannot be reassigned.<br>
+
+<br>You cannot add setters.<br>
+
+<br>You cannot extend a record; all records implicitly extend java.lang.Record.<br>
+
+<br><br><br>
+<br>Implement interfaces:<br>
+
+<br>public record User(String name, int age) implements Serializable {}
+<br>
+<br>Override methods like toString() or even customize the constructor:<br>
+
+<br>public record Range(int start, int end) {
+    public Range {
+        if (end &lt; start) throw new IllegalArgumentException("Invalid range");
+    }
+}
+<br>That’s a compact canonical constructor — lets you validate or normalize fields before assignment.<br>
+<br>Add custom methods:<br>
+
+<br>public record Point(int x, int y) {
+    public double distanceFromOrigin() {
+        return Math.sqrt(x * x + y * y);
+    }
+}
+<br><br><br>
+<br>DTOs<br>
+
+<br>Keys in maps or sets<br>
+
+<br>Return types for service calls<br>
+
+<br>Lightweight domain models where mutation isn’t needed<br>
+
+<br><br><br>
+<br>Records are compiled to .class files like any other class.<br>
+
+<br>Reflection treats them as distinct from regular classes (check with isRecord()).<br>
+
+<br>Deserialization (e.g., with Jackson) supports them with some tuning, especially for older versions.<br>
+
+<br><br><br>]]></description><link>java-updates-recap/java-12-14/records.html</link><guid isPermaLink="false">Java Updates Recap/Java 12-14/Records.md</guid><pubDate>Fri, 06 Jun 2025 20:36:24 GMT</pubDate></item><item><title><![CDATA[switch Expressions]]></title><description><![CDATA[ 
+ <br>Absolutely. Here's a clear recap of switch expressions introduced in Java 12 (preview) and stabilized in Java 14.<br><br><br>String result;
+switch (day) {
+    case MONDAY:
+    case TUESDAY:
+    case WEDNESDAY:
+        result = "Weekday";
+        break;
+    case SATURDAY:
+    case SUNDAY:
+        result = "Weekend";
+        break;
+    default:
+        result = "Unknown";
+}
+<br>
+<br>Verbose.<br>
+
+<br>Error-prone: fall-through behavior unless break is used.<br>
+
+<br>Imperative style only—can’t return a value directly.<br>
+
+<br><br><br>String result = switch (day) {
+    case MONDAY, TUESDAY, WEDNESDAY -&gt; "Weekday";
+    case SATURDAY, SUNDAY -&gt; "Weekend";
+    default -&gt; "Unknown";
+};
+<br><br>
+<br>Expression-oriented: You can directly assign the result.<br>
+
+<br>Arrow syntax (-&gt;): Eliminates fall-through.<br>
+
+<br>Multiple labels per case.<br>
+
+<br>yield keyword for multi-line logic.<br>
+
+<br>int length = switch (fruit) {
+    case "apple", "pear" -&gt; 5;
+    case "banana" -&gt; {
+        System.out.println("Long fruit");
+        yield 6; // yield required here
+    }
+    default -&gt; 0;
+};
+<br><br><br>
+<br>If using the colon (:) style, it behaves like a statement block and requires break or yield.<br>
+
+<br>You cannot mix -&gt; and : styles in the same switch.<br>
+
+<br><br><br><br>Let me know if you want an annotated example showing both styles side by side in a real class.]]></description><link>java-updates-recap/java-12-14/switch-expressions.html</link><guid isPermaLink="false">Java Updates Recap/Java 12-14/switch Expressions.md</guid><pubDate>Fri, 06 Jun 2025 20:23:07 GMT</pubDate></item><item><title><![CDATA[Text Blocks]]></title><description><![CDATA[ 
+ <br>Excellent — text blocks are a great addition, and if you haven’t seen them before, they’ll likely feel long overdue.<br><br><br>A text block is a multi-line string literal introduced in Java 13 (preview) and made standard in Java 15. It allows you to write large blocks of text (e.g., JSON, HTML, code snippets) without manually escaping newlines and quotes.<br><br><br>String json = """
+    {
+        "name": "Nova",
+        "role": "Assistant"
+    }
+    """;
+<br>This is equivalent to:<br>String json = "{\n" +
+              "    \"name\": \"Nova\",\n" +
+              "    \"role\": \"Assistant\"\n" +
+              "}";
+<br><br><br>
+<br>Delimited by triple double-quotes """
+<br>Starts after the opening """, and ends before the closing """
+<br>Automatically includes newlines and preserves indentation
+<br>Escape sequences like \n are optional; you can write raw newlines instead
+<br>You can use \ at the end of a line to avoid inserting a newline
+<br><br><br>The compiler determines the common whitespace prefix and removes it from every line. This makes it easy to embed nicely-indented content inline without altering layout.<br><br>String html = """
+        &lt;html&gt;
+            &lt;body&gt;
+                &lt;p&gt;Hello, world!&lt;/p&gt;
+            &lt;/body&gt;
+        &lt;/html&gt;
+        """;
+<br>When printed, it's:<br>&lt;html&gt;
+    &lt;body&gt;
+        &lt;p&gt;Hello, world!&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+<br><br><br><br><br><br>
+<br>JSON, XML, or HTML templates
+<br>SQL queries
+<br>Error messages or documentation blocks
+<br>Embedded code snippets<br>
+
+]]></description><link>java-updates-recap/java-12-14/text-blocks.html</link><guid isPermaLink="false">Java Updates Recap/Java 12-14/Text Blocks.md</guid><pubDate>Fri, 06 Jun 2025 20:29:30 GMT</pubDate></item><item><title><![CDATA[Hidden Classes]]></title><description><![CDATA[ 
+ <br>Perfect. Let’s dive into Hidden Classes, a feature introduced in Java 15 as part of JEP 371.<br><br><br>Hidden classes are classes that are:<br>
+<br>Intended for internal use by frameworks or runtime code generation<br>
+
+<br>Not discoverable by name through reflection or classpath scanning<br>
+
+<br>Non-linkable from regular bytecode<br>
+
+<br>They are typically used by libraries or tools that generate classes at runtime — for example, proxies, lambdas, or serialization/deserialization tools.<br><br><br>In older Java, dynamically generated classes would:<br>
+<br>Be added to the same classloader namespace as user classes<br>
+
+<br>Persist in memory (→ potential leaks)<br>
+
+<br>Be discoverable/reflected upon (→ security/convention leaks)<br>
+
+<br>Hidden classes solve this by creating "throwaway" classes that:<br>
+<br>Are strongly encapsulated<br>
+
+<br>Can be garbage-collected once no longer referenced<br>
+
+<br>Cannot be used outside the class that defined them<br>
+
+<br><br><br>Through the MethodHandles.Lookup API:<br>var lookup = MethodHandles.lookup();
+var hiddenClassBytes = ... // compiled byte array
+var hiddenClass = lookup.defineHiddenClass(hiddenClassBytes, true).lookupClass();
+<br>
+<br>defineHiddenClass(...) loads the class without exposing it<br>
+
+<br>It returns a Class&lt;?&gt; that you can use (invoke methods, instantiate, etc.)<br>
+
+<br>The true flag marks the class as nestmate, sharing access privileges with its host<br>
+
+<br><br><br>
+<br>Dynamic proxies<br>
+
+<br>Framework-generated classes (e.g., Hibernate, Jackson)<br>
+
+<br>Scripting runtimes or REPLs<br>
+
+<br>Internal DSL compilers (like SQL interpreters or templating engines)<br>
+
+<br><br><br><br><br><br>
+<br>Hidden classes must be used within the originating class or library<br>
+
+<br>Not designed for general application code<br>
+
+<br>No .class file on disk; exists only in memory<br>
+
+]]></description><link>java-updates-recap/java-15-17/hidden-classes.html</link><guid isPermaLink="false">Java Updates Recap/Java 15-17/Hidden Classes.md</guid><pubDate>Fri, 06 Jun 2025 20:41:36 GMT</pubDate></item><item><title><![CDATA[Pseudo-random Number Generation]]></title><description><![CDATA[ 
+ <br>These are new APIs — introduced in Java 17 — under the java.util.random package, not just internal improvements to existing classes like java.util.Random.<br><br>The older java.util.Random and ThreadLocalRandom have some problems:<br>
+<br>Limited algorithm selection — not pluggable or extensible<br>
+
+<br>No strong guarantees of statistical quality<br>
+
+<br>ThreadLocalRandom is faster but opaque and harder to test<br>
+
+<br>Random state handling is clunky for reproducibility or stream generation<br>
+
+<br><br><br>This package introduces:<br><br>A new abstraction to represent random number sources.<br><br>
+<br>RandomGeneratorFactory.of(String algorithmName)<br>
+
+<br>Prebuilt algorithms include:
+
+<br>L32X64MixRandom – a fast, high-quality generator<br>
+
+<br>Xoshiro256PlusPlus<br>
+
+<br>SplittableRandom (ported)<br>
+
+<br>Legacy-compatible: Random, SecureRandom<br>
+
+
+
+<br><br>import java.util.random.RandomGenerator;
+
+RandomGenerator rng = RandomGenerator.getDefault();
+int randomInt = rng.nextInt(10);
+<br>Or, to choose a specific algorithm:<br>RandomGenerator rng = RandomGeneratorFactory.of("Xoshiro256PlusPlus").create();
+<br><br>rng.ints(5, 0, 10).forEach(System.out::println);  // 5 ints between 0 and 10
+<br><br>Some implementations support split() to create independent instances — useful for parallel tasks.<br><br><br><br><br>This doesn’t deprecate Random, but gives you fine-grained control and modern capabilities if you need them.]]></description><link>java-updates-recap/java-15-17/pseudo-random-number-generation.html</link><guid isPermaLink="false">Java Updates Recap/Java 15-17/Pseudo-random Number Generation.md</guid><pubDate>Fri, 06 Jun 2025 20:59:02 GMT</pubDate></item><item><title><![CDATA[Sealed Classes]]></title><description><![CDATA[ 
+ <br>Great question. Sealed classes were first introduced as a preview feature in Java 15, refined in Java 16, and finalized in Java 17.<br><br><br>Sealed classes and interfaces allow you to explicitly restrict which other classes or interfaces may extend or implement them.<br>This is particularly useful for:<br>
+<br>Modeling controlled hierarchies<br>
+
+<br>Improving exhaustiveness in switch expressions<br>
+
+<br>Enabling better compiler checks<br>
+
+<br><br><br>public sealed class Shape
+    permits Circle, Rectangle, Square {}
+
+public final class Circle extends Shape {}
+public final class Rectangle extends Shape {}
+public final class Square extends Shape {}
+<br>
+<br>sealed marks the base class as restricted<br>
+
+<br>permits explicitly lists allowed subclasses<br>
+
+<br>Subclasses must be marked as:
+
+<br>final (no further extension)<br>
+
+<br>sealed (with their own permits)<br>
+
+<br>non-sealed (explicitly opting into openness)<br>
+
+
+
+<br><br><br>
+<br>Algebraic data types<br>
+
+<br>Exhaustive switch statements (especially with pattern matching)<br>
+
+<br>Modeling business logic states (e.g., sealed class Result permits Success, Failure)<br>
+
+<br><br><br><br><br>Excellent. Let’s expand on sealed classes by comparing them to related constructs and show how they work with switch statements—especially when combined with newer language features like pattern matching.<br><br><br><br><br>public sealed interface Result permits Success, Failure {}
+
+public final class Success implements Result {}
+public final class Failure implements Result {}
+<br>This makes Result a closed set of outcomes, like enum, but with richer modeling possibilities.<br><br><br>When Java knows all possible subtypes of a sealed class or interface, it can require exhaustiveness in switch statements—just like enums.<br><br>sealed interface Animal permits Dog, Cat {}
+
+final class Dog implements Animal {
+    String bark() { return "Woof!"; }
+}
+
+final class Cat implements Animal {
+    String meow() { return "Meow!"; }
+}
+
+public String speak(Animal animal) {
+    return switch (animal) {
+        case Dog d -&gt; d.bark();
+        case Cat c -&gt; c.meow();
+    };
+}
+<br>
+💡 Since Java knows Animal can only be Dog or Cat, you must cover both cases or get a compile-time error.
+<br><br><br>
+<br>If you forget a permitted subclass in the switch, it will not compile<br>
+
+<br>If you mark a subclass as non-sealed, the compiler loses exhaustiveness, because more subtypes may appear<br>
+
+<br><br><br>Sealed types are:<br>
+<br>More flexible than enums (because subclasses can have fields/methods)<br>
+
+<br>More controlled than abstract or regular interface<br>
+
+<br>Useful for enabling exhaustive pattern matching<br>
+
+<br>Finalized in Java 17, and pair elegantly with pattern matching for switch (Java 21+)<br>
+
+<br>Let me know if you want a follow-up with record + sealed combinations or when sealed becomes less useful.<br><br>I asked this follow-up question:<br>
+so, in a way, this seems almost like it functions as a union type in certain cases... as with the Result permits Success, Failure {} case above. You could define Success and Failure as entirely disjoint types, as long as nothing in Result conflicts with their definitions. Then return a Result object, use a typecheck and an appropriate cast, and handle either as normal thereafter.
+<br>Nova responded:<br><br>Exactly — you're spot on.<br>In fact, sealed interfaces (or sealed abstract classes) do behave very much like discriminated union types (aka sum types) in functional languages. The combination of:<br>
+<br>A sealed parent type that restricts known subtypes<br>
+
+<br>Type-checking (with instanceof)<br>
+
+<br>Pattern matching (switch expressions with type refinement)<br>
+
+<br>…lets you encode something structurally very similar to:<br>type Result = Success | Failure
+<br><br>public sealed interface Result permits Success, Failure {}
+
+public final class Success implements Result {
+    String value;
+}
+
+public final class Failure implements Result {
+    Exception error;
+}
+<br>Then use pattern matching:<br>Result result = someFunction();
+
+switch (result) {
+    case Success s -&gt; System.out.println("Success: " + s.value);
+    case Failure f -&gt; System.err.println("Error: " + f.error.getMessage());
+}
+<br><br><br>So yes — Java sealed types + pattern matching = tagged union in disguise. It’s Java’s answer to algebraic data types (ADTs), done the Java way.<br>Let me know if you want to try this pattern in a Result&lt;T&gt;-like implementation!]]></description><link>java-updates-recap/java-15-17/sealed-classes.html</link><guid isPermaLink="false">Java Updates Recap/Java 15-17/Sealed Classes.md</guid><pubDate>Fri, 06 Jun 2025 20:50:33 GMT</pubDate></item><item><title><![CDATA[Foreign Function & Memory API (FFM API)]]></title><description><![CDATA[ 
+ <br>Perfect. The Foreign Function &amp; Memory API (FFM API) is one of the major steps Java is taking toward efficient native interop — that is, allowing Java code to interact with non-Java code (e.g., C libraries) and manage native memory safely.<br>This replaces (and vastly improves upon) the unsafe and error-prone sun.misc.Unsafe and even some use cases for JNI (Java Native Interface).<br><br><br>
+<br>Call native functions (C APIs, etc.) from Java directly.<br>
+
+<br>Allocate and access off-heap memory without ByteBuffer limitations.<br>
+
+<br>Ensure safety and performance using modern abstractions and bounds-checking.<br>
+
+<br><br><br><br>Represents a region of memory (like a C pointer with bounds).<br>try (Arena arena = Arena.ofConfined()) {
+    MemorySegment segment = arena.allocate(4); // 4 bytes
+    segment.set(ValueLayout.JAVA_INT, 0, 42);  // write
+    int value = segment.get(ValueLayout.JAVA_INT, 0); // read
+}
+<br>
+Uses a try-with-resources block to manage memory lifetime, replacing manual free().
+<br><br>Describes the layout of structured memory (like struct in C). Enables type-safe access to fields.<br><br>Used to call native code:<br>Linker linker = Linker.nativeLinker();
+SymbolLookup lookup = SymbolLookup.libraryLookup("c");
+MethodHandle printf = linker.downcallHandle(
+    lookup.lookup("printf").get(),
+    FunctionDescriptor.ofVoid(ValueLayout.ADDRESS)
+);
+<br><br><br>]]></description><link>java-updates-recap/java-18-20/foreign-function-&amp;-memory-api-(ffm-api).html</link><guid isPermaLink="false">Java Updates Recap/Java 18-20/Foreign Function &amp; Memory API (FFM API).md</guid><pubDate>Fri, 06 Jun 2025 21:24:25 GMT</pubDate></item><item><title><![CDATA[instanceof Pattern Matching]]></title><description><![CDATA[ 
+ <br><br>This feature simplifies the common pattern of:<br>
+<br>Checking type with instanceof
+<br>Casting the object to that type
+<br><br>if (obj instanceof String) {
+    String s = (String) obj;
+    System.out.println(s.toLowerCase());
+}
+<br><br>if (obj instanceof String s) {
+    System.out.println(s.toLowerCase());
+}
+<br><br><br>
+<br>Combines type check and cast into a single expression<br>
+
+<br>Variable s is implicitly scoped to the if block<br>
+
+<br>Still safe — no chance of ClassCastException<br>
+
+<br>You can use nested or complex logical conditions:<br>
+
+<br>if (obj instanceof String s &amp;&amp; s.length() &gt; 5) {
+    System.out.println("Long string: " + s);
+}
+<br>Or inside a switch (combined with sealed classes or records):<br>switch (obj) {
+    case String s -&gt; System.out.println("It's a string: " + s);
+    case Integer i -&gt; System.out.println("Integer: " + i);
+    default -&gt; System.out.println("Something else");
+}
+<br><br><br>
+<br>You can’t use the pattern variable (s above) outside the if block or logical expression in which it's declared.<br>
+
+<br>You can’t shadow variables in the same scope.<br>
+
+<br><br>Yes, that’s an excellent comparison.<br>Java’s pattern matching for instanceof is conceptually quite similar to TypeScript's type guards, especially user-defined type guards that narrow types based on runtime checks.<br><br><br><br><br><br><br>if (obj instanceof String s) {
+    // `s` is a String here
+    System.out.println(s.toLowerCase());
+}
+<br><br>if (typeof obj === "string") {
+    // `obj` is narrowed to string here
+    console.log(obj.toLowerCase());
+}
+<br>Or with classes:<br>if (obj instanceof MyClass) {
+    // obj is a MyClass
+    obj.myMethod();
+}
+<br><br>Both languages are moving toward more expressive and type-safe runtime checks that let you write clearer, less error-prone branching logic without redundant casting.<br>I asked Nova this follow up question:<br>
+I'd like to see what happens with switch statements. I'm particularly curious about:  why instanceof isn't necessary for the predicate  what happens when obj is not a matching type, but has it in it's inheritance hierarchy * what happens when obj has several matching types in it's inheritance hierarchy But any other relevant topics are also appropriate.
+<br>this was the response:<br>
+You're asking the right questions. Pattern matching in switch introduces nuance into Java's type system that wasn’t there before.<br>Let’s go through this step-by-step, using Java 21’s finalized Pattern Matching for switch, covering:<br>
+<br>🧠 Why instanceof isn't needed
+<br>🔗 How inheritance affects matching
+<br>⚖️ What happens when multiple types match
+<br>🔄 Guarded patterns
+<br>🪵 Exhaustiveness and compiler checks
+<br>🧪 Practical examples
+<br><br><br>In switch, Java knows you're performing a type-based dispatch. You can write:<br>switch (obj) {
+    case String s -&gt; System.out.println("A string: " + s.toUpperCase());
+    case Integer i -&gt; System.out.println("An int: " + (i + 1));
+}
+<br>There’s no need to write instanceof — the compiler handles type checks and binding for you, similar to how enhanced instanceof works.<br><br><br>If an object is a subclass, it matches any case that accepts its supertype—just like instanceof:<br>class Animal {}
+class Dog extends Animal {}
+
+switch (obj) {
+    case Dog d -&gt; System.out.println("Woof");
+    case Animal a -&gt; System.out.println("Generic animal");
+}
+<br>If obj is a Dog, it matches the first case: Dog d.<br>
+So: Matching is top-down and first-match-wins, just like a classic switch.<br><br><br>Let’s say you have:<br>class A {}
+class B extends A {}
+class C extends B {}
+<br>switch (obj) {
+    case C c -&gt; ...
+    case B b -&gt; ...
+    case A a -&gt; ...
+}
+<br>If obj is an instance of C, it matches the first applicable case: C c.<br>
+So again: first matching case wins, and only one branch executes.<br>This is different from function overloading or multiple dispatch (which Java doesn't support natively). The switch does not search for the "most specific match" — it just takes the first that applies.<br><br><br>You can refine your matching logic with guards (when):<br>case Point p when p.x() == 0 -&gt; System.out.println("Vertical line");
+<br>This adds runtime checks beyond just the type match.<br><br><br>When switching on a sealed type, the compiler knows all possible subclasses — and will force you to handle them.<br>sealed interface Shape permits Circle, Square {}
+
+switch (shape) {
+    case Circle c -&gt; ...
+    case Square s -&gt; ...
+    // no `default` required!
+}
+<br>This is like exhaustiveness checking in TypeScript’s switch on a union type.<br><br><br>sealed interface Result permits Success, Failure {}
+
+record Success(String data) implements Result {}
+record Failure(String error) implements Result {}
+
+Result result = ...;
+
+String message = switch (result) {
+    case Success s -&gt; "Yay: " + s.data();
+    case Failure f -&gt; "Oops: " + f.error();
+};
+<br><br><br>]]></description><link>java-updates-recap/java-18-20/instanceof-pattern-matching.html</link><guid isPermaLink="false">Java Updates Recap/Java 18-20/instanceof Pattern Matching.md</guid><pubDate>Fri, 06 Jun 2025 21:10:36 GMT</pubDate></item><item><title><![CDATA[Record & Array Patterns]]></title><description><![CDATA[ 
+ ]]></description><link>java-updates-recap/java-18-20/record-&amp;-array-patterns.html</link><guid isPermaLink="false">Java Updates Recap/Java 18-20/Record &amp; Array Patterns.md</guid><pubDate>Fri, 06 Jun 2025 21:17:06 GMT</pubDate></item><item><title><![CDATA[Structured Concurrency]]></title><description><![CDATA[ 
+ <br>Excellent. Structured concurrency is a notable addition aimed at improving the readability, reliability, and maintainability of concurrent code.<br><br><br>Structured concurrency is a programming model that treats multiple concurrent tasks running in a block as a single unit of work. This helps ensure:<br>
+<br>All child tasks are completed or cancelled together.<br>
+
+<br>The lifecycle of tasks is bounded by lexical scope, like a try block.<br>
+
+<br>It was introduced as an incubator API in Java 19 under <a data-tooltip-position="top" aria-label="https://docs.oracle.com/en/java/javase/20/docs/api/java.base/java/util/concurrent/StructuredTaskScope.html" rel="noopener nofollow" class="external-link" href="https://docs.oracle.com/en/java/javase/20/docs/api/java.base/java/util/concurrent/StructuredTaskScope.html" target="_blank"><code></code></a>java.util.concurrent.StructuredTaskScope and remains in preview in Java 20–21.<br><br><br>In classic Java concurrency, managing multiple threads manually leads to problems like:<br>
+<br>Thread leaks (forgotten join() or interrupt())<br>
+
+<br>Error handling hell<br>
+
+<br>Resource mismanagement<br>
+
+<br>Structured concurrency brings structured lifetimes for threads, much like try-with-resources brings structured lifetime for resources.<br><br><br>import java.util.concurrent.*;
+
+try (var scope = new StructuredTaskScope.ShutdownOnSuccess&lt;String&gt;()) {
+    Future&lt;String&gt; user  = scope.fork(() -&gt; findUser());
+    Future&lt;String&gt; order = scope.fork(() -&gt; fetchOrder());
+
+    scope.join();           // Wait for at least one task to complete
+    scope.throwIfFailed();  // Propagate any exceptions
+
+    String result = scope.result();  // First successful result
+    System.out.println(result);
+}
+<br><br>
+<br>fork() starts a subtask.<br>
+
+<br>join() waits for all (or the relevant subset) to complete.<br>
+
+<br>throwIfFailed() ensures exceptions are handled properly.<br>
+
+<br>The scope auto-shuts down remaining tasks.<br>
+
+<br><br><br>There are two main built-in strategies:<br><br><br><br>
+<br>Clear thread lifecycle<br>
+
+<br>Proper cancellation and exception propagation<br>
+
+<br>Works with virtual threads, which are much cheaper<br>
+
+<br><br>Would you like to see how this plays alongside virtual threads, or are you ready to move on to another feature (e.g., Record Patterns, Scoped Values, Virtual Threads themselves)?]]></description><link>java-updates-recap/java-18-20/structured-concurrency.html</link><guid isPermaLink="false">Java Updates Recap/Java 18-20/Structured Concurrency.md</guid><pubDate>Fri, 06 Jun 2025 21:13:49 GMT</pubDate></item><item><title><![CDATA[Sequenced Collections]]></title><description><![CDATA[ 
+ <br>Sequenced Collections were introduced in Java 21 to provide a uniform API for collections with a defined encounter order, like lists, queues, and deques. Previously, Java had inconsistent methods for working with ordered data — List, Deque, Queue, NavigableSet, etc., each with subtly different semantics.<br>This new feature resolves that by adding the SequencedCollection interface.<br><br><br>A new interface in java.util:<br>public interface SequencedCollection&lt;E&gt; extends Collection&lt;E&gt; {
+    E getFirst();
+    E getLast();
+    SequencedCollection&lt;E&gt; reversed();
+}
+<br>It represents any collection with a well-defined encounter order, and provides:<br>
+<br>getFirst() — first element<br>
+
+<br>getLast() — last element<br>
+
+<br>reversed() — a reversed view of the collection<br>
+
+<br><br><br>Java 21 retrofitted these existing types:<br>
+<br>ArrayList, LinkedList<br>
+
+<br>TreeSet, LinkedHashSet<br>
+
+<br>Deque (like ArrayDeque)<br>
+
+<br>And their map equivalents through SequencedMap and SequencedSet<br>
+
+<br><br><br>These are for ordered key-value or key-only collections.<br><br>
+<br>firstEntry(), lastEntry()<br>
+
+<br>reversed()<br>
+
+<br>putFirst(K, V), putLast(K, V)<br>
+
+<br><br><br><br>List&lt;String&gt; names = new ArrayList&lt;&gt;(List.of("Alice", "Bob", "Charlie"));
+SequencedCollection&lt;String&gt; seq = names;
+
+System.out.println(seq.getFirst());  // Alice
+System.out.println(seq.getLast());   // Charlie
+
+var reversed = seq.reversed();       // ["Charlie", "Bob", "Alice"]
+<br>SequencedMap&lt;Integer, String&gt; map = new LinkedHashMap&lt;&gt;();
+map.put(1, "one");
+map.put(2, "two");
+System.out.println(map.firstEntry()); // 1=one
+System.out.println(map.lastEntry());  // 2=two
+<br><br><br>
+<br>Provides a common language across all ordered collections.<br>
+
+<br>Useful for APIs and libraries that need to operate generically on ordered collections.<br>
+
+<br>A foundational change that simplifies and unifies behavior.<br>
+
+]]></description><link>java-updates-recap/java-21/sequenced-collections.html</link><guid isPermaLink="false">Java Updates Recap/Java 21/Sequenced Collections.md</guid><pubDate>Fri, 06 Jun 2025 21:33:26 GMT</pubDate></item><item><title><![CDATA[Virtual Threads]]></title><description><![CDATA[ 
+ <br><br>Virtual threads are lightweight threads managed by the JVM, not the operating system. They allow you to run millions of concurrent tasks without the overhead of traditional (platform) threads.<br>Thread.startVirtualThread(() -&gt; {
+    System.out.println("Hello from a virtual thread!");
+});
+<br>This means:<br>
+<br>No need to use Executors.newFixedThreadPool()<br>
+
+<br>No more complex workarounds to avoid blocking<br>
+
+<br>No difference in the programming model: you can still write synchronous code<br>
+
+<br><br><br><br><br><br>
+<br>Massive concurrency — e.g., handling 1M client requests with ease.<br>
+
+<br>Simplified code — can use traditional blocking I/O (InputStream, Socket, etc.) without async callbacks or thread pools.<br>
+
+<br>No special APIs — just use the Thread API you're used to.<br>
+
+<br><br><br><br>Thread.startVirtualThread(() -&gt; {
+    try {
+        Thread.sleep(1000);
+        System.out.println("Done");
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+});
+<br><br>Use StructuredTaskScope (introduced in Java 19+) to manage virtual threads together:<br>try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {
+    Future&lt;String&gt; user  = scope.fork(() -&gt; fetchUser());
+    Future&lt;String&gt; order = scope.fork(() -&gt; fetchOrder());
+
+    scope.join();           // Wait for both
+    scope.throwIfFailed();  // Or fail fast
+
+    System.out.println(user.result() + " " + order.result());
+}
+<br><br><br>
+<br>The JVM masks blocking calls (e.g., I/O) and parks the virtual thread.<br>
+
+<br>Under the hood, the ForkJoinPool is used to execute many virtual threads on a few OS threads.<br>
+
+<br>Stack frames are delimited and resumable, enabling cheap pausing/resumption.<br>
+
+<br><br><br>
+<br>You can still overwhelm your system with bad code — virtual threads aren't magic.<br>
+
+<br>Synchronized blocks and thread-local storage still behave as expected but can create contention.<br>
+
+<br>Some native code or libraries that use thread affinity may not behave well.<br>
+
+<br><br>Would you like to see a more detailed example with network I/O or simulated parallel computation?]]></description><link>java-updates-recap/java-21/virtual-threads.html</link><guid isPermaLink="false">Java Updates Recap/Java 21/Virtual Threads.md</guid><pubDate>Fri, 06 Jun 2025 21:26:59 GMT</pubDate></item><item><title><![CDATA[Stream Gatherers]]></title><description><![CDATA[ 
+ <br>Yes, we touched on Stream enhancements briefly when reviewing Java 8—but Stream Gatherers are new to Java 22 and represent a deeper capability than Collectors.<br><br><br><br>A gatherer is like a more advanced Collector, but with fine-grained, stepwise control over how stream elements are processed.<br>
+Think of it as a "programmable intermediate operation" for streams.
+<br>While Collectors are terminal operations (collect() ends the stream), gatherers let you control intermediate stateful transformations while keeping the stream pipeline alive.<br><br><br>Some stream behaviors—like windowing, chunking, buffered processing, and asynchronous interaction—are very difficult to implement cleanly using existing APIs. Gatherers aim to fill that gap.<br><br><br>Stream&lt;String&gt; source = Stream.of("a", "b", "c", "d", "e");
+
+Stream&lt;List&lt;String&gt;&gt; chunked = source.gather(Gatherers.windowFixed(2));
+
+chunked.forEach(System.out::println);
+// Output:
+// [a, b]
+// [c, d]
+// [e]
+<br><br>
+<br>Gatherers.windowFixed(int size) – groups elements into fixed-size windows<br>
+
+<br>Gatherers.scanLeft(...) – similar to reduce, but emits all intermediate accumulation steps<br>
+
+<br>Gatherers.mapMulti(...) – flattens nested collections like flatMap, but with controlled emission<br>
+
+<br>Gatherers.filter(...) – stream filtering within gatherers (alternative to .filter())<br>
+
+<br>Gatherers themselves are implemented via Gatherer&lt;T, A, R&gt; interface, with internal methods that give access to:<br>
+<br>Accumulation<br>
+
+<br>Emission<br>
+
+<br>Completion behavior<br>
+
+<br><br><br><br><br>Let me know if you'd like to see a custom Gatherer example or move on to the next Java 22 feature.]]></description><link>java-updates-recap/java-22-24/stream-gatherers.html</link><guid isPermaLink="false">Java Updates Recap/Java 22-24/Stream Gatherers.md</guid><pubDate>Fri, 06 Jun 2025 21:38:47 GMT</pubDate></item><item><title><![CDATA[String Templates]]></title><description><![CDATA[ 
+ <br>Yes, it is—and it finally brings modern string interpolation to Java.<br><br><br><br>String templates allow you to embed expressions directly within string literals—something Java has lacked for years and other languages like Python, Kotlin, and JavaScript have long had.<br>This brings:<br>
+<br>String interpolation<br>
+
+<br>Template processors (e.g., for formatting, escaping, or even domain-specific output)<br>
+
+<br>Better readability and safety<br>
+
+<br><br><br>import static java.util.FormatProcessor.FMT;
+
+String name = "Iain";
+int age = 42;
+
+String result = FMT."My name is \{name} and I am \{age} years old.";
+System.out.println(result);
+// Output: My name is Iain and I am 42 years old.
+<br><br><br>&lt;processor&gt;."string with \{expression}"
+<br>
+<br>FMT is a template processor<br>
+
+<br>\{expression} is an embedded expression (the backslash is literal)<br>
+
+<br>The whole template gets transformed by the processor<br>
+
+<br><br><br>Java 22+ provides these out-of-the-box:<br><br><br><br><br>import static java.util.TemplateProcessor.STR;
+String msg = STR."Welcome, \{name}";
+// → "Welcome, Iain"
+<br><br>import static java.util.EscapeProcessor.ESC;
+String html = ESC."&lt;div&gt;\{name}&lt;/div&gt;";
+// → "&amp;lt;div&amp;gt;Iain&amp;lt;/div&amp;gt;"
+<br><br><br>
+<br>Expressions inside \{} are type-checked at compile time
+<br>You can create custom template processors that validate formats or escape content<br>
+
+<br><br><br>// Old
+String s = String.format("My name is %s", name);
+
+// New
+String s = FMT."My name is \{name}";
+<br>Much more readable, and no more positional argument bugs.<br><br><br>
+<br>General string building
+<br>Templated HTML, SQL, JSON (especially with custom processors)
+<br>Safer log messages
+<br>DSLs    
+<br><br>Excellent. Here's how you can define and use your own custom string template processor in Java 22+.<br><br><br>You define a custom processor by implementing the StringTemplate.Processor&lt;R, E&gt; interface.<br>Here's a simple example: a processor that uppercases all embedded values.<br><br><br>import java.lang.StringTemplate;
+import java.util.List;
+
+public class UpperCaseProcessor implements StringTemplate.Processor&lt;String, RuntimeException&gt; {
+    @Override
+    public String process(StringTemplate template) {
+        StringBuilder sb = new StringBuilder();
+        List&lt;String&gt; fragments = template.fragments();
+        List&lt;Object&gt; values = template.values();
+
+        for (int i = 0; i &lt; fragments.size(); i++) {
+            sb.append(fragments.get(i));
+            if (i &lt; values.size()) {
+                Object value = values.get(i);
+                sb.append(value.toString().toUpperCase());
+            }
+        }
+        return sb.toString();
+    }
+}
+<br>Now you can use it like this:<br>public class Main {
+    static final UpperCaseProcessor UPPER = new UpperCaseProcessor();
+
+    public static void main(String[] args) {
+        String name = "Iain";
+        String mood = "contemplative";
+
+        String result = UPPER."Hello, \{name}. You seem \{mood} today.";
+        System.out.println(result);
+        // Output: Hello, IAIN. You seem CONTEMPLATIVE today.
+    }
+}
+<br><br><br>
+<br>fragments contains the literal text pieces between interpolations
+<br>values contains the results of each embedded expression
+<br>You concatenate them together however you want
+<br><br><br>
+<br>Escape HTML
+<br>Build SQL with placeholder binding
+<br>Validate inputs
+<br>Structure outputs (e.g., JSON, XML, CSV)
+<br><br>Would you like an example of a processor that builds structured output, like JSON or SQL?]]></description><link>java-updates-recap/java-22-24/string-templates.html</link><guid isPermaLink="false">Java Updates Recap/Java 22-24/String Templates.md</guid><pubDate>Fri, 06 Jun 2025 21:43:11 GMT</pubDate></item><item><title><![CDATA[Java Updates recap]]></title><description><![CDATA[ 
+ <br>Absolutely. The evolution from Java 8 to Java 24 spans nearly a decade and brings significant improvements across performance, language features, and tooling. Since you've used 11 and 17, I’ll highlight the major additions from each version to give you a structured sense of what’s new and why it matters.<br><br><br>You likely remember these:<br>
+<br>Lambda expressions &amp; functional interfaces<br>
+
+<br>Streams API (.map(), .filter(), .collect())<br>
+
+<br>Optional<br>
+
+<br>Default methods in interfaces<br>
+
+<br>java.time API for modern date/time handling<br>
+
+<br><br><br>Java 9:<br>
+<br>Module system (Project Jigsaw) — divides the JDK and enables modular applications<br>
+
+<br>jshell — the interactive REPL<br>
+
+<br>var in try-with-resources<br>
+
+<br>List.of(), Set.of(), Map.of() — immutable collections<br>
+
+<br>Java 10:<br>
+<br>var keyword for local variable type inference<br>
+→ var list = new ArrayList&lt;String&gt;();<br>
+
+<br><br><br>
+<br>var allowed in lambda parameters<br>
+
+<br>New String methods: .isBlank(), .lines(), .strip(), .repeat()<br>
+
+<br>Files.writeString() / readString()<br>
+
+<br>HttpClient API (standardized)<br>
+
+<br>Removal of deprecated Java EE modules (JAXB, JAX-WS, etc.)<br>
+
+<br><br><br>Java 12:<br>
+<br>switch expressions (preview)<br>
+
+<br>String.indent(), transform()<br>
+
+<br>Java 13–14:<br>
+<br>Text blocks """ (preview → finalized in 15)<br>
+
+<br>Improved NullPointerException messages<br>
+
+<br>Records (preview in 14)<br>
+
+<br><br><br>Java 15:<br>
+<br>Finalized text blocks<br>
+
+<br>Hidden classes for frameworks<br>
+
+<br>Java 16:<br>
+<br>Finalized records: compact syntax for immutable data classes
+record Point(int x, int y) {}
+
+
+<br>Java 17 (LTS):<br>
+<br>Sealed classes (finalized in 17):
+sealed class Shape permits Circle, Rectangle {}
+
+
+<br>Strong encapsulation of internal APIs<br>
+
+<br>Enhanced pseudo-random number generation APIs<br>
+
+<br><br><br>
+<br>Pattern matching for instanceof:<br>
+if (obj instanceof String s) { s.length(); }<br>
+
+<br>Switch expressions finalized<br>
+
+<br>Structured concurrency (incubator)<br>
+
+<br>Record patterns and array patterns (preview)<br>
+
+<br>Foreign Function &amp; Memory API (FFM, replacing JNI — incubating)<br>
+
+<br><br><br>
+<br>Virtual Threads (Project Loom): massively lightweight concurrency
+Thread.startVirtualThread(() -&gt; {
+    System.out.println("Hello, Loom!");
+});
+
+
+<br>Sequenced collections (SequencedCollection, SequencedMap)<br>
+
+<br>Pattern matching for switch (finalized)<br>
+
+<br>Record patterns, unified previews, FFM API (3rd preview)<br>
+
+<br><br><br>Java 22–24:<br>
+<br>Continued enhancements to pattern matching &amp; switch<br>
+
+<br>Stream gatherers (custom stream collection logic)<br>
+
+<br>String templates (preview in 21, improving further)
+STR."Hello \{name}, today is \{date}"
+
+
+<br>Structured concurrency API (advancing)<br>
+
+<br>More efficient StringBuilder internals<br>
+
+<br>Constant dynamic support expansions<br>
+
+<br><br><br><br>What about Futures? Completable Futures? Channels? ]]></description><link>java-updates-recap/java-updates-recap.html</link><guid isPermaLink="false">Java Updates Recap/Java Updates recap.md</guid><pubDate>Fri, 06 Jun 2025 21:21:46 GMT</pubDate></item></channel></rss>
