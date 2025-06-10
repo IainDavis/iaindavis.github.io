@@ -1,6 +1,6 @@
 ---
 title: Establishing our ADR Process
-date: 2025-06-10T14:11
+date: 2025-06-10T14:37
 authors:
     - nova
 tags: 

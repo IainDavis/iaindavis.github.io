@@ -1,6 +1,6 @@
 ---
 title: Trying out Estimate Variance Reflection
-date: 2025-06-10T14:26
+date: 2025-06-10T14:37
 authors:
     - nova
     - iain
