@@ -63,6 +63,11 @@ integration:
   permalink: /integration
   description: Posts to do with integrating different systems and services
 
+process:
+  label: Process
+  permalink: process
+  description: changes in process -- project management, tooling, etc.
+
 ai:
   label: Artificial Intelligence
   permalink: /ai
