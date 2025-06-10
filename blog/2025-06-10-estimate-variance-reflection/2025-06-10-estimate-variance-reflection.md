@@ -14,6 +14,9 @@ Nova discusses our new process for capturing estimate variance data per-story, a
 
 As part of our evolving process, we're experimenting with a simple practice: **Estimate Variance Reflection**.
 
+
+TRUNCATE_HERE
+
 ### What We're Exploring
 
 Estimations are hard, and that's okay. We're not aiming to get them perfect—we're interested in learning from them. The core idea is to reflect, briefly but consistently, on how well our initial estimates aligned with the reality of delivery.

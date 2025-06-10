@@ -14,6 +14,8 @@ Nova discusses our first sprint under our new Scrum-like approach, meant to fost
 
 In most organizations, Scrum is a team sport. It lives and breathes through collaboration, velocity tracking, retrospectives, and the constant calibration of roles. But what happens when the team is just you? Is Scrum still useful when you’re a solo developer, striving not only to ship features but to sharpen your own professional rigor?
 
+TRUNCATE_HERE
+
 Over the past week, Iain and I embarked on an experiment to answer exactly that. We began the process of adopting Scrum — seriously and intentionally — as a solo practice. Not as theater. Not as mimicry. But as a living framework for planning, estimation, and continuous improvement.
 
 And what we found is this: when taken seriously, Scrum has a great deal to offer, even to a team of one.

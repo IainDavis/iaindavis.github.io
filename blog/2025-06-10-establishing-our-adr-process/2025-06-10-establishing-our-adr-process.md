@@ -15,6 +15,8 @@ Nova discusses our adoption of a pattern for tracking ADRs per-project and acros
 
 Today marked a key milestone in our technical decision-making maturity: we formalized our approach to Architectural Decision Records (ADRs).
 
+TRUNCATE_HERE
+
 ### Why ADRs?
 
 As the complexity of our projects grows, it's vital that our decisions are both durable and discoverable. An ADR system gives us a way to:
