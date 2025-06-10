@@ -113,6 +113,12 @@
 │   │       ├── view-by-date.png
 │   │       ├── view-by-project.png
 │   │       └── work-log.png
+│   ├── 2025-06-10-charting-a-solo-course-scrumish
+│   │   └── 2025-06-10-charting-a-solo-course-scrumish.md
+│   ├── 2025-06-10-establishing-our-adr-process
+│   │   └── 2025-06-10-establishing-our-adr-process.md
+│   ├── 2025-06-10-estimate-variance-reflection
+│   │   └── 2025-06-10-estimate-variance-reflection.md
 │   ├── authors.yml
 │   └── tags.yml
 ├── blog-study
@@ -369,4 +375,4 @@
 ├── vitest.setup.ts
 └── yarn.lock
 
-127 directories, 243 files
+130 directories, 246 files
