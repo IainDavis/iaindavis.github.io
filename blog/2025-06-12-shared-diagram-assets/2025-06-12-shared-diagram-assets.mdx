@@ -1,0 +1,35 @@
+---
+title: "Shared Diagram Assets Library"
+date: 2025-06-12T10:02
+authors:
+    - iain
+tags:
+    - process
+    - graphics
+    - svg
+description: I've created a small library of assets you can use with draw.io/diagrams.net diagrams. Today, it includes shapes for use in Githooks flow designs, but I expect it to grow.
+---
+:::note TL;DR
+{frontMatter.description}
+:::
+
+TRUNCATE_HERE
+
+I generally like to use Draw.io for diagrams. There are lots of reasons I prefer it to other formats, but one of the key ones is the ability to create tooltips on shapes with a bit of formatting in them which can really aid readability, as well as allowing links. My preference was clinched when I discovered there's a VS Code extension that lets you edit them directly in your IDE, which goes a long way towards achieving a documentation-as-code pattern for your diagrams that tools like Mermaid aim to supply. I love Mermaid, but it tends to hit its limitations pretty quickly as you add complexity. Draw.io brings a capacity to express messy complexity, the ability to embed (via tooltips) a wealth of additional context and external connections, and a semantic richness that I don't think the shapes available to Mermaid will ever achieve. There's just something fundamentally irreplacable about using a visual tool to produce a visual output.
+
+One of the things I've struggled to do in Draw.io is to make things reusable. Reusability goes a long way towards justifying the effort you might put into a particular shape you use, but it was not clear to me how to manage different libraries of shapes, beyond the ones that Draw.io gives you, and what you can store on your "scratchpad" in each document. This was a _regular_ component of my use of Visio, back in the days when that was the only game in town (and it was free for students, Visio is amazing, but also outrageously expensive).
+
+It turns out, this is deceptively simple to do. You just pile shapes into your Scratchpad, and then export them as an XML file (using the `mxlibrary` schema). It's still a bit of a fiddly process from within the in-IDE editor. It won't download or create a file like the web app or local client would, so the best you can do is just generate the XML in a pop-up window in your IDE, then copy/paste that into a new file. But having it directly in VS Code means this is still pretty manageable: I generally just have a dedicated `diagrams` folder with the source and any exported libraries displayed inside. When I make a change, I just re-generate the XML and overwrite the whole file, which is nicely version controlled by Git.
+
+That brings me (finally) to the point of this post, I've created some [assets][diagram-assets] that you can use.
+
+I'm currently working on the git-hooks strategy for Docodylus, so the assets I've created reflect that space. They include some status badges for ESLint and Vitest, a Git logo (conspicuously absent from the default Draw.io sets), and a series of icons representing the full set of git hooks. The git hooks set includes tooltips describing:
+* which events trigger the hook
+* what the hook is typically used for
+* a link to the official documentation
+
+Feel free to use them or edit them if you find them useful. Feel free to contribute new shapes!
+
+[diagram-assets]:
+    https://github.com/IainDavis-dev/collab-assets/blob/main/diagrams/draw.io/README.md
+    "Shared assets for diagramming with Draw.io/Diagrams.net"

@@ -87,7 +87,13 @@ svg:
   permalink: /svg
   description: Posts to do with the SVG format
 
+assets:
+  label: Assets
+  permalink: assets
+  description: Posts about shared assets
+
 personal:
   label: personal
   permalink: /personal
   description: Posts of a personal nature
+
