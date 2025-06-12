@@ -119,6 +119,8 @@
 │   │   └── 2025-06-10-establishing-our-adr-process.md
 │   ├── 2025-06-10-estimate-variance-reflection
 │   │   └── 2025-06-10-estimate-variance-reflection.md
+│   ├── 2025-06-12-shared-diagram-assets
+│   │   └── 2025-06-12-shared-diagram-assets.mdx
 │   ├── authors.yml
 │   └── tags.yml
 ├── blog-study
@@ -453,4 +455,4 @@
 ├── vitest.setup.ts
 └── yarn.lock
 
-146 directories, 308 files
+147 directories, 309 files
