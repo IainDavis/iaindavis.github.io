@@ -1,0 +1,103 @@
+---
+title:  Why We Abandoned Git Hooks for Quality Gating (and What We Use Instead)
+description: A summary of our light-on-git-hooks strategy for vetting and accepting code changes, and how we arrived at it. We aim to maximize developer autonomy and freedom in the local environment and feature branches with advisory-only checks, while using the PR as the sole blocking quality-gate. We also rely on squash-and-merge to ensure that trunk branches (`develop` and `main`) are a series of vetted states only.
+date: 2025-06-17T10:07
+tags: 
+    - automation
+authors:
+    - iain
+---
+
+:::note TL;DR
+{frontMatter.description}
+:::
+
+
+I set out last week to begin the work of creating an automated release process for Docodylus. At first, I thought I'd end up with something similar to what's used at Intuit, which isn't a defined standard or anything, but does tend to come as sort of variations on a theme. My goal was more or less to decide how to learn how to implement an existing process, and adjust it for the needs of my project. That remains true, but the needs of my project seem to be best served by a strategy of abandoning git hooks, almost entirely.
+
+TRUNCATE_HERE
+
+## What Are Git Hooks For?
+Git Hooks let us create some programs (often quality checks or enforcement of standards) and have Git itself run them at various points in its operation. Git publishes a set of names for the hooks it supports, and by using those names, we tell Git when a particular bit of program should run.
+
+For example:
+We can attach the name `pre-commit` to a bit of code, and git will run that code after the developer has requested a commit, but before that commit has actually been created. This is handy because it allows us to _abort_ a commit based on the outcome of that bit of code. Effectively it says "write passing tests with adequate coverage, or you can progress no further". We call this "quality gating". 
+
+<figure>
+
+![None shall pass](./_resources/none-shall-pass.jpg)
+
+<figcaption>None shall pass</figcaption>
+</figure>
+
+## What are we hoping to achieve?
+We want to achieve several things in this process:
+* create a quality-gate such that, on one side of the gate are unvetted changes, and on the other side are changes that we have high confidence in
+* enforce standards that facilitate the use of tooling (_e.g._, conventional commits)
+* Developer experience is flexible and non-disruptive
+* Trunk/canonical branches are a series of vetted states
+
+## Gating with Hooks
+If we consider the boundary between the local environment and GitHub (`origin`) to be the appropriate place for quality-gating, git hooks are kind of the only game in town. At the beginning of this evaluation, I was expecting to end up with something like I'd seen at Intuit. That goes more or less like this:
+* `pre-commit`: Some repositories will include linting and testing checks at the `pre-commit` hook. Sometimes this is a blocking check, but usually not
+* `commit-msg`: check that the commit message conforms to `conventional-commits` and abort the commit if it does not. This is often paired with a check that the _scope_ in the conventional-commits format refers to an active Jira ticket within a white-listed project.
+* `pre-push`: run unit tests, linting, and code-coverage checks, and abort the push if any checks fail
+
+In practice, Git hooks can fall short, and create a frustrating drag on DevX
+* Having to re-draft the same commit message is an annoying drag on productivity. Committing changes should not be a high-focus event
+* Inability to push changes to `origin` is a barrier to getting help or feedback on a work-in-progress approach
+* Creates a false sense of security -- both of the following circumstances dilute guarantees that changes in a given commit have been vetted
+    * devs can easily skip checks using `--no-verify` flag when performing git operations
+    * partially-staged files (see below)
+
+### Partially-Staged Files
+Partially staged files occur when a user makes some changes to a file, adds those changes to the <abbr title="the set of changes intended for inclusion in the next commit">index</abbr>, and then _makes more changes_. 
+
+![Diagram showing a flow leading to improperly vetted commits](./_resources/partially-staged.drawio.svg)
+
+This is just one possible sequence leading to partially-staged files. Developers can also _deliberately_ create partially staged files using the `git add --patch` command. To make matters worse, the developer can always bypass any hooks we create by passing the `--no-verify` flag when issuing git commands. The long and short of it is we should regard any vetting that happens on the local system via git hooks with suspicion, and if they aren't providing the assurances we want, are they worth the DevX drag they are creating?
+
+## Moving the Boundary
+We can address the above issues by changing where we consider the boundary between our vetted and unvetted domains to be. If instead of between our local branch and `origin`, we consider the quality-gating boundary to be the pull request, we can avoid the problems associated with partially-staged files. Any checks run against code pushed to `origin` will be run against a commit, with no additional uncommitted state polluting the results. To do that, we'll have to write some Github Actions that perform the checks and print the results. That's easy enough.
+
+That allows us to implement local checks using git hooks in an advisory-only capacity. We don't want the developer to be blindsided when their code doesn't pass the PR checks, but we want them to be able to consciously make the decision to push changes to `origin` that will not pass, to facilitate collaboration. This creates a condition where our feature branches cannot be assumed to be a sequence of valid states.
+
+To arrive at a sequence of valid states in our canonical branches, we have to enforce the use of `squash-and-merge` when merging a pull-request. Note that this also encourages (but does not force) adoption of a one-branch-per-PR pattern, as the commit history of the feature branch will not match the one in the trunk branch after a fetch. We also have to prevent any direct merges to the protected branches (which we are already doing via branch protection rules)
+
+## Strategy
+With all of that in mind, we've arrived at the following strategy.
+* Code changes live in two states: vetted and unvetted
+* The boundary between these states exists _only_ in the origin repository on GitHub, and is the boundary between a feature branch and a trunk branch (`develop`)
+* The boundary between `local` and `remote` is irrelevant for the purposes of vetting code changes
+* The PR is the sole quality gate between feature branches and trunk branches
+* branch protection rules protect canonical branches on `origin`
+* any checks in the local environment are advisory only and do not prevent commits/pushes
+* we will rely on the developer to use other tools (like the `--watch` flag in vitest) to provide ongoing or periodic feedback on quality checks, as needed.
+
+### Git Hooks
+* `pre-push`: silently run linting and unit tests (with coverage). If either fails, show the developer the output and prompt them for a go/no-go choice before completing the push.
+
+### GitHub
+* enforce branch rules preventing merge directly to canoncial branches without a PR
+* enforce branch rules allowing only squash-and-merge commits to the canonical branches
+* Add checks for `conventional-commit` format prior-to squash and merge (to support downstream automation... pre-merge automation can still be driven off of PR description content like a Jira issue URL, or structured commit message formats yet to be determined)
+* Add PR checks for tests, linting, and prevent merging changes that do not pass these checks
+
+### Strategy outcomes
+- [x] Developer is made aware when their code will not pass checks (pre-push advisory check)
+- [x] Maximum developer freedom to determine their own process within the local domain (no blocking checks in local domain)
+- [x] Minimum interruptions/redirections (no blocking checks in local domain)
+- [x] Facilitate code-sharing and collaboration on unfinished work (no blocking checks prevent push to feature-branch)
+- [x] All changes that reach the trunk branch are vetted (_i.e._, tests passing, linting checks passing, any additional checks) (PR checks perform vetting, PRs required for canonical branches)
+- [x] Automation facilitated in the future (_i.e._, updating versions, performing releases, integrating with Jira, prompting AI review of documentation, etc.) (conventional-commits enforced at squash-and-merge time)
+- [x] no pollution from unstaged changes (GitHub works from a commit-only environment, no index or unstaged changes)
+- [x] (nice-to-have) canonical (trunk) branches are a series of vetted states (squash-and-merge provides this)
+
+### Other Considerations
+* If we want to allow automation or analysis like we might use conventional commits for, we'll have to get a bit creative with the process, or introduce a conventional commits check in the unvetted domain, likely using the `commit-msg` hook. 
+* We're adopting a pattern that encourages a one-branch-per-PR model, as the commit that ends up in the canonical branches will not match any of the ones in our feature branch ⟹ fetching from `origin` and merging changes is likely to produce conflicts
+* May add additional git-hook checks later:
+    * checking the developer is working on a non-trunk branch
+    * checking that the non-trunk branch the developer is working under has at least all of the commits from the default branch. This is a quality-of-life check meant to avoid the dev having to untangle commit histories later due to a moment of absent-mindedness or enthusiasm.
+    * checking that any branch is up-to-date with `origin` before creating a new branch from it.
+* Another nice feature of our strategy is that the commit messages in the canonical branches represent a series of changes at a higher-level of granularity that is more likely to make sense to non-tech stakeholders.
