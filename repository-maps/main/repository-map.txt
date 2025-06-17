@@ -121,6 +121,12 @@
 │   │   └── 2025-06-10-estimate-variance-reflection.md
 │   ├── 2025-06-12-shared-diagram-assets
 │   │   └── 2025-06-12-shared-diagram-assets.mdx
+│   ├── 2025-06-17-why-i-backed-away-from-githooks
+│   │   ├── 2025-06-17-why-i-backed-away-from-githooks.mdx
+│   │   └── _resources
+│   │       ├── none-shall-pass.jpg
+│   │       ├── partially-staged.drawio.svg
+│   │       └── strategy.drawio.svg
 │   ├── authors.yml
 │   └── tags.yml
 ├── blog-study
@@ -455,4 +461,4 @@
 ├── vitest.setup.ts
 └── yarn.lock
 
-147 directories, 309 files
+149 directories, 313 files
